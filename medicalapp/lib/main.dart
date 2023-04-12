@@ -9,6 +9,7 @@ import 'package:medicalapp/providers/phone_provider.dart';
 import 'package:medicalapp/providers/reportdataVerify.dart';
 import 'package:medicalapp/providers/verifiProfileEdit.dart';
 import 'package:medicalapp/providers/verifiyaddFamilyMembersData.dart';
+import 'package:medicalapp/screens/authScreen/inputMobileNumScreen.dart';
 import 'package:medicalapp/screens/splashScreen/splash_screen.dart';
 import 'package:medicalapp/utility/constants.dart';
 import 'package:provider/provider.dart';
@@ -48,11 +49,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: appName,
-        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         ),
-        home: SplashScreen());
+        home: InputMobileNumScreen());
   }
 }

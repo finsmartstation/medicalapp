@@ -1,10 +1,7 @@
 import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
 import '../../providers/phone_provider.dart';
 import '../../utility/constants.dart';
 import '../authScreen/auth_screen.dart';
@@ -31,7 +28,7 @@ class _GetStartedState extends State<GetStarted> {
     final phoneProv = Provider.of<PhoneProvider>(context, listen: false);
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Color(0xFFE6E6E6),
+        backgroundColor: backgroundColor,
         body: Column(
           children: [
             Stack(
@@ -83,7 +80,7 @@ class _GetStartedState extends State<GetStarted> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  phoneProv.getAcessId("3","Patient");
+                  phoneProv.getAcessId("3", "Patient");
                   Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => AuthScreen()));
                 },

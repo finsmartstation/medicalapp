@@ -242,7 +242,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           SizedBox(height: 30),
                           // if (p_value.presented == true) OtpSection(),
                           ElevatedButton(
-                              onPressed: (() async {
+                              onPressed: (() async { 
                                 if (p_value.phone.length > 12 &&
                                     p_value.phone.length < 14) {
                                   appSignature =
