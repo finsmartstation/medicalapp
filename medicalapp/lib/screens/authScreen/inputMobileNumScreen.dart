@@ -13,6 +13,8 @@ import 'package:sms_autofill/sms_autofill.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/phone_provider.dart';
 import '../../service/api_services.dart';
+import '../../utility/colors.dart';
+import 'otpSection.dart';
 
 class InputMobileNumScreen extends StatefulWidget {
   const InputMobileNumScreen({super.key});
@@ -29,7 +31,6 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
   bool isOver = false;
   bool isOverr = false;
   bool isLoading = false;
-
   String? aToken;
   String? uId;
 
@@ -50,85 +51,7 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
               ),
               NumberTextFiled(p_value),
               Spacer(),
-              SizedBox(
-                height: 40,
-                width: 150,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    onPressed: () async {
-                      if (p_value.phone.length > 12 &&
-                          p_value.phone.length < 14) {
-                        appSignature = await SmsAutoFill().getAppSignature;
-                        setState(() {
-                          p_value.isValid(true);
-                          isLoading = true;
-                          isOver = false;
-                          ApiService()
-                              .registerUser(
-                                  p_value.countryCode,
-                                  _phone,
-                                  p_value.type,
-                                  p_value.a_id,
-                                  appSignature.toString())
-                              .then((value) async {
-                            print("_________________");
-                            print(value.body);
-                            var jsonVal = jsonDecode(value.body);
-                            print("json val===$jsonVal");
-                            if (jsonVal['status'] == false) {
-                              showDialog(
-                                context: context,
-                                builder: (ctx) => AlertDialog(
-                                  title: const Text("Message"),
-                                  content: Text(jsonVal['message']),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(ctx).pop();
-                                      },
-                                      child: Container(
-                                        color: Colors.blue,
-                                        padding: EdgeInsets.all(15),
-                                        child: Text(
-                                          "okay",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                            String otp = jsonVal['data']['otp'];
-                            print("___________________");
-                            print(otp);
-                            print("___________________");
-                            var a_provider = Provider.of<AuthProvider>(context,
-                                listen: false);
-                            a_provider.getDetails(
-                                jsonVal['data']['user_id'].toString(),
-                                jsonVal['data']['otp'].toString(),
-                                jsonVal['data']['access_token'].toString());
-                            aToken = jsonVal['data']['access_token'].toString();
-                            uId = jsonVal['data']['user_id'].toString();
-                            print("token and id");
-                            print(aToken);
-                            print(uId);
-                            await SmsAutoFill().listenForCode;
-                          });
-                        });
-                      }
-                    },
-                    child: Text(
-                      "SEND",
-                      style: TextStyle(color: Colors.grey[600]),
-                    )),
-              ),
+              SendButton(p_value, context),
               SizedBox(
                 height: 30,
               ),
@@ -147,6 +70,89 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
           ),
         );
       },
+    );
+  }
+
+  SizedBox SendButton(PhoneProvider p_value, BuildContext context) {
+    return SizedBox(
+      height: 40,
+      width: 150,
+      child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          onPressed: () async {
+            if (p_value.phone.length > 12 && p_value.phone.length < 14) {
+              appSignature = await SmsAutoFill().getAppSignature;
+              setState(() {
+                p_value.isValid(true);
+                isLoading = true;
+                isOver = false;
+                ApiService()
+                    .registerUser(p_value.countryCode, _phone, p_value.type,
+                        p_value.a_id, appSignature.toString())
+                    .then((value) async {
+                  print("_________________");
+                  print(value.body);
+                  var jsonVal = jsonDecode(value.body);
+                  print("json val===$jsonVal");
+                  if (jsonVal['status'] == false) {
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: const Text("Message"),
+                        content: Text(jsonVal['message']),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                            },
+                            child: Container(
+                              color: Colors.blue,
+                              padding: EdgeInsets.all(15),
+                              child: Text(
+                                "okay",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => OtpSection(
+                              otp: jsonVal['data']['otp'],
+                              phoneNum: _phone,
+                            )));
+                  }
+                  String otp = jsonVal['data']['otp'];
+                  print("___________________");
+                  print(otp);
+                  print("___________________");
+                  var a_provider =
+                      Provider.of<AuthProvider>(context, listen: false);
+                  a_provider.getDetails(
+                      jsonVal['data']['user_id'].toString(),
+                      jsonVal['data']['otp'].toString(),
+                      jsonVal['data']['access_token'].toString());
+                  aToken = jsonVal['data']['access_token'].toString();
+                  uId = jsonVal['data']['user_id'].toString();
+                  print("token and id");
+                  print(aToken);
+                  print(uId);
+                  await SmsAutoFill().listenForCode;
+                });
+              });
+            }
+          },
+          child: Text(
+            "SEND",
+            style: TextStyle(color: Colors.grey[600]),
+          )),
     );
   }
 

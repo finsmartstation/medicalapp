@@ -82,38 +82,41 @@ class _DoctorListState extends State<DoctorList> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 1.2,
-                      child: TextFormField(
-                        focusNode: searchInputFocus,
-                        controller: searchInput,
-                        textInputAction: TextInputAction.search,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30),
-                              borderSide: BorderSide(
-                                color: Colors.grey,
-                              )),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
-                              borderSide: BorderSide(color: Colors.blue)),
-                          suffixIcon: InkWell(
-                            child: Icon(Icons.search),
+                child: Flexible(
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.22,
+                        child: TextFormField(
+                          focusNode: searchInputFocus,
+                          controller: searchInput,
+                          textInputAction: TextInputAction.search,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                )),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                borderSide: BorderSide(color: Colors.blue)),
+                            suffixIcon: InkWell(
+                              child: Icon(Icons.search),
+                            ),
+                            contentPadding: const EdgeInsets.all(15.0),
+                            hintText: 'Search Doctors, Hospitals Etc...',
                           ),
-                          contentPadding: const EdgeInsets.all(15.0),
-                          hintText: 'Search Doctors, Hospitals Etc...',
+                          onChanged: ((value) {
+                            setState(() {
+                              searchkey = value;
+                            });
+                          }),
                         ),
-                        onChanged: ((value) {
-                          setState(() {
-                            searchkey = value;
-                          });
-                        }),
                       ),
-                    ),
-                    IconButton(onPressed: (() {}), icon: Icon(Icons.filter_alt))
-                  ],
+                      IconButton(
+                          onPressed: (() {}), icon: Icon(Icons.filter_alt))
+                    ],
+                  ),
                 ),
               ),
               SizedBox(

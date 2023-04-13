@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../providers/phone_provider.dart';
 import '../../utility/constants.dart';
 import '../authScreen/auth_screen.dart';
+import '../authScreen/inputMobileNumScreen.dart';
 
 class GetStarted extends StatefulWidget {
   const GetStarted({Key? key}) : super(key: key);
@@ -81,8 +82,8 @@ class _GetStartedState extends State<GetStarted> {
               child: ElevatedButton(
                 onPressed: () {
                   phoneProv.getAcessId("3", "Patient");
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AuthScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => InputMobileNumScreen()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,

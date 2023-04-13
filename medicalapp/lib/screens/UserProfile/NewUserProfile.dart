@@ -462,58 +462,63 @@ class _NewUserProfileState extends State<NewUserProfile> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: 50,
-                                  width: 180,
-                                  child: TextField(
-                                      focusNode: heightFocusNode,
-                                      keyboardType: TextInputType.number,
-                                      controller: patientDetailProvider
-                                          .heightController,
-                                      decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.all(5),
-                                          border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20))),
-                                          hintText: "Height")),
+                        child: Flexible(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Flexible(
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 50,
+                                      width: 180,
+                                      child: TextField(
+                                          focusNode: heightFocusNode,
+                                          keyboardType: TextInputType.number,
+                                          controller: patientDetailProvider
+                                              .heightController,
+                                          decoration: const InputDecoration(
+                                              contentPadding: EdgeInsets.all(5),
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(20))),
+                                              hintText: "Height")),
+                                    ),
+                                    Center(
+                                        child: Text(
+                                      verifyData.verifyHight,
+                                      style: TextStyle(color: Colors.red),
+                                    )),
+                                  ],
                                 ),
-                                Center(
-                                    child: Text(
-                                  verifyData.verifyHight,
-                                  style: TextStyle(color: Colors.red),
-                                )),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: 50,
-                                  width: 190,
-                                  child: TextFormField(
-                                      focusNode: weightFocusNode,
-                                      keyboardType: TextInputType.number,
-                                      controller: patientDetailProvider
-                                          .weightController,
-                                      decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.all(5),
-                                          border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(20))),
-                                          hintText: "Weight ")),
-                                ),
-                                Center(
-                                    child: Text(
-                                  verifyData.verifyWeight,
-                                  style: TextStyle(color: Colors.red),
-                                )),
-                              ],
-                            ),
-                          ],
+                              ),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    height: 50,
+                                    width: 190,
+                                    child: TextFormField(
+                                        focusNode: weightFocusNode,
+                                        keyboardType: TextInputType.number,
+                                        controller: patientDetailProvider
+                                            .weightController,
+                                        decoration: const InputDecoration(
+                                            contentPadding: EdgeInsets.all(5),
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(20))),
+                                            hintText: "Weight ")),
+                                  ),
+                                  Center(
+                                      child: Text(
+                                    verifyData.verifyWeight,
+                                    style: TextStyle(color: Colors.red),
+                                  )),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(

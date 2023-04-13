@@ -494,9 +494,12 @@ class _DashboardPatientState extends State<DashboardPatient> {
                         title: Text("Nearby Hospital"),
                         onTap: () {},
                       ),
-                      SizedBox(
-                          height: MediaQuery.of(context).size.height / 3.2),
-                      Divider(),
+                      const Flexible(
+                        child: SizedBox(
+                          height: 200,
+                        ),
+                      ),
+                      const Divider(),
                       ListTile(
                         leading: Icon(Icons.logout),
                         title: Text('Log out'),
@@ -644,116 +647,119 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                       borderRadius: BorderRadius.only(
                                           bottomRight: Radius.circular(20),
                                           topRight: Radius.circular(20))),
-                                  child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            snapshot.data!.patientDetails
-                                                        .loginStatus ==
-                                                    "1"
-                                                ? Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ProfilePatient(
-                                                              blood: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .bloodGroup,
-                                                              dob: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .dob,
-                                                              email: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .emailId,
-                                                              gender: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .gender,
-                                                              height: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .height,
-                                                              mobile: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .mobile,
-                                                              name: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .username,
-                                                              profile: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .profilePic,
-                                                              relation: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .relation,
-                                                              weight: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .weight,
-                                                              familyMemberId: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                              half_path: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .halfPath,
-                                                            )))
-                                                : Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            NewUserProfile()));
-                                          },
-                                          child: ClipOval(
-                                              child: CachedNetworkImage(
-                                            imageUrl: snapshot.data!
-                                                .patientDetails.profilePic,
-                                            height: 100,
-                                            width: 100,
-                                            fit: BoxFit.cover,
-                                          )),
-                                        ),
-                                        snapshot
-                                                .data!
-                                                .patientDetails
-                                                .familyMemberIds[0]
-                                                .familyMemberId
-                                                .isEmpty
-                                            ? SizedBox()
-                                            : snapshot
-                                                        .data!
-                                                        .patientDetails
-                                                        .familyMemberIds
-                                                        .length <
-                                                    2
-                                                ? SizedBox()
-                                                : Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 18),
-                                                    child: IconButton(
-                                                        onPressed: (() {
-                                                          setState(() {
-                                                            dropDownButton =
-                                                                true;
-                                                          });
-                                                        }),
-                                                        icon: Icon(
-                                                          Icons.arrow_drop_down,
-                                                          size: 50,
-                                                          color: Colors.white,
-                                                        )),
-                                                  )
-                                      ]),
+                                  child: Flexible(
+                                    child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              snapshot.data!.patientDetails
+                                                          .loginStatus ==
+                                                      "1"
+                                                  ? Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ProfilePatient(
+                                                                blood: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .bloodGroup,
+                                                                dob: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .dob,
+                                                                email: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .emailId,
+                                                                gender: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .gender,
+                                                                height: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .height,
+                                                                mobile: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .mobile,
+                                                                name: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .username,
+                                                                profile: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .profilePic,
+                                                                relation: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .relation,
+                                                                weight: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .weight,
+                                                                familyMemberId: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .familyMemberId,
+                                                                half_path: snapshot
+                                                                    .data!
+                                                                    .patientDetails
+                                                                    .halfPath,
+                                                              )))
+                                                  : Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              NewUserProfile()));
+                                            },
+                                            child: ClipOval(
+                                                child: CachedNetworkImage(
+                                              imageUrl: snapshot.data!
+                                                  .patientDetails.profilePic,
+                                              height: 100,
+                                              width: 100,
+                                              fit: BoxFit.cover,
+                                            )),
+                                          ),
+                                          snapshot
+                                                  .data!
+                                                  .patientDetails
+                                                  .familyMemberIds[0]
+                                                  .familyMemberId
+                                                  .isEmpty
+                                              ? SizedBox()
+                                              : snapshot
+                                                          .data!
+                                                          .patientDetails
+                                                          .familyMemberIds
+                                                          .length <
+                                                      2
+                                                  ? SizedBox()
+                                                  : Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 18),
+                                                      child: IconButton(
+                                                          onPressed: (() {
+                                                            setState(() {
+                                                              dropDownButton =
+                                                                  true;
+                                                            });
+                                                          }),
+                                                          icon: Icon(
+                                                            Icons
+                                                                .arrow_drop_down,
+                                                            size: 50,
+                                                            color: Colors.white,
+                                                          )),
+                                                    )
+                                        ]),
+                                  ),
                                 ),
                                 VerticalDivider(
                                   color: Colors.white,
@@ -762,423 +768,448 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                   indent: 10,
                                   endIndent: 10,
                                 ),
-                                Container(
-                                  width: 251,
-                                  height: 180,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.blueAccent,
-                                      borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(20),
-                                          topLeft: Radius.circular(20))),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      if (snapshot
-                                              .data!.patientDetails.relation ==
-                                          "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MyDoctor(
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                            )));
-                                              },
-                                              child: Text(
-                                                "My Doctors",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      if (snapshot.data!.patientDetails
-                                                  .gender ==
-                                              "female" &&
-                                          snapshot.data!.patientDetails
-                                                  .relation !=
+                                Flexible(
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 180,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.blueAccent,
+                                        borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(20),
+                                            topLeft: Radius.circular(20))),
+                                    child: Flexible(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          if (snapshot.data!.patientDetails
+                                                  .relation ==
                                               "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MyDoctor(
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                            )));
-                                              },
-                                              child: Text(
-                                                "Her Doctors",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    MyDoctor(
+                                                                      family_member_id: snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                    )));
+                                                  },
+                                                  child: Text(
+                                                    "My Doctors",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
                                               ),
                                             ),
+                                          if (snapshot.data!.patientDetails
+                                                      .gender ==
+                                                  "female" &&
+                                              snapshot.data!.patientDetails
+                                                      .relation !=
+                                                  "self")
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    MyDoctor(
+                                                                      family_member_id: snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                    )));
+                                                  },
+                                                  child: Text(
+                                                    "Her Doctors",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          if (snapshot.data!.patientDetails
+                                                      .gender ==
+                                                  "others" &&
+                                              snapshot.data!.patientDetails
+                                                      .relation !=
+                                                  "self")
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    MyDoctor(
+                                                                      family_member_id: snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                    )));
+                                                  },
+                                                  child: Text(
+                                                    " Doctors",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          if (snapshot.data!.patientDetails
+                                                      .gender ==
+                                                  "male" &&
+                                              snapshot.data!.patientDetails
+                                                      .relation !=
+                                                  "self")
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    MyDoctor(
+                                                                      family_member_id: snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                    )));
+                                                  },
+                                                  child: Text(
+                                                    "His Doctors",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          Divider(
+                                            color: Colors.white,
+                                            height: 5,
+                                            thickness: 5,
+                                            indent: 0,
+                                            endIndent: 0,
                                           ),
-                                        ),
-                                      if (snapshot.data!.patientDetails
-                                                  .gender ==
-                                              "others" &&
-                                          snapshot.data!.patientDetails
-                                                  .relation !=
+                                          if (snapshot.data!.patientDetails
+                                                  .relation ==
                                               "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MyDoctor(
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                            )));
-                                              },
-                                              child: Text(
-                                                " Doctors",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (BuildContext
+                                                                  context) =>
+                                                              MyReportDoctorsFolder(
+                                                                  access_token:
+                                                                      access_token,
+                                                                  family_member_id:
+                                                                      snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                  userId:
+                                                                      user_id),
+                                                        ));
+                                                  },
+                                                  child: Text(
+                                                    "My Reports",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
                                               ),
                                             ),
+                                          if (snapshot.data!.patientDetails
+                                                      .gender ==
+                                                  "female" &&
+                                              snapshot.data!.patientDetails
+                                                      .relation !=
+                                                  "self")
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (BuildContext
+                                                                  context) =>
+                                                              MyReportDoctorsFolder(
+                                                                  access_token:
+                                                                      access_token,
+                                                                  family_member_id:
+                                                                      snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                  userId:
+                                                                      user_id),
+                                                        ));
+                                                  },
+                                                  child: Text(
+                                                    "Her Reports",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          if (snapshot.data!.patientDetails
+                                                      .gender ==
+                                                  "others" &&
+                                              snapshot.data!.patientDetails
+                                                      .relation !=
+                                                  "self")
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (BuildContext
+                                                                  context) =>
+                                                              MyReportDoctorsFolder(
+                                                                  access_token:
+                                                                      access_token,
+                                                                  family_member_id:
+                                                                      snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                  userId:
+                                                                      user_id),
+                                                        ));
+                                                  },
+                                                  child: Text(
+                                                    "Reports",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          if (snapshot.data!.patientDetails
+                                                      .gender ==
+                                                  "male" &&
+                                              snapshot.data!.patientDetails
+                                                      .relation !=
+                                                  "self")
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (BuildContext
+                                                                  context) =>
+                                                              MyReportDoctorsFolder(
+                                                                  access_token:
+                                                                      access_token,
+                                                                  family_member_id:
+                                                                      snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                  userId:
+                                                                      user_id),
+                                                        ));
+                                                  },
+                                                  child: Text(
+                                                    "His Reports",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          Divider(
+                                            color: Colors.white,
+                                            height: 5,
+                                            thickness: 5,
+                                            indent: 0,
+                                            endIndent: 0,
                                           ),
-                                        ),
-                                      if (snapshot.data!.patientDetails
-                                                  .gender ==
-                                              "male" &&
-                                          snapshot.data!.patientDetails
-                                                  .relation !=
+                                          if (snapshot.data!.patientDetails
+                                                  .relation ==
                                               "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MyDoctor(
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                            )));
-                                              },
-                                              child: Text(
-                                                "His Doctors",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                MyAppointment(
+                                                                  family_member_id:
+                                                                      snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                  userName: snapshot
+                                                                      .data!
+                                                                      .patientDetails
+                                                                      .username,
+                                                                )));
+                                                  },
+                                                  child: Text(
+                                                    "My Appointment",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                      Divider(
-                                        color: Colors.white,
-                                        height: 5,
-                                        thickness: 5,
-                                        indent: 0,
-                                        endIndent: 0,
+                                          if (snapshot.data!.patientDetails
+                                                      .gender ==
+                                                  "female" &&
+                                              snapshot.data!.patientDetails
+                                                      .relation !=
+                                                  "self")
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                MyAppointment(
+                                                                  family_member_id:
+                                                                      snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                  userName: snapshot
+                                                                      .data!
+                                                                      .patientDetails
+                                                                      .username,
+                                                                )));
+                                                  },
+                                                  child: Text(
+                                                    "Her Appointment",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          if (snapshot.data!.patientDetails
+                                                      .gender ==
+                                                  "others" &&
+                                              snapshot.data!.patientDetails
+                                                      .relation !=
+                                                  "self")
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                MyAppointment(
+                                                                  family_member_id:
+                                                                      snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                  userName: snapshot
+                                                                      .data!
+                                                                      .patientDetails
+                                                                      .username,
+                                                                )));
+                                                  },
+                                                  child: Text(
+                                                    "Appointment",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          if (snapshot.data!.patientDetails
+                                                      .gender ==
+                                                  "male" &&
+                                              snapshot.data!.patientDetails
+                                                      .relation !=
+                                                  "self")
+                                            SizedBox(
+                                              height: 56,
+                                              child: Center(
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                MyAppointment(
+                                                                  family_member_id:
+                                                                      snapshot
+                                                                          .data!
+                                                                          .patientDetails
+                                                                          .familyMemberId,
+                                                                  userName: snapshot
+                                                                      .data!
+                                                                      .patientDetails
+                                                                      .username,
+                                                                )));
+                                                  },
+                                                  child: Text(
+                                                    "His Appointment",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                        ],
                                       ),
-                                      if (snapshot
-                                              .data!.patientDetails.relation ==
-                                          "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (BuildContext context) =>
-                                                          MyReportDoctorsFolder(
-                                                              access_token:
-                                                                  access_token,
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                              userId: user_id),
-                                                    ));
-                                              },
-                                              child: Text(
-                                                "My Reports",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      if (snapshot.data!.patientDetails
-                                                  .gender ==
-                                              "female" &&
-                                          snapshot.data!.patientDetails
-                                                  .relation !=
-                                              "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (BuildContext context) =>
-                                                          MyReportDoctorsFolder(
-                                                              access_token:
-                                                                  access_token,
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                              userId: user_id),
-                                                    ));
-                                              },
-                                              child: Text(
-                                                "Her Reports",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      if (snapshot.data!.patientDetails
-                                                  .gender ==
-                                              "others" &&
-                                          snapshot.data!.patientDetails
-                                                  .relation !=
-                                              "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (BuildContext context) =>
-                                                          MyReportDoctorsFolder(
-                                                              access_token:
-                                                                  access_token,
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                              userId: user_id),
-                                                    ));
-                                              },
-                                              child: Text(
-                                                "Reports",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      if (snapshot.data!.patientDetails
-                                                  .gender ==
-                                              "male" &&
-                                          snapshot.data!.patientDetails
-                                                  .relation !=
-                                              "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (BuildContext context) =>
-                                                          MyReportDoctorsFolder(
-                                                              access_token:
-                                                                  access_token,
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                              userId: user_id),
-                                                    ));
-                                              },
-                                              child: Text(
-                                                "His Reports",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      Divider(
-                                        color: Colors.white,
-                                        height: 5,
-                                        thickness: 5,
-                                        indent: 0,
-                                        endIndent: 0,
-                                      ),
-                                      if (snapshot
-                                              .data!.patientDetails.relation ==
-                                          "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MyAppointment(
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                              userName: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .username,
-                                                            )));
-                                              },
-                                              child: Text(
-                                                "My Appointment",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      if (snapshot.data!.patientDetails
-                                                  .gender ==
-                                              "female" &&
-                                          snapshot.data!.patientDetails
-                                                  .relation !=
-                                              "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MyAppointment(
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                              userName: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .username,
-                                                            )));
-                                              },
-                                              child: Text(
-                                                "Her Appointment",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      if (snapshot.data!.patientDetails
-                                                  .gender ==
-                                              "others" &&
-                                          snapshot.data!.patientDetails
-                                                  .relation !=
-                                              "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MyAppointment(
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                              userName: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .username,
-                                                            )));
-                                              },
-                                              child: Text(
-                                                "Appointment",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      if (snapshot.data!.patientDetails
-                                                  .gender ==
-                                              "male" &&
-                                          snapshot.data!.patientDetails
-                                                  .relation !=
-                                              "self")
-                                        SizedBox(
-                                          height: 56,
-                                          child: Center(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            MyAppointment(
-                                                              family_member_id: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .familyMemberId,
-                                                              userName: snapshot
-                                                                  .data!
-                                                                  .patientDetails
-                                                                  .username,
-                                                            )));
-                                              },
-                                              child: Text(
-                                                "His Appointment",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ],
@@ -1297,46 +1328,122 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                   indent: 10,
                                   endIndent: 10,
                                 ),
-                                Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Container(
-                                          width: 125,
-                                          height: 85,
-                                          decoration: BoxDecoration(
-                                              color: Colors.blueAccent,
-                                              borderRadius: BorderRadius.only(
-                                                  topLeft:
-                                                      Radius.circular(20))),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                height: 15,
+                                Flexible(
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: 125,
+                                              height: 85,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.blueAccent,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  20))),
+                                              child: Flexible(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    snapshot
+                                                                .data!
+                                                                .nearByHospital[
+                                                                    0]
+                                                                .hospitalName
+                                                                .length <
+                                                            13
+                                                        ? Center(
+                                                            child: Text(
+                                                              snapshot
+                                                                  .data!
+                                                                  .nearByHospital[
+                                                                      0]
+                                                                  .hospitalName,
+                                                            ),
+                                                          )
+                                                        : Center(
+                                                            child: SizedBox(
+                                                                height: 40,
+                                                                width: 110,
+                                                                child: Marquee(
+                                                                  text: snapshot
+                                                                      .data!
+                                                                      .nearByHospital[
+                                                                          0]
+                                                                      .hospitalName,
+                                                                  blankSpace:
+                                                                      20.0,
+                                                                  startPadding:
+                                                                      10.0,
+                                                                  pauseAfterRound:
+                                                                      Duration(
+                                                                          seconds:
+                                                                              1),
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white),
+                                                                )))
+                                                  ],
+                                                ),
                                               ),
-                                              snapshot.data!.nearByHospital[0]
-                                                          .hospitalName.length <
-                                                      13
-                                                  ? Center(
-                                                      child: Text(
-                                                        snapshot
-                                                            .data!
-                                                            .nearByHospital[0]
-                                                            .hospitalName,
-                                                      ),
-                                                    )
-                                                  : Center(
-                                                      child: SizedBox(
+                                            ),
+                                            const Divider(
+                                              color: Colors.white,
+                                              height: 2,
+                                              thickness: 3,
+                                              indent: 25,
+                                              endIndent: 25,
+                                            ),
+                                            Container(
+                                              width: 125,
+                                              height: 85,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.blueAccent,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  20))),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  snapshot
+                                                              .data!
+                                                              .nearByHospital[1]
+                                                              .hospitalName
+                                                              .length <
+                                                          13
+                                                      ? Center(
+                                                          child: Text(
+                                                            snapshot
+                                                                .data!
+                                                                .nearByHospital[
+                                                                    1]
+                                                                .hospitalName,
+                                                          ),
+                                                        )
+                                                      : SizedBox(
                                                           height: 40,
                                                           width: 110,
                                                           child: Marquee(
                                                             text: snapshot
                                                                 .data!
                                                                 .nearByHospital[
-                                                                    0]
+                                                                    1]
                                                                 .hospitalName,
+                                                            // accelerationDuration:
+                                                            //     Duration(seconds: 5),
                                                             blankSpace: 20.0,
                                                             startPadding: 10.0,
                                                             pauseAfterRound:
@@ -1345,239 +1452,201 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white),
-                                                          )))
-                                            ],
-                                          ),
+                                                          ))
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        const Divider(
-                                          color: Colors.white,
-                                          height: 2,
-                                          thickness: 3,
-                                          indent: 25,
-                                          endIndent: 25,
-                                        ),
-                                        Container(
-                                          width: 125,
-                                          height: 85,
-                                          decoration: BoxDecoration(
+                                      ),
+                                      VerticalDivider(
+                                        color: Colors.white,
+                                        width: 2,
+                                        thickness: 3,
+                                        indent: 10,
+                                        endIndent: 10,
+                                      ),
+                                      Column(
+                                        children: [
+                                          Container(
+                                            width: 122.41,
+                                            height: 85,
+                                            decoration: BoxDecoration(
                                               color: Colors.blueAccent,
-                                              borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(20))),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                height: 15,
-                                              ),
-                                              snapshot.data!.nearByHospital[1]
-                                                          .hospitalName.length <
-                                                      13
-                                                  ? Center(
-                                                      child: Text(
-                                                        snapshot
-                                                            .data!
-                                                            .nearByHospital[1]
-                                                            .hospitalName,
-                                                      ),
-                                                    )
-                                                  : SizedBox(
-                                                      height: 40,
-                                                      width: 110,
-                                                      child: Marquee(
-                                                        text: snapshot
-                                                            .data!
-                                                            .nearByHospital[1]
-                                                            .hospitalName,
-                                                        // accelerationDuration:
-                                                        //     Duration(seconds: 5),
-                                                        blankSpace: 20.0,
-                                                        startPadding: 10.0,
-                                                        pauseAfterRound:
-                                                            Duration(
-                                                                seconds: 1),
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ))
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    VerticalDivider(
-                                      color: Colors.white,
-                                      width: 2,
-                                      thickness: 3,
-                                      indent: 10,
-                                      endIndent: 10,
-                                    ),
-                                    Column(
-                                      children: [
-                                        Container(
-                                          width: 122.41,
-                                          height: 85,
-                                          decoration: BoxDecoration(
-                                            color: Colors.blueAccent,
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                height: 15,
-                                              ),
-                                              snapshot.data!.nearByHospital[2]
-                                                          .hospitalName.length <
-                                                      13
-                                                  ? Center(
-                                                      child: Text(
-                                                        snapshot
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  height: 15,
+                                                ),
+                                                snapshot
                                                             .data!
                                                             .nearByHospital[2]
-                                                            .hospitalName,
-                                                      ),
-                                                    )
-                                                  : SizedBox(
-                                                      height: 40,
-                                                      width: 110,
-                                                      child: Marquee(
-                                                        text: snapshot
-                                                            .data!
-                                                            .nearByHospital[2]
-                                                            .hospitalName,
-                                                        blankSpace: 20.0,
-                                                        startPadding: 10.0,
-                                                        pauseAfterRound:
-                                                            Duration(
-                                                                seconds: 1),
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ))
-                                            ],
+                                                            .hospitalName
+                                                            .length <
+                                                        13
+                                                    ? Center(
+                                                        child: Text(
+                                                          snapshot
+                                                              .data!
+                                                              .nearByHospital[2]
+                                                              .hospitalName,
+                                                        ),
+                                                      )
+                                                    : SizedBox(
+                                                        height: 40,
+                                                        width: 110,
+                                                        child: Marquee(
+                                                          text: snapshot
+                                                              .data!
+                                                              .nearByHospital[2]
+                                                              .hospitalName,
+                                                          blankSpace: 20.0,
+                                                          startPadding: 10.0,
+                                                          pauseAfterRound:
+                                                              Duration(
+                                                                  seconds: 1),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white),
+                                                        ))
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        const Divider(
-                                          color: Colors.white,
-                                          height: 2,
-                                          thickness: 3,
-                                          indent: 25,
-                                          endIndent: 25,
-                                        ),
-                                        Container(
-                                          width: 122.41,
-                                          height: 85,
-                                          decoration: BoxDecoration(
-                                            color: Colors.blueAccent,
+                                          const Divider(
+                                            color: Colors.white,
+                                            height: 2,
+                                            thickness: 3,
+                                            indent: 25,
+                                            endIndent: 25,
                                           ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SizedBox(
-                                                height: 15,
+                                          Container(
+                                            width: 122.41,
+                                            height: 85,
+                                            decoration: BoxDecoration(
+                                              color: Colors.blueAccent,
+                                            ),
+                                            child: Flexible(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  snapshot
+                                                              .data!
+                                                              .nearByHospital[3]
+                                                              .hospitalName
+                                                              .length <
+                                                          13
+                                                      ? Center(
+                                                          child: Text(
+                                                            snapshot
+                                                                .data!
+                                                                .nearByHospital[
+                                                                    3]
+                                                                .hospitalName,
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        )
+                                                      : Flexible(
+                                                          child: SizedBox(
+                                                              height: 40,
+                                                              width: 110,
+                                                              child: Marquee(
+                                                                text: snapshot
+                                                                    .data!
+                                                                    .nearByHospital[
+                                                                        3]
+                                                                    .hospitalName,
+                                                                blankSpace:
+                                                                    20.0,
+                                                                startPadding:
+                                                                    10.0,
+                                                                pauseAfterRound:
+                                                                    Duration(
+                                                                        seconds:
+                                                                            1),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              )),
+                                                        )
+                                                ],
                                               ),
-                                              snapshot.data!.nearByHospital[3]
-                                                          .hospitalName.length <
-                                                      13
-                                                  ? Center(
-                                                      child: Text(
-                                                        snapshot
-                                                            .data!
-                                                            .nearByHospital[3]
-                                                            .hospitalName,
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                    )
-                                                  : SizedBox(
-                                                      height: 40,
-                                                      width: 110,
-                                                      child: Marquee(
-                                                        text: snapshot
-                                                            .data!
-                                                            .nearByHospital[3]
-                                                            .hospitalName,
-                                                        blankSpace: 20.0,
-                                                        startPadding: 10.0,
-                                                        pauseAfterRound:
-                                                            Duration(
-                                                                seconds: 1),
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ))
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    VerticalDivider(
-                                      color: Colors.white,
-                                      width: 2,
-                                      thickness: 3,
-                                      indent: 10,
-                                      endIndent: 10,
-                                    ),
-                                    // Column(
-                                    //   children: [
-                                    //     Container(
-                                    //       width: 80,
-                                    //       height: 85,
-                                    //       decoration: BoxDecoration(
-                                    //         color: Colors.blueAccent,
-                                    //       ),
-                                    //       child: Column(
-                                    //         mainAxisAlignment:
-                                    //             MainAxisAlignment.center,
-                                    //         children: [
-                                    //           SizedBox(
-                                    //             height: 15,
-                                    //           ),
-                                    //           Text(
-                                    //             snapshot.data!.nearByHospital[4]
-                                    //                 .hospitalName,
-                                    //             style: TextStyle(
-                                    //                 color: Colors.white),
-                                    //           )
-                                    //         ],
-                                    //       ),
-                                    //     ),
-                                    //     const Divider(
-                                    //       color: Colors.white,
-                                    //       height: 2,
-                                    //       thickness: 0,
-                                    //       indent: 25,
-                                    //       endIndent: 25,
-                                    //     ),
-                                    //     Container(
-                                    //       width: 80,
-                                    //       height: 85,
-                                    //       decoration: BoxDecoration(
-                                    //         color: Colors.blueAccent,
-                                    //       ),
-                                    //       child: Column(
-                                    //         mainAxisAlignment:
-                                    //             MainAxisAlignment.center,
-                                    //         children: [
-                                    //           SizedBox(
-                                    //             height: 15,
-                                    //           ),
-                                    //           Text(
-                                    //             snapshot.data!.nearByHospital[5]
-                                    //                 .hospitalName,
-                                    //             style: TextStyle(
-                                    //                 color: Colors.white),
-                                    //           )
-                                    //         ],
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                  ],
+                                        ],
+                                      ),
+                                      VerticalDivider(
+                                        color: Colors.white,
+                                        width: 2,
+                                        thickness: 3,
+                                        indent: 10,
+                                        endIndent: 10,
+                                      ),
+                                      // Column(
+                                      //   children: [
+                                      //     Container(
+                                      //       width: 80,
+                                      //       height: 85,
+                                      //       decoration: BoxDecoration(
+                                      //         color: Colors.blueAccent,
+                                      //       ),
+                                      //       child: Column(
+                                      //         mainAxisAlignment:
+                                      //             MainAxisAlignment.center,
+                                      //         children: [
+                                      //           SizedBox(
+                                      //             height: 15,
+                                      //           ),
+                                      //           Text(
+                                      //             snapshot.data!.nearByHospital[4]
+                                      //                 .hospitalName,
+                                      //             style: TextStyle(
+                                      //                 color: Colors.white),
+                                      //           )
+                                      //         ],
+                                      //       ),
+                                      //     ),
+                                      //     const Divider(
+                                      //       color: Colors.white,
+                                      //       height: 2,
+                                      //       thickness: 0,
+                                      //       indent: 25,
+                                      //       endIndent: 25,
+                                      //     ),
+                                      //     Container(
+                                      //       width: 80,
+                                      //       height: 85,
+                                      //       decoration: BoxDecoration(
+                                      //         color: Colors.blueAccent,
+                                      //       ),
+                                      //       child: Column(
+                                      //         mainAxisAlignment:
+                                      //             MainAxisAlignment.center,
+                                      //         children: [
+                                      //           SizedBox(
+                                      //             height: 15,
+                                      //           ),
+                                      //           Text(
+                                      //             snapshot.data!.nearByHospital[5]
+                                      //                 .hospitalName,
+                                      //             style: TextStyle(
+                                      //                 color: Colors.white),
+                                      //           )
+                                      //         ],
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -2158,14 +2227,13 @@ class _DashboardPatientState extends State<DashboardPatient> {
                     ),
                     Shimmer.fromColors(
                         direction: ShimmerDirection.ltr,
-                        child: Container(
-                          width: double.infinity,
+                        child: Container( 
                           height: 50,
                           color: Colors.white,
                         ),
                         baseColor: Colors.grey.shade400,
                         highlightColor: Colors.grey.shade100),
-                    SizedBox(
+                   const SizedBox(
                       height: 5,
                     ),
                     Row(

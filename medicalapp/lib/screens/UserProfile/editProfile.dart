@@ -539,42 +539,36 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        children: [
-                          SizedBox(
-                            width: 190,
-                            child: TextFormField(
-                                focusNode: heightFocusNode,
-                                keyboardType: TextInputType.number,
-                                controller: heightController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20))),
-                                    hintText: "Hight")),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          SizedBox(
-                            width: 190,
-                            child: TextFormField(
-                                focusNode: weightFocusNode,
-                                keyboardType: TextInputType.number,
-                                controller: weightController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20))),
-                                    hintText: "Weight ")),
-                          ),
-                        ],
-                      ),
-                    ],
+                  child: Flexible(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: 190,
+                          child: TextFormField(
+                              focusNode: heightFocusNode,
+                              keyboardType: TextInputType.number,
+                              controller: heightController,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  hintText: "Hight")),
+                        ),
+                        SizedBox(
+                          width: 190,
+                          child: TextFormField(
+                              focusNode: weightFocusNode,
+                              keyboardType: TextInputType.number,
+                              controller: weightController,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  hintText: "Weight ")),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(

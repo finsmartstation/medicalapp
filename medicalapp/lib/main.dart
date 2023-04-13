@@ -53,6 +53,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         ),
-        home: InputMobileNumScreen());
+        home: SplashScreen());
   }
 }
