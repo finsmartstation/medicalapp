@@ -18,7 +18,7 @@ class PaymentScreen extends StatefulWidget {
   String? bookingDate;
   String? bookingTime;
   PaymentScreen(
-      {Key? key,
+      {super.key, 
       required this.visit_type,
       required this.family_member_id,
       required this.doctorId,
@@ -67,11 +67,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
             onPressed: (() {
               Navigator.pop(context);
             }),
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.white,
             )),
-        title: Text(
+        title: const Text(
           "Payment",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
@@ -83,7 +83,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
@@ -95,8 +95,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(),
-                    Text(
+                    const SizedBox(),
+                    const Text(
                       "Total Payment",
                       style: TextStyle(
                           color: Colors.white,
@@ -104,26 +104,26 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           fontWeight: FontWeight.w700),
                     ),
                     Text(
-                      "₹" + widget.consultingfee.toString(),
-                      style: TextStyle(
+                      "₹${widget.consultingfee}",
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 25,
                           fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(),
+                    const SizedBox(),
                   ]),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               "Payment Details",
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
@@ -142,12 +142,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  SizedBox(),
+                  const SizedBox(),
                   Padding(
                     padding: const EdgeInsets.only(left: 25),
                     child: Text(
-                      "Dr " + widget.drName.toString(),
-                      style: TextStyle(
+                      "Dr ${widget.drName}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -157,7 +157,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     padding: const EdgeInsets.only(left: 25),
                     child: Text(
                       widget.drSpl.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -166,8 +166,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 25),
                     child: Text(
-                      "Organization: " + widget.organization.toString(),
-                      style: TextStyle(
+                      "Organization: ${widget.organization}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -176,8 +176,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 25),
                     child: Text(
-                      "consulting Fees: " + widget.consultingfee.toString(),
-                      style: TextStyle(
+                      "consulting Fees: ${widget.consultingfee}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -186,11 +186,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 25),
                     child: Text(
-                      "Date : " +
-                          widget.bookingDate.toString() +
-                          "  Time : " +
-                          widget.bookingTime.toString(),
-                      style: TextStyle(
+                      "Date : ${widget.bookingDate}  Time : ${widget.bookingTime}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -199,18 +196,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 25),
                     child: Text(
-                      "Visit Type : " + widget.visit_type.toString(),
-                      style: TextStyle(
+                      "Visit Type : ${widget.visit_type}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
                     ),
                   ),
-                  SizedBox(),
+                  const SizedBox(),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Center(
@@ -263,7 +260,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         }
                       });
                     }),
-                    child: Text("Pay Now")),
+                    child: const Text("Pay Now")),
               ),
             )
           ],
@@ -280,16 +277,16 @@ void showSuccessDialog(BuildContext context, String message,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(title),
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
             fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
         backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
         content: Text(message),
       );
     },
   );
-  Future.delayed(Duration(seconds: 1), () {
+  Future.delayed(const Duration(seconds: 1), () {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => navigationRoute),

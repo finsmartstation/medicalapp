@@ -2,12 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
 import 'dart:io';
 
 class AppointmentPdf extends StatefulWidget {
   final String filePath;
-  AppointmentPdf({Key? key, required this.filePath}) : super(key: key);
+  const AppointmentPdf({Key? key, required this.filePath}) : super(key: key);
 
   @override
   State<AppointmentPdf> createState() => _AppointmentPdfState();
@@ -25,7 +24,7 @@ class _AppointmentPdfState extends State<AppointmentPdf> {
               onPressed: (() async {
                 downloadFile(widget.filePath);
               }),
-              icon: Icon(
+              icon: const Icon(
                 Icons.download,
                 color: Colors.black,
               ))
@@ -34,11 +33,11 @@ class _AppointmentPdfState extends State<AppointmentPdf> {
             onPressed: (() {
               Navigator.pop(context);
             }),
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
             )),
-        title: Text(
+        title: const Text(
           "File",
           style: TextStyle(color: Colors.black),
         ),
@@ -49,7 +48,7 @@ class _AppointmentPdfState extends State<AppointmentPdf> {
 
   Future<void> downloadFile(String url) async {
     final dir = await getExternalStorageDirectory();
-    final downloadDir = '/storage/emulated/0/Download/';
+    const downloadDir = '/storage/emulated/0/Download/';
     await Directory(downloadDir).create(recursive: true);
     final fileName = url.split('/').last;
     final savePath = '$downloadDir/$fileName';
@@ -61,7 +60,7 @@ class _AppointmentPdfState extends State<AppointmentPdf> {
       showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
+          return const AlertDialog(
             title: Text("Success"),
             titleTextStyle: TextStyle(
                 fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),

@@ -6,13 +6,13 @@ import '../../utility/constants.dart';
 import 'Modeal.dart';
 
 Future<ListAllDoctors> listDoctor(
-    user_id, access_token, search, family_member_id) async {
-  String url = baseUrl + 'list_all_doctors_filter';
+    userId, accessToken, search, familyMemberId) async {
+  String url = '${baseUrl}list_all_doctors_filter';
   var obj = {
-    "user_id": user_id,
-    "access_token": access_token,
+    "user_id": userId,
+    "access_token": accessToken,
     "search": search,
-    "family_member_id": family_member_id
+    "family_member_id": familyMemberId
   };
 
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
@@ -28,11 +28,11 @@ Future<ListAllDoctors> listDoctor(
 
 //add favorite doctor
 Future<http.Response> addFavoriteDoctor(
-    userId, access_token, familyMemberId, doctorId) async {
-  String url = baseUrl + 'add_favourite_doctor';
+    userId, accessToken, familyMemberId, doctorId) async {
+  String url = '${baseUrl}add_favourite_doctor';
   var obj = {
     "user_id": userId,
-    "access_token": access_token,
+    "access_token": accessToken,
     "family_member_id": familyMemberId,
     "doctor_id": doctorId,
   };
@@ -43,11 +43,11 @@ Future<http.Response> addFavoriteDoctor(
 
 //remove favorite doctor
 Future<http.Response> removeFavoriteDoctor(
-    userId, access_token, familyMemberId, doctorId) async {
-  String url = baseUrl + 'delete_favourite_doctor';
+    userId, accessToken, familyMemberId, doctorId) async {
+  String url = '${baseUrl}delete_favourite_doctor';
   var obj = {
     "user_id": userId,
-    "access_token": access_token,
+    "access_token": accessToken,
     "family_member_id": familyMemberId,
     "doctor_id": doctorId,
   };
@@ -58,13 +58,13 @@ Future<http.Response> removeFavoriteDoctor(
 
 //doctor profile
 Future<DoctorProfileDetails> doctor_profile_details(
-    user_id, access_token, doctor_id, family_member_id) async {
-  String url = baseUrl + 'doctor_profile_details';
+    userId, accessToken, doctorId, familyMemberId) async {
+  String url = '${baseUrl}doctor_profile_details';
   var obj = {
-    "user_id": user_id,
-    "access_token": access_token,
-    "doctor_id": doctor_id,
-    "family_member_id": family_member_id
+    "user_id": userId,
+    "access_token": accessToken,
+    "doctor_id": doctorId,
+    "family_member_id": familyMemberId
   };
 
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
@@ -80,11 +80,11 @@ Future<DoctorProfileDetails> doctor_profile_details(
 
 //remove family doctor
 Future<http.Response> delete_family_doctor(
-    userId, access_token) async {
-  String url = baseUrl + 'delete_family_doctor';
+    userId, accessToken) async {
+  String url = '${baseUrl}delete_family_doctor';
   var obj = {
     "user_id": userId,
-    "access_token": access_token,
+    "access_token": accessToken,
   };
   print("obj---$obj");
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
@@ -94,11 +94,11 @@ Future<http.Response> delete_family_doctor(
 
   //add family doctor
   Future<http.Response> addFamilyDoctor(
-       userId,  access_token,  DoctorId) async {
-    String url = baseUrl + 'add_family_doctor';
+       userId,  accessToken,  DoctorId) async {
+    String url = '${baseUrl}add_family_doctor';
     var obj = {
       "user_id": userId,
-      "access_token": access_token,
+      "access_token": accessToken,
       "family_doctor_id": DoctorId,
     };
     print("obj---$obj");

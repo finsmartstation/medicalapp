@@ -5,12 +5,12 @@ import 'consuiltedDoctorsDateListModel.dart';
 import 'myReportsModeal.dart';
 
 Future<ConsultedDoctorsList> consulted_doctors_list(
-    user_id, access_token, family_member_id) async {
-  String url = baseUrl + 'consulted_doctors_list';
+    userId, accessToken, familyMemberId) async {
+  String url = '${baseUrl}consulted_doctors_list';
   var obj = {
-    "user_id": user_id,
-    "access_token": access_token,
-    'family_member_id': family_member_id
+    "user_id": userId,
+    "access_token": accessToken,
+    'family_member_id': familyMemberId
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   if (response.statusCode == 200) {
@@ -22,13 +22,13 @@ Future<ConsultedDoctorsList> consulted_doctors_list(
 }
 
 Future<ConsultedDoctorsDateList> consulted_doctors_date_list(
-    user_id, access_token, family_member_id, doctor_id) async {
-  String url = baseUrl + 'consulted_doctors_date_list';
+    userId, accessToken, familyMemberId, doctorId) async {
+  String url = '${baseUrl}consulted_doctors_date_list';
   var obj = {
-    "user_id": user_id,
-    "access_token": access_token,
-    "family_member_id": family_member_id,
-    "doctor_id": doctor_id
+    "user_id": userId,
+    "access_token": accessToken,
+    "family_member_id": familyMemberId,
+    "doctor_id": doctorId
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   if (response.statusCode == 200) {

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../models/access_model.dart';
 import '../../utility/constants.dart';
 import '../dashboard/dashboardScreen.dart';
 import '../startScreen/get_started.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
-import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -15,7 +13,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  List<AccessModel>? accessModel = [];
   String isLogin = "0";
   Future GetLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -61,10 +58,10 @@ class _SplashScreenState extends State<SplashScreen> {
     GetLogin();
     // TODO: implement initState
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       if (isLogin == "0") {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => GetStarted()),
+          MaterialPageRoute(builder: (context) => const GetStarted()),
         );
       } else if (isLogin == "patient") {
         Navigator.of(context).pushReplacement(

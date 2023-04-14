@@ -1,7 +1,6 @@
 //patient_book_slot_history
 import 'dart:convert';
 
-
 import 'package:http/http.dart' as http;
 import 'package:medicalapp/screens/appointment/modealClass.dart';
 
@@ -9,12 +8,12 @@ import '../../utility/constants.dart';
 import 'appointmentDetailsModeal.dart';
 
 Future<PatientBookSlotHistory> patientBookSlotHistory(
-    userId, access_token, family_member_id) async {
-  String url = baseUrl + 'patient_book_slot_history';
+    userId, accessToken, familyMemberId) async {
+  String url = '${baseUrl}patient_book_slot_history';
   var obj = {
     "user_id": userId,
-    "access_token": access_token,
-    "family_member_id": family_member_id
+    "access_token": accessToken,
+    "family_member_id": familyMemberId
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   print("success");
@@ -29,13 +28,13 @@ Future<PatientBookSlotHistory> patientBookSlotHistory(
 
 //doctor_available_slot_details
 Future<DoctorAvailableSlotDetails> doctor_available_slot_details(
-    userId, access_token, doctor_id, date_id) async {
-  String url = baseUrl + 'doctor_available_slot_details';
+    userId, accessToken, doctorId, dateId) async {
+  String url = '${baseUrl}doctor_available_slot_details';
   var obj = {
     "user_id": userId,
-    "access_token": access_token,
-    "doctor_id": doctor_id,
-    "date_id": date_id,
+    "access_token": accessToken,
+    "doctor_id": doctorId,
+    "date_id": dateId,
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   print("success");
@@ -49,29 +48,29 @@ Future<DoctorAvailableSlotDetails> doctor_available_slot_details(
   }
 }
 
-Future<http.Response> slot_booking(user_id, access_token, doctor_id,
-    family_member_id, book_slot_id, sick_notes, visit_type) async {
-  String url = baseUrl + 'slot_booking';
+Future<http.Response> slot_booking(userId, accessToken, doctorId,
+    familyMemberId, bookSlotId, sickNotes, visitType) async {
+  String url = '${baseUrl}slot_booking';
   var obj = {
-    "user_id": user_id,
-    "access_token": access_token,
-    'doctor_id': doctor_id,
-    'family_member_id': family_member_id,
-    'book_slot_id': book_slot_id,
-    'sick_notes': sick_notes,
-    'visit_type': visit_type
+    "user_id": userId,
+    "access_token": accessToken,
+    'doctor_id': doctorId,
+    'family_member_id': familyMemberId,
+    'book_slot_id': bookSlotId,
+    'sick_notes': sickNotes,
+    'visit_type': visitType
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   return response;
 }
 
 Future<PatientAppoinmentDetails> patient_appoinment_details(
-    userId, access_token, slot_id) async {
-  String url = baseUrl + 'patient_appoinment_details';
+    userId, accessToken, slotId) async {
+  String url = '${baseUrl}patient_appoinment_details';
   var obj = {
     "user_id": userId,
-    "access_token": access_token,
-    "slot_id": slot_id,
+    "access_token": accessToken,
+    "slot_id": slotId,
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   print("success");

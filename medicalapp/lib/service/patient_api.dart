@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/services.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -10,11 +8,11 @@ import '../utility/constants.dart';
 class PatientApi {
   //list all hospital
 
-  Future<Map<String, dynamic>> listHospital(user_id, access_token) async {
-    String url = baseUrl + 'list_all_hospitals';
+  Future<Map<String, dynamic>> listHospital(userId, accessToken) async {
+    String url = '${baseUrl}list_all_hospitals';
     var obj = {
-      "user_id": user_id,
-      "access_token": access_token,
+      "user_id": userId,
+      "access_token": accessToken,
     };
 
     var response = await http.post(Uri.parse(url), body: obj);
@@ -31,13 +29,13 @@ class PatientApi {
 
   //add_user_medical_history
   Future<http.Response> add_user_medical_history(
-      user_id, access_token, description, file_path) async {
-    String url = baseUrl + 'add_user_medical_history';
+      userId, accessToken, description, filePath) async {
+    String url = '${baseUrl}add_user_medical_history';
     var obj = {
-      'user_id': user_id,
-      'access_token': access_token,
+      'user_id': userId,
+      'access_token': accessToken,
       'description': description,
-      'file_path': file_path,
+      'file_path': filePath,
     };
     var response = await http.post(Uri.parse(url), body: obj);
     return response;
@@ -61,11 +59,11 @@ class PatientApi {
   // }
 
   //list all doctor
-  Future<ListAllDoctors> listDoctor(user_id, access_token) async {
-    String url = baseUrl + 'list_all_doctors';
+  Future<ListAllDoctors> listDoctor(userId, accessToken) async {
+    String url = '${baseUrl}list_all_doctors';
     var obj = {
-      "user_id": user_id,
-      "access_token": access_token,
+      "user_id": userId,
+      "access_token": accessToken,
     };
 
     var response = await http.post(Uri.parse(url), body: obj);
@@ -113,11 +111,11 @@ class PatientApi {
 
   //doctor available slot
   Future<Map<String, dynamic>> doctorAvailableSlot(
-      String userId, String access_token, String doctorId) async {
-    String url = baseUrl + 'doctor_available_slots';
+      String userId, String accessToken, String doctorId) async {
+    String url = '${baseUrl}doctor_available_slots';
     var obj = {
       "user_id": userId,
-      "access_token": access_token,
+      "access_token": accessToken,
       "doctor_id": doctorId
     };
     var response = await http.post(Uri.parse(url), body: obj);
@@ -133,12 +131,12 @@ class PatientApi {
   }
 
   //add user symtoms
-  Future<http.Response> addSymptoms(String userId, String access_token,
+  Future<http.Response> addSymptoms(String userId, String accessToken,
       String familyMemberId, String symptoms) async {
-    String url = baseUrl + 'add_user_symptoms';
+    String url = '${baseUrl}add_user_symptoms';
     var obj = {
       "user_id": userId,
-      "access_token": access_token,
+      "access_token": accessToken,
       "family_member_id": familyMemberId,
       "symptoms": symptoms
     };
@@ -148,20 +146,20 @@ class PatientApi {
   }
 
   //add_family_members
-  Future<http.Response> add_family_members(user_id, access_token, gender, name,
-      relation, dob, blood_group, height, weight, profile_pic) async {
-    String url = baseUrl + 'add_family_members';
+  Future<http.Response> add_family_members(userId, accessToken, gender, name,
+      relation, dob, bloodGroup, height, weight, profilePic) async {
+    String url = '${baseUrl}add_family_members';
     var obj = {
-      "user_id": user_id.toString(),
-      "access_token": access_token.toString(),
+      "user_id": userId.toString(),
+      "access_token": accessToken.toString(),
       "gender": gender,
       "name": name,
       "relation": relation,
       "dob": dob,
-      "blood_group": blood_group,
+      "blood_group": bloodGroup,
       "height": height,
       "weight": weight,
-      "profile_pic": profile_pic
+      "profile_pic": profilePic
     };
     var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
     return response;
@@ -201,21 +199,21 @@ class PatientApi {
   //book doctor slot
   Future<http.Response> bookDoctorSlot(
       String userId,
-      String access_token,
-      String doctor_id,
-      String book_slot_id,
-      String booking_id,
-      String family_member_id,
-      String sick_notes) async {
-    String url = baseUrl + 'book_doctor_slot';
+      String accessToken,
+      String doctorId,
+      String bookSlotId,
+      String bookingId,
+      String familyMemberId,
+      String sickNotes) async {
+    String url = '${baseUrl}book_doctor_slot';
     var obj = {
       "user_id": userId,
-      "access_token": access_token,
-      "doctor_id": doctor_id,
-      "book_slot_id": book_slot_id,
-      "booking_id": booking_id,
-      "family_memberid": family_member_id,
-      "sick_notes": sick_notes,
+      "access_token": accessToken,
+      "doctor_id": doctorId,
+      "book_slot_id": bookSlotId,
+      "booking_id": bookingId,
+      "family_memberid": familyMemberId,
+      "sick_notes": sickNotes,
     };
     print(obj);
     var response = await http.post(Uri.parse(url), body: obj);

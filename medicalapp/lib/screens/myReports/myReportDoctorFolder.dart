@@ -35,12 +35,12 @@ class _MyReportDoctorsFolderState extends State<MyReportDoctorsFolder> {
                   onPressed: (() {
                     Navigator.pop(context);
                   }),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios,
                     color: Colors.black,
                   )),
               elevation: 0,
-              title: Text(
+              title: const Text(
                 "My Reports",
                 style:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.w500),

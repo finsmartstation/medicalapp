@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:medicalapp/utility/constants.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -13,7 +11,6 @@ import '../../providers/auth_provider.dart';
 import '../../providers/petientdetailsGetProvider.dart';
 import '../../providers/phone_provider.dart';
 import '../../service/api_services.dart';
-import '../../utility/colors.dart';
 import '../UserProfile/patient_basic_details.dart';
 import '../dashboard/dashboardScreen.dart';
 
@@ -34,7 +31,7 @@ class _OtpSectionState extends State<OtpSection> {
   String? role;
   String? user_id;
   String? access_token;
-  OtpFieldController _pinController = OtpFieldController();
+  final OtpFieldController _pinController = OtpFieldController();
   Future setProfile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (uName!.isNotEmpty) {
@@ -66,7 +63,7 @@ class _OtpSectionState extends State<OtpSection> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       List<String> a = widget.otp.split("");
       _pinController.setValue(a[0], 0);
       _pinController.setValue(a[1], 1);
@@ -85,11 +82,12 @@ class _OtpSectionState extends State<OtpSection> {
     print(widget.phoneNum);
   }
 
+  @override
   Widget build(BuildContext context) {
     return Consumer2<PhoneProvider, AuthProvider>(
-        builder: (context, p_value, a_value, child) {
-      String user_id = a_value.u_id;
-      String access_token = a_value.access_token;
+        builder: (context, pValue, aValue, child) {
+      String userId = aValue.u_id;
+      String accessToken = aValue.access_token;
       return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: backgroundColor,
@@ -112,7 +110,7 @@ class _OtpSectionState extends State<OtpSection> {
               child: Row(
                 children: [
                   const Spacer(),
-                  Text(widget.phoneNum.toString() + "."),
+                  Text("${widget.phoneNum}."),
                   TextButton(
                       onPressed: () {
                         Navigator.pop(context);
@@ -125,7 +123,7 @@ class _OtpSectionState extends State<OtpSection> {
             const SizedBox(
               height: 50,
             ),
-            Otpfiled(a_value, user_id, access_token, context, p_value),
+            Otpfiled(aValue, userId, accessToken, context, pValue),
             const SizedBox(
               height: 50,
             ),
@@ -173,8 +171,8 @@ class _OtpSectionState extends State<OtpSection> {
     });
   }
 
-  Center Otpfiled(AuthProvider a_value, String user_id, String access_token,
-      BuildContext context, PhoneProvider p_value) {
+  Center Otpfiled(AuthProvider aValue, String userId, String accessToken,
+      BuildContext context, PhoneProvider pValue) {
     return Center(
       child: OTPTextField(
           length: 6,
@@ -183,17 +181,17 @@ class _OtpSectionState extends State<OtpSection> {
           controller: _pinController,
           textFieldAlignment: MainAxisAlignment.spaceAround,
           fieldStyle: FieldStyle.box,
-          style: TextStyle(fontSize: 17),
+          style: const TextStyle(fontSize: 17),
           onChanged: (val) {
-            Future.delayed(Duration(seconds: 1), (() {
+            Future.delayed(const Duration(seconds: 1), (() {
               print(val);
               print('changed');
-              print(a_value.otp);
+              print(aValue.otp);
               print(_pinController);
-              if (val == a_value.otp) {
+              if (val == aValue.otp) {
                 // _countDownController.pause();
                 ApiService()
-                    .verifyOTP(a_value.u_id, a_value.access_token, val)
+                    .verifyOTP(aValue.u_id, aValue.access_token, val)
                     .then((value) async {
                   // print(value.body);
 
@@ -204,16 +202,16 @@ class _OtpSectionState extends State<OtpSection> {
                     prefs.setString('user_id', jsonData['user_id']);
                     prefs.setString('access_token', jsonData['access_token']);
 
-                    user_id = jsonData['user_id'];
-                    access_token = jsonData['access_token'];
+                    userId = jsonData['user_id'];
+                    accessToken = jsonData['access_token'];
                     role = jsonData['user_type'];
                     setUserId();
                     print("user id");
-                    print(a_value.u_id);
-                    print(access_token);
+                    print(aValue.u_id);
+                    print(accessToken);
                     print("userId and token===");
-                    print(user_id);
-                    print(access_token);
+                    print(userId);
+                    print(accessToken);
 
                     print(jsonData['login_status']);
                     print(role);
@@ -224,22 +222,22 @@ class _OtpSectionState extends State<OtpSection> {
                       setState(() {
                         context
                             .read<GetpetientDetails>()
-                            .fetchdata(user_id, access_token);
+                            .fetchdata(userId, accessToken);
                       });
 
                       if (jsonData['login_status'] == "0") {
                         print("1234New");
-                        p_value.isValid(false);
+                        pValue.isValid(false);
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => PatientBasicDetails()));
+                                builder: (_) => const PatientBasicDetails()));
                       }
                       if (jsonData['login_status'] == "1") {
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
                         prefs.setString("isLogin", "patient");
-                        p_value.isValid(false);
+                        pValue.isValid(false);
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
@@ -275,7 +273,7 @@ class _OtpSectionState extends State<OtpSection> {
   }
 
   Center verifyingNumTextWidget() {
-    return Center(
+    return const Center(
         child: Text(
       "Verifiying your number",
       style: TextStyle(color: Colors.black, fontSize: 18),

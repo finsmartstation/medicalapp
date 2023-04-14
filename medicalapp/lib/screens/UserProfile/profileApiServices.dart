@@ -5,20 +5,20 @@ import 'package:http/http.dart' as http;
 import '../../utility/constants.dart';
 
 //fill_patient_profile
-Future<http.Response> fill_patient_profile(user_id, access_token, gender, email,
-    name, dob, blood_group, height, weight, profile_pic_path) async {
-  String url = baseUrl + 'fill_patient_profile';
+Future<http.Response> fill_patient_profile(userId, accessToken, gender, email,
+    name, dob, bloodGroup, height, weight, profilePicPath) async {
+  String url = '${baseUrl}fill_patient_profile';
   var obj = {
-    "user_id": user_id,
-    "access_token": access_token,
+    "user_id": userId,
+    "access_token": accessToken,
     "gender": gender,
     "email": email,
     "name": name,
     "dob": dob.toString(),
-    "blood_group": blood_group,
+    "blood_group": bloodGroup,
     "height": height,
     "weight": weight,
-    "profile_pic_path": profile_pic_path
+    "profile_pic_path": profilePicPath
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   print(obj);
@@ -28,32 +28,32 @@ Future<http.Response> fill_patient_profile(user_id, access_token, gender, email,
 //edit_patient_details
 
 Future<http.Response> edit_patient_details(
-    user_id,
-    access_token,
-    family_member_id,
+    userId,
+    accessToken,
+    familyMemberId,
     gender,
     email,
     name,
     dob,
-    blood_group,
+    bloodGroup,
     height,
     weight,
     relation,
-    profile_pic_path) async {
-  String url = baseUrl + 'edit_patient_details';
+    profilePicPath) async {
+  String url = '${baseUrl}edit_patient_details';
   var obj = {
-    "user_id": user_id,
-    "access_token": access_token,
-    "family_member_id": family_member_id,
+    "user_id": userId,
+    "access_token": accessToken,
+    "family_member_id": familyMemberId,
     "gender": gender,
     "email": email,
     "name": name,
     "dob": dob.toString(),
-    "blood_group": blood_group,
+    "blood_group": bloodGroup,
     "height": height,
     "weight": weight,
     "relation": relation,
-    "profile_pic_path": profile_pic_path
+    "profile_pic_path": profilePicPath
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   print(obj);
@@ -62,15 +62,15 @@ Future<http.Response> edit_patient_details(
 
 //fill_patient_basic_profile
 Future<http.Response> patient_profile_details(
-    user_id, access_token, gender, email, name,profile_pic_path) async {
-  String url = baseUrl + 'patient_profile_details';
+    userId, accessToken, gender, email, name,profilePicPath) async {
+  String url = '${baseUrl}patient_profile_details';
   var obj = {
-    "user_id": user_id,
-    "access_token": access_token,
+    "user_id": userId,
+    "access_token": accessToken,
     "gender": gender,
     "email": email,
     "name": name,
-    "profile_pic": profile_pic_path
+    "profile_pic": profilePicPath
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   print(obj);

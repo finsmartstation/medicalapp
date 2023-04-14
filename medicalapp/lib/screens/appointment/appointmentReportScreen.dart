@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
 import 'package:medicalapp/screens/appointment/videoCall.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,11 +53,11 @@ class _AppointmentReportState extends State<AppointmentReport> {
                       onPressed: (() {
                         Navigator.pop(context);
                       }),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back_ios,
                         color: Colors.black,
                       )),
-                  title: Text(
+                  title: const Text(
                     "Appointment Details",
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
@@ -67,19 +65,19 @@ class _AppointmentReportState extends State<AppointmentReport> {
                   actions: [
                     IconButton(
                         onPressed: (() {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             content:
                                 Text("Complete Appointment for Start Chat"),
                           ));
                         }),
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.chat_rounded,
                           color: Colors.black,
                         ))
                   ],
                 ),
                 body: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Column(
@@ -94,29 +92,27 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                 image:
                                     NetworkImage(snapshot.data!.data.stickers)),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Text(
-                            "Date of Appointment: " +
-                                DateFormat("yyyy/MM/dd")
-                                    .format(snapshot.data!.data.bookedFor),
-                            style: TextStyle(
+                            "Date of Appointment: ${DateFormat("yyyy/MM/dd")
+                                    .format(snapshot.data!.data.bookedFor)}",
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Text(
-                            "Time of Appointment: " +
-                                DateFormat("h:mm a")
-                                    .format(snapshot.data!.data.bookedFor),
-                            style: TextStyle(
+                            "Time of Appointment: ${DateFormat("h:mm a")
+                                    .format(snapshot.data!.data.bookedFor)}",
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Card(
@@ -135,88 +131,81 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Name of Doctor: " +
-                                          snapshot.data!.data.doctorName,
-                                      style: TextStyle(
+                                      "Name of Doctor: ${snapshot.data!.data.doctorName}",
+                                      style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
                                     Text(
-                                      "Organization: " +
-                                          snapshot.data!.data.organisationName,
-                                      style: TextStyle(
+                                      "Organization: ${snapshot.data!.data.organisationName}",
+                                      style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
                                     Text(
-                                      "Organization address: " +
-                                          snapshot
-                                              .data!.data.organisationAddress,
-                                      style: TextStyle(
+                                      "Organization address: ${snapshot
+                                              .data!.data.organisationAddress}",
+                                      style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
                                     Text(
-                                      "Organization Mobile Number: " +
-                                          snapshot
-                                              .data!.data.organisationMobile,
-                                      style: TextStyle(
+                                      "Organization Mobile Number: ${snapshot
+                                              .data!.data.organisationMobile}",
+                                      style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
                                     Text(
-                                      "Organization Email: " +
-                                          snapshot.data!.data.organisationEmail,
-                                      style: TextStyle(
+                                      "Organization Email: ${snapshot.data!.data.organisationEmail}",
+                                      style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
                                     Text(
-                                      "Booked Date: " +
-                                          DateFormat("yyyy/MM/dd").format(
+                                      "Booked Date: ${DateFormat("yyyy/MM/dd").format(
                                               snapshot
-                                                  .data!.data.bookedDatetime),
-                                      style: TextStyle(
+                                                  .data!.data.bookedDatetime)}",
+                                      style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
                                     Text(
                                       snapshot.data!.data.visitType == "0"
                                           ? "Visit Type: Offline"
                                           : "Visit Type: Online",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
                                     Text(
-                                      "Appointment Status: " +
-                                          snapshot.data!.data.consultingMessage,
-                                      style: TextStyle(
+                                      "Appointment Status: ${snapshot.data!.data.consultingMessage}",
+                                      style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 20,
                                     ),
                                     Stack(
@@ -224,7 +213,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                         Container(
                                           width: double.infinity,
                                           //height: 200,
-                                          margin: EdgeInsets.fromLTRB(
+                                          margin: const EdgeInsets.fromLTRB(
                                               10, 10, 10, 10),
                                           decoration: BoxDecoration(
                                             border: Border.all(
@@ -252,7 +241,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                           top: 0,
                                           child: Container(
                                             color: Colors.white,
-                                            child: Text(
+                                            child: const Text(
                                               'Sick Note',
                                               style: TextStyle(
                                                   color: Colors.black,
@@ -272,38 +261,35 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 15,
                                       ),
                                       Text(
-                                          "Follow Up Date: " +
-                                              DateFormat("yyyy/MM/dd").format(
+                                          "Follow Up Date: ${DateFormat("yyyy/MM/dd").format(
                                                   snapshot.data!.data
-                                                      .bookedDatetime),
-                                          style: TextStyle(
+                                                      .bookedDatetime)}",
+                                          style: const TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w700)),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 15,
                                       ),
                                       Text(
-                                          "Referred Doctor: " +
-                                              snapshot
-                                                  .data!.data.refferedDoctor,
-                                          style: TextStyle(
+                                          "Referred Doctor: ${snapshot
+                                                  .data!.data.refferedDoctor}",
+                                          style: const TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w700)),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 15,
                                       ),
                                       Text(
-                                          "Referred Lab: " +
-                                              snapshot.data!.data.refferedLab,
-                                          style: TextStyle(
+                                          "Referred Lab: ${snapshot.data!.data.refferedLab}",
+                                          style: const TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w700)),
                                     ])
-                              : Center(
+                              : const Center(
                                   child: Text(
                                   "Waiting for Consulting...",
                                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -342,7 +328,10 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                                   )));
                                     });
                                   },
-                                  child: Row(children: [
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(16.0))),
+                                  child: Row(children: const [
                                     SizedBox(
                                       width: 5,
                                     ),
@@ -352,12 +341,9 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                       style: TextStyle(color: Colors.white),
                                     )
                                   ]),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0))),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               SizedBox(
@@ -387,7 +373,10 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                                   )));
                                     });
                                   },
-                                  child: Row(children: [
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(16.0))),
+                                  child: Row(children: const [
                                     SizedBox(
                                       width: 5,
                                     ),
@@ -397,9 +386,6 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                       style: TextStyle(color: Colors.white),
                                     )
                                   ]),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0))),
                                 ),
                               ),
                             ],
@@ -428,7 +414,10 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                   //             )));
                                 });
                               },
-                              child: Row(children: [
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16.0))),
+                              child: Row(children: const [
                                 SizedBox(
                                   width: 8,
                                 ),
@@ -438,13 +427,10 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                   style: TextStyle(color: Colors.white),
                                 )
                               ]),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0))),
                             ),
                           ));
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

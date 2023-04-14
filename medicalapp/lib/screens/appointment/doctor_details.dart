@@ -18,7 +18,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
             Container(
               height: 200,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20),
                   ),
@@ -27,7 +27,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                         color: Colors.blue.withOpacity(0.5),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: Offset(0, 2))
+                        offset: const Offset(0, 2))
                   ],
                   color:Colors.blue[900]),
             ),
@@ -40,14 +40,15 @@ class _DoctorDetailsState extends State<DoctorDetails> {
           child: Container(
             width: 150,
             height: 150,
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.all(5),
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
             ),
-            child: AvatarGlow(
+            child: const AvatarGlow(
               endRadius: 300.0 ,
               glowColor: Colors.blue,
               child: CircleAvatar(
+                        radius: 65,
                         child: ClipOval(
                           child: Image(
                             image:
@@ -59,7 +60,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             height: 140,
                           ),
                         ),
-                        radius: 65,
                       ),
             ),
           ),
@@ -71,7 +71,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
           
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: const [
               Text(
                 "Name",
                 style: TextStyle(fontSize: 20),

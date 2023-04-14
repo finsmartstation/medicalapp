@@ -9,11 +9,9 @@ import 'package:medicalapp/providers/phone_provider.dart';
 import 'package:medicalapp/providers/reportdataVerify.dart';
 import 'package:medicalapp/providers/verifiProfileEdit.dart';
 import 'package:medicalapp/providers/verifiyaddFamilyMembersData.dart';
-import 'package:medicalapp/screens/authScreen/inputMobileNumScreen.dart';
 import 'package:medicalapp/screens/splashScreen/splash_screen.dart';
 import 'package:medicalapp/utility/constants.dart';
 import 'package:provider/provider.dart';
-
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -50,9 +48,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: appName,
         theme: ThemeData(
+          useMaterial3: true,
           primarySwatch: Colors.blue,
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         ),
-        home: SplashScreen());
+        home: const SplashScreen());
   }
 }

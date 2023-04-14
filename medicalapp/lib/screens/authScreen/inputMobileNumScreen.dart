@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:medicalapp/utility/constants.dart';
@@ -13,7 +11,6 @@ import 'package:sms_autofill/sms_autofill.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/phone_provider.dart';
 import '../../service/api_services.dart';
-import '../../utility/colors.dart';
 import 'otpSection.dart';
 
 class InputMobileNumScreen extends StatefulWidget {
@@ -37,22 +34,22 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer2<PhoneProvider, AuthProvider>(
-      builder: (context, p_value, a_value, child) {
+      builder: (context, pValue, aValue, child) {
         return Scaffold(
           backgroundColor: backgroundColor,
           body: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               phoneNumberTextAndImageSection(),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              NumberTextFiled(p_value),
-              Spacer(),
-              SendButton(p_value, context),
-              SizedBox(
+              NumberTextFiled(pValue),
+              const Spacer(),
+              SendButton(pValue, context),
+              const SizedBox(
                 height: 30,
               ),
               Text(
@@ -63,7 +60,7 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
                 "your phone number ",
                 style: TextStyle(color: Colors.grey[600], fontSize: 12),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               )
             ],
@@ -73,7 +70,7 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
     );
   }
 
-  SizedBox SendButton(PhoneProvider p_value, BuildContext context) {
+  SizedBox SendButton(PhoneProvider pValue, BuildContext context) {
     return SizedBox(
       height: 40,
       width: 150,
@@ -85,15 +82,15 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
             ),
           ),
           onPressed: () async {
-            if (p_value.phone.length > 12 && p_value.phone.length < 14) {
+            if (pValue.phone.length > 12 && pValue.phone.length < 14) {
               appSignature = await SmsAutoFill().getAppSignature;
               setState(() {
-                p_value.isValid(true);
+                pValue.isValid(true);
                 isLoading = true;
                 isOver = false;
                 ApiService()
-                    .registerUser(p_value.countryCode, _phone, p_value.type,
-                        p_value.a_id, appSignature.toString())
+                    .registerUser(pValue.countryCode, _phone, pValue.type,
+                        pValue.a_id, appSignature.toString())
                     .then((value) async {
                   print("_________________");
                   print(value.body);
@@ -112,8 +109,8 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
                             },
                             child: Container(
                               color: Colors.blue,
-                              padding: EdgeInsets.all(15),
-                              child: Text(
+                              padding: const EdgeInsets.all(15),
+                              child: const Text(
                                 "okay",
                                 style: TextStyle(color: Colors.white),
                               ),
@@ -133,9 +130,9 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
                   print("___________________");
                   print(otp);
                   print("___________________");
-                  var a_provider =
+                  var aProvider =
                       Provider.of<AuthProvider>(context, listen: false);
-                  a_provider.getDetails(
+                  aProvider.getDetails(
                       jsonVal['data']['user_id'].toString(),
                       jsonVal['data']['otp'].toString(),
                       jsonVal['data']['access_token'].toString());
@@ -144,7 +141,7 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
                   print("token and id");
                   print(aToken);
                   print(uId);
-                  await SmsAutoFill().listenForCode;
+                  SmsAutoFill().listenForCode;
                 });
               });
             }
@@ -156,17 +153,17 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
     );
   }
 
-  Row NumberTextFiled(PhoneProvider p_value) {
+  Row NumberTextFiled(PhoneProvider pValue) {
     return Row(
       children: [
-        Spacer(),
+        const Spacer(),
         SizedBox(
           width: 350,
           child: IntlPhoneField(
               controller: phoneController,
-              style: TextStyle(color: Colors.black),
-              dropdownTextStyle: TextStyle(color: Colors.black),
-              dropdownIcon: Icon(
+              style: const TextStyle(color: Colors.black),
+              dropdownTextStyle: const TextStyle(color: Colors.black),
+              dropdownIcon: const Icon(
                 Icons.arrow_drop_down,
                 color: Colors.grey,
               ),
@@ -176,18 +173,18 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
                 hoverColor: Colors.white,
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.white,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(25.0),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.white,
                   ),
                 ),
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: const BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(50),
                 ),
               ),
@@ -204,13 +201,13 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
                 print(phone.number);
                 print(phoneController.text);
                 if (Device.get().isAndroid) {
-                  p_value.phoneNumber(
+                  pValue.phoneNumber(
                     phone.completeNumber,
                     phone.countryCode.substring(1),
                     'ANDROID',
                   );
                 } else {
-                  p_value.phoneNumber(
+                  pValue.phoneNumber(
                     phone.completeNumber,
                     phone.countryCode.substring(1),
                     'IOS',
@@ -218,7 +215,7 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
                 }
               }),
         ),
-        Spacer(),
+        const Spacer(),
       ],
     );
   }
@@ -234,16 +231,16 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
             color: Colors.white,
           ),
         ),
-        Spacer(),
-        Text(
+        const Spacer(),
+        const Text(
           "Enter your Phone number",
           style: TextStyle(
               color: Colors.blueAccent,
               fontSize: 20,
               fontWeight: FontWeight.bold),
         ),
-        Spacer(),
-        Spacer()
+        const Spacer(),
+        const Spacer()
       ],
     );
   }

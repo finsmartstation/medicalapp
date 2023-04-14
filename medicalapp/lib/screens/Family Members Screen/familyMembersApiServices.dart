@@ -7,11 +7,11 @@ import 'getFamilyMembersDetailsModel.dart';
 
 //get_family_members
 
-Future<GetFamilyMembers> get_family_members(user_id, access_token) async {
-  String url = baseUrl + 'get_family_members';
+Future<GetFamilyMembers> get_family_members(userId, accessToken) async {
+  String url = '${baseUrl}get_family_members';
   var obj = {
-    "user_id": user_id.toString(),
-    "access_token": access_token.toString(),
+    "user_id": userId.toString(),
+    "access_token": accessToken.toString(),
   };
   var respons = await http.post(Uri.parse(url), body: obj);
   return GetFamilyMembers.fromJson(jsonDecode(respons.body));
@@ -19,11 +19,11 @@ Future<GetFamilyMembers> get_family_members(user_id, access_token) async {
 
 //delete family member
 Future<http.Response> delete_family_member(
-    user_id, access_token, familyMemberId) async {
-  String url = baseUrl + 'delete_family_member';
+    userId, accessToken, familyMemberId) async {
+  String url = '${baseUrl}delete_family_member';
   var obj = {
-    'user_id': user_id,
-    'access_token': access_token,
+    'user_id': userId,
+    'access_token': accessToken,
     'id': familyMemberId,
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));

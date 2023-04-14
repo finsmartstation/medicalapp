@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../doctorList/doctorProfileDetails.dart';
@@ -58,7 +56,7 @@ class _DashboardSearchState extends State<DashboardSearch> {
                     onPressed: (() {
                       Navigator.pop(context);
                     }),
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back_ios,
                       color: Colors.black,
                     )),
@@ -77,8 +75,8 @@ class _DashboardSearchState extends State<DashboardSearch> {
                           )),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25),
-                          borderSide: BorderSide(color: Colors.blue)),
-                      suffixIcon: InkWell(
+                          borderSide: const BorderSide(color: Colors.blue)),
+                      suffixIcon: const InkWell(
                         child: Icon(Icons.search),
                       ),
                       contentPadding: const EdgeInsets.all(10.0),
@@ -93,15 +91,15 @@ class _DashboardSearchState extends State<DashboardSearch> {
                 ),
               ),
               body: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    snapshot.data!.data.doctors.length == 0
-                        ? SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 20),
+                    snapshot.data!.data.doctors.isEmpty
+                        ? const SizedBox()
+                        : const Padding(
+                            padding: EdgeInsets.only(left: 20),
                             child: Text(
                               "Doctors",
                               style: TextStyle(
@@ -110,12 +108,12 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                   fontSize: 20),
                             ),
                           ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.data.doctors.length,
                         itemBuilder: (context, index) {
                           return InkWell(
@@ -157,10 +155,10 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                               fit: BoxFit.fill,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           Column(
@@ -169,20 +167,19 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                             children: [
                                               Text(snapshot.data!.data
                                                   .doctors[index].name),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               Row(
                                                 children: [
-                                                  Text("Exp:" +
-                                                      snapshot
+                                                  Text("Exp:${snapshot
                                                           .data!
                                                           .data
                                                           .doctors[index]
-                                                          .experience),
+                                                          .experience}"),
                                                 ],
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               SizedBox(
@@ -198,7 +195,7 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               SizedBox(
@@ -225,10 +222,10 @@ class _DashboardSearchState extends State<DashboardSearch> {
                             ),
                           );
                         }),
-                    snapshot.data!.data.hospital.length == 0
-                        ? SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 20),
+                    snapshot.data!.data.hospital.isEmpty
+                        ? const SizedBox()
+                        : const Padding(
+                            padding: EdgeInsets.only(left: 20),
                             child: Text(
                               "Hospitals",
                               style: TextStyle(
@@ -237,12 +234,12 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                   fontSize: 20),
                             ),
                           ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     ListView.builder(
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: snapshot.data!.data.hospital.length,
                         itemBuilder: (context, index) {
                           return InkWell(
@@ -273,10 +270,10 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                               fit: BoxFit.fill,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           Column(
@@ -285,7 +282,7 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                             children: [
                                               Text(snapshot.data!.data
                                                   .hospital[index].name),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               SizedBox(
@@ -315,10 +312,10 @@ class _DashboardSearchState extends State<DashboardSearch> {
                             ),
                           );
                         }),
-                    snapshot.data!.data.lab.length == 0
-                        ? SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 20),
+                    snapshot.data!.data.lab.isEmpty
+                        ? const SizedBox()
+                        : const Padding(
+                            padding: EdgeInsets.only(left: 20),
                             child: Text(
                               "Lab",
                               style: TextStyle(
@@ -327,11 +324,11 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                   fontSize: 20),
                             ),
                           ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data!.data.lab.length,
                         itemBuilder: (context, index) {
@@ -365,7 +362,7 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                           ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(15.0),
-                                            child: Image(
+                                            child: const Image(
                                               height: 110,
                                               width: 110,
                                               image: CachedNetworkImageProvider(
@@ -373,10 +370,10 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                               fit: BoxFit.fill,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           Column(
@@ -385,18 +382,18 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                             children: [
                                               Text(snapshot
                                                   .data!.data.lab[index].name),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               Row(
-                                                children: [
+                                                children: const [
                                                   Text("Experience:"),
                                                 ],
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 200,
                                                 child: Text(
                                                   "organisation",
@@ -405,10 +402,10 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 200,
                                                 child: Text(
                                                   "specialization",
@@ -431,10 +428,10 @@ class _DashboardSearchState extends State<DashboardSearch> {
                             ),
                           );
                         }),
-                    snapshot.data!.data.pharmacy.length == 0
-                        ? SizedBox()
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 20),
+                    snapshot.data!.data.pharmacy.isEmpty
+                        ? const SizedBox()
+                        : const Padding(
+                            padding: EdgeInsets.only(left: 20),
                             child: Text(
                               "Pharmacy",
                               style: TextStyle(
@@ -443,11 +440,11 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                   fontSize: 20),
                             ),
                           ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data!.data.pharmacy.length,
                         itemBuilder: (context, index) {
@@ -481,7 +478,7 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                           ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(15.0),
-                                            child: Image(
+                                            child: const Image(
                                               height: 110,
                                               width: 110,
                                               image: CachedNetworkImageProvider(
@@ -489,10 +486,10 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                               fit: BoxFit.fill,
                                             ),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 10,
                                           ),
                                           Column(
@@ -501,18 +498,18 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                             children: [
                                               Text(snapshot.data!.data
                                                   .pharmacy[index].name),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               Row(
-                                                children: [
+                                                children: const [
                                                   Text("Experience:"),
                                                 ],
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 200,
                                                 child: Text(
                                                   "organisation",
@@ -521,10 +518,10 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 200,
                                                 child: Text(
                                                   "specialization",
@@ -553,7 +550,7 @@ class _DashboardSearchState extends State<DashboardSearch> {
             ),
           );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );

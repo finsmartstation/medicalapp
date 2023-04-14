@@ -26,15 +26,17 @@ class _MyAppointmentState extends State<MyAppointment> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Complete Your profile'),
-          content: Text('Please complete your profile to get access'),
+          title: const Text('Complete Your profile'),
+          content: const Text('Please complete your profile to get access'),
           actions: [
             ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => NewUserProfile()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NewUserProfile()));
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -65,6 +67,7 @@ class _MyAppointmentState extends State<MyAppointment> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
@@ -77,7 +80,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                           family_member_id: widget.family_member_id,
                         )));
           }),
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
         appBar: AppBar(
           leading: IconButton(
@@ -88,7 +91,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                 Icons.arrow_back_ios,
                 color: Colors.black,
               )),
-          title: Text(
+          title: const Text(
             "My Appointment",
             style: TextStyle(color: Colors.black),
           ),
@@ -108,7 +111,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                     if (snapshot.hasData) {
                       return snapshot.data!.previousData.isEmpty &&
                               snapshot.data!.upcommingData.isEmpty
-                          ? Center(
+                          ? const Center(
                               child: Text(
                                 "No appointments",
                                 style: TextStyle(
@@ -139,13 +142,13 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                     filterButtonIndex = "0";
                                                   });
                                                 }),
-                                                child: Text(
+                                                child: const Text(
                                                   "Upcoming",
                                                   style: TextStyle(
                                                       color: Colors.black),
                                                 )),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 60,
                                           ),
                                           SizedBox(
@@ -163,7 +166,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                     filterButtonIndex = "1";
                                                   });
                                                 }),
-                                                child: Text(
+                                                child: const Text(
                                                   "Previous",
                                                   style: TextStyle(
                                                       color: Colors.black),
@@ -175,7 +178,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                           ? Expanded(
                                               child: ListView.builder(
                                                   physics:
-                                                      BouncingScrollPhysics(),
+                                                      const BouncingScrollPhysics(),
                                                   itemCount: snapshot.data!
                                                       .upcommingData.length,
                                                   itemBuilder:
@@ -240,7 +243,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                             child:
                                                                                 Text(
                                                                               "Dr.${snapshot.data!.upcommingData[index].doctorName}",
-                                                                              style: TextStyle(fontSize: 20),
+                                                                              style: const TextStyle(fontSize: 20),
                                                                             ),
                                                                           ),
                                                                         ],
@@ -248,18 +251,17 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                       Column(
                                                                         children: [
                                                                           Text(
-                                                                            "Status: " +
-                                                                                snapshot.data!.upcommingData[index].consultingMessage.toString(),
+                                                                            "Status: ${snapshot.data!.upcommingData[index].consultingMessage}",
                                                                             style:
-                                                                                TextStyle(fontWeight: FontWeight.w700),
+                                                                                const TextStyle(fontWeight: FontWeight.w700),
                                                                           )
                                                                         ],
                                                                       ),
-                                                                      SizedBox(
+                                                                      const SizedBox(
                                                                         height:
                                                                             10,
                                                                       ),
-                                                                      Container(
+                                                                      SizedBox(
                                                                         width:
                                                                             350,
                                                                         child:
@@ -276,13 +278,13 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                       ),
                                                                     ],
                                                                   ),
-                                                                  Divider(
+                                                                  const Divider(
                                                                     color: Colors
                                                                         .grey,
                                                                   ),
                                                                   Row(
                                                                     children: [
-                                                                      Icon(
+                                                                      const Icon(
                                                                         Icons
                                                                             .calendar_month,
                                                                         color: Colors
@@ -293,11 +295,11 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                             .data!
                                                                             .upcommingData[index]
                                                                             .bookedFor),
-                                                                        style: TextStyle(
+                                                                        style: const TextStyle(
                                                                             color:
                                                                                 Colors.grey),
                                                                       ),
-                                                                      Spacer(),
+                                                                      const Spacer(),
                                                                       Text(snapshot.data!.upcommingData[index].visitType ==
                                                                               "0"
                                                                           ? "Visit type: Offline"
@@ -314,7 +316,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                           : Expanded(
                                               child: ListView.builder(
                                                   physics:
-                                                      BouncingScrollPhysics(),
+                                                      const BouncingScrollPhysics(),
                                                   itemCount: snapshot.data!
                                                       .previousData.length,
                                                   itemBuilder:
@@ -379,7 +381,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                             child:
                                                                                 Text(
                                                                               "Dr.${snapshot.data!.previousData[index].doctorName}",
-                                                                              style: TextStyle(fontSize: 20),
+                                                                              style: const TextStyle(fontSize: 20),
                                                                             ),
                                                                           ),
                                                                         ],
@@ -387,18 +389,17 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                       Column(
                                                                         children: [
                                                                           Text(
-                                                                            "Status: " +
-                                                                                snapshot.data!.previousData[index].consultingMessage.toString(),
+                                                                            "Status: ${snapshot.data!.previousData[index].consultingMessage}",
                                                                             style:
-                                                                                TextStyle(fontWeight: FontWeight.w700),
+                                                                                const TextStyle(fontWeight: FontWeight.w700),
                                                                           )
                                                                         ],
                                                                       ),
-                                                                      SizedBox(
+                                                                      const SizedBox(
                                                                         height:
                                                                             10,
                                                                       ),
-                                                                      Container(
+                                                                      SizedBox(
                                                                         width:
                                                                             350,
                                                                         child:
@@ -415,13 +416,13 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                       ),
                                                                     ],
                                                                   ),
-                                                                  Divider(
+                                                                  const Divider(
                                                                     color: Colors
                                                                         .grey,
                                                                   ),
                                                                   Row(
                                                                     children: [
-                                                                      Icon(
+                                                                      const Icon(
                                                                         Icons
                                                                             .calendar_month,
                                                                         color: Colors
@@ -432,11 +433,11 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                             .data!
                                                                             .previousData[index]
                                                                             .bookedFor),
-                                                                        style: TextStyle(
+                                                                        style: const TextStyle(
                                                                             color:
                                                                                 Colors.grey),
                                                                       ),
-                                                                      Spacer(),
+                                                                      const Spacer(),
                                                                       Text(snapshot.data!.previousData[index].visitType ==
                                                                               "0"
                                                                           ? "Visit type: Offline"
@@ -464,18 +465,19 @@ class _MyAppointmentState extends State<MyAppointment> {
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.blue),
                                             onPressed: (() {}),
-                                            child: Text(
+                                            child: const Text(
                                               "Upcoming",
                                               style: TextStyle(
                                                   color: Colors.black),
                                             )),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 15,
                                       ),
                                       Expanded(
                                         child: ListView.builder(
-                                            physics: BouncingScrollPhysics(),
+                                            physics:
+                                                const BouncingScrollPhysics(),
                                             itemCount: snapshot
                                                 .data!.upcommingData.length,
                                             itemBuilder: (context, index) {
@@ -533,7 +535,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                     },
                                                                     child: Text(
                                                                       "Dr.${snapshot.data!.upcommingData[index].doctorName}",
-                                                                      style: TextStyle(
+                                                                      style: const TextStyle(
                                                                           fontSize:
                                                                               20),
                                                                     ),
@@ -543,22 +545,17 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                               Column(
                                                                 children: [
                                                                   Text(
-                                                                    "Status: " +
-                                                                        snapshot
-                                                                            .data!
-                                                                            .upcommingData[index]
-                                                                            .consultingMessage
-                                                                            .toString(),
-                                                                    style: TextStyle(
+                                                                    "Status: ${snapshot.data!.upcommingData[index].consultingMessage}",
+                                                                    style: const TextStyle(
                                                                         fontWeight:
                                                                             FontWeight.w700),
                                                                   )
                                                                 ],
                                                               ),
-                                                              SizedBox(
+                                                              const SizedBox(
                                                                 height: 10,
                                                               ),
-                                                              Container(
+                                                              SizedBox(
                                                                 width: 350,
                                                                 child: Text(
                                                                   snapshot
@@ -574,12 +571,12 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                               ),
                                                             ],
                                                           ),
-                                                          Divider(
+                                                          const Divider(
                                                             color: Colors.grey,
                                                           ),
                                                           Row(
                                                             children: [
-                                                              Icon(
+                                                              const Icon(
                                                                 Icons
                                                                     .calendar_month,
                                                                 color:
@@ -593,11 +590,11 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                         .upcommingData[
                                                                             index]
                                                                         .bookedFor),
-                                                                style: TextStyle(
+                                                                style: const TextStyle(
                                                                     color: Colors
                                                                         .grey),
                                                               ),
-                                                              Spacer(),
+                                                              const Spacer(),
                                                               Text(snapshot
                                                                           .data!
                                                                           .upcommingData[
@@ -624,18 +621,19 @@ class _MyAppointmentState extends State<MyAppointment> {
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor: Colors.blue),
                                             onPressed: (() {}),
-                                            child: Text(
+                                            child: const Text(
                                               "Previous",
                                               style: TextStyle(
                                                   color: Colors.black),
                                             )),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 15,
                                       ),
                                       Expanded(
                                         child: ListView.builder(
-                                            physics: BouncingScrollPhysics(),
+                                            physics:
+                                                const BouncingScrollPhysics(),
                                             itemCount: snapshot
                                                 .data!.previousData.length,
                                             itemBuilder: (context, index) {
@@ -693,7 +691,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                     },
                                                                     child: Text(
                                                                       "Dr.${snapshot.data!.previousData[index].doctorName}",
-                                                                      style: TextStyle(
+                                                                      style: const TextStyle(
                                                                           fontSize:
                                                                               20),
                                                                     ),
@@ -703,22 +701,17 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                               Column(
                                                                 children: [
                                                                   Text(
-                                                                    "Status: " +
-                                                                        snapshot
-                                                                            .data!
-                                                                            .previousData[index]
-                                                                            .consultingMessage
-                                                                            .toString(),
-                                                                    style: TextStyle(
+                                                                    "Status: ${snapshot.data!.previousData[index].consultingMessage}",
+                                                                    style: const TextStyle(
                                                                         fontWeight:
                                                                             FontWeight.w700),
                                                                   )
                                                                 ],
                                                               ),
-                                                              SizedBox(
+                                                              const SizedBox(
                                                                 height: 10,
                                                               ),
-                                                              Container(
+                                                              SizedBox(
                                                                 width: 350,
                                                                 child: Text(
                                                                   snapshot
@@ -734,12 +727,12 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                               ),
                                                             ],
                                                           ),
-                                                          Divider(
+                                                          const Divider(
                                                             color: Colors.grey,
                                                           ),
                                                           Row(
                                                             children: [
-                                                              Icon(
+                                                              const Icon(
                                                                 Icons
                                                                     .calendar_month,
                                                                 color:
@@ -753,11 +746,11 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                         .previousData[
                                                                             index]
                                                                         .bookedFor),
-                                                                style: TextStyle(
+                                                                style: const TextStyle(
                                                                     color: Colors
                                                                         .grey),
                                                               ),
-                                                              Spacer(),
+                                                              const Spacer(),
                                                               Text(snapshot
                                                                           .data!
                                                                           .previousData[
@@ -776,7 +769,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                       )
                                     ]));
                     } else {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }

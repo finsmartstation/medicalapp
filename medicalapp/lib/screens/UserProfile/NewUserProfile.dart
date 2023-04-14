@@ -97,7 +97,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                       Icons.arrow_back,
                       color: Colors.black,
                     )),
-                title: Text(
+                title: const Text(
                   "Profile",
                   style: TextStyle(color: Colors.black),
                 ),
@@ -105,7 +105,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               ),
               body: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
                       Center(
@@ -117,7 +117,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                 Container(
                                     width: 150,
                                     height: 150,
-                                    padding: EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border:
@@ -142,7 +142,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                               child: Container(
                                 height: 40,
                                 width: 40,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.blue,
                                 ),
@@ -346,11 +346,11 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                                             }
                                                           },
                                                           icon:
-                                                              Icon(Icons.image),
+                                                              const Icon(Icons.image),
                                                           color: Colors.blue,
                                                         ),
                                                       ),
-                                                      Text('Gallery')
+                                                      const Text('Gallery')
                                                     ],
                                                   ))
                                                 ],
@@ -361,7 +361,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                       },
                                     );
                                   },
-                                  icon: Icon(Icons.camera_alt_rounded),
+                                  icon: const Icon(Icons.camera_alt_rounded),
                                   color: Colors.white,
                                 ),
                               ),
@@ -407,7 +407,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                   hintText: "Email")),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       Padding(
@@ -419,7 +419,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                             focusNode: dobFocusNode,
                             controller:
                                 patientDetailProvider.dateOfBirthCondroller,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 contentPadding: EdgeInsets.all(5),
                                 border: OutlineInputBorder(
                                     borderRadius:
@@ -455,9 +455,9 @@ class _NewUserProfileState extends State<NewUserProfile> {
                       Center(
                           child: Text(
                         verifyData.verifyDob,
-                        style: TextStyle(color: Colors.red),
+                        style: const TextStyle(color: Colors.red),
                       )),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Padding(
@@ -488,7 +488,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                     Center(
                                         child: Text(
                                       verifyData.verifyHight,
-                                      style: TextStyle(color: Colors.red),
+                                      style: const TextStyle(color: Colors.red),
                                     )),
                                   ],
                                 ),
@@ -513,7 +513,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                   Center(
                                       child: Text(
                                     verifyData.verifyWeight,
-                                    style: TextStyle(color: Colors.red),
+                                    style: const TextStyle(color: Colors.red),
                                   )),
                                 ],
                               ),
@@ -521,7 +521,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       SizedBox(
@@ -534,7 +534,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                               'Blood Group:',
                               style: TextStyle(fontSize: 18),
                             )),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             SizedBox(
@@ -566,14 +566,14 @@ class _NewUserProfileState extends State<NewUserProfile> {
                       Center(
                           child: Text(
                         verifyData.verifyBlood,
-                        style: TextStyle(color: Colors.red),
+                        style: const TextStyle(color: Colors.red),
                       )),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Column(
                         children: [
-                          Text(
+                          const Text(
                             'Choose your Gender',
                             style: TextStyle(fontSize: 18),
                           ),
@@ -588,7 +588,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                       patientDetailProvider.gender = value;
                                     }); //selected value
                                   }),
-                              Text('Male'),
+                              const Text('Male'),
                               Radio(
                                   value: "female",
                                   groupValue: patientDetailProvider.gender,
@@ -598,7 +598,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                           value.toString();
                                     }); //selected value
                                   }),
-                              Text('Female'),
+                              const Text('Female'),
                               Radio(
                                   value: "others",
                                   groupValue: patientDetailProvider.gender,
@@ -608,12 +608,12 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                           value.toString();
                                     }); //selected value
                                   }),
-                              Text('Others'),
+                              const Text('Others'),
                             ],
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       ElevatedButton(
@@ -738,7 +738,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                               }
                             });
                           }),
-                          child: Text("Submit"))
+                          child: const Text("Submit"))
                     ],
                   )),
             ),

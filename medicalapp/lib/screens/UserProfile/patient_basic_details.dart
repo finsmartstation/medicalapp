@@ -33,7 +33,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
   }
 
   Location location = Location();
-  bool _serviceEnabled = false;
+  final bool _serviceEnabled = false;
   bool nameEmpty = false;
   bool emailEmpty = false;
   String gender = "";
@@ -163,14 +163,14 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
           backgroundColor: Colors.white,
           resizeToAvoidBottomInset: true,
           body: Consumer2<AuthProvider, VerifyNewUserProfileData>(
-              builder: (context, a_value, verifyNewUserProfileData, child) {
+              builder: (context, aValue, verifyNewUserProfileData, child) {
             return SingleChildScrollView(
               child: Column(
                 children: [
                   Container(
                     height: 250,
                     width: double.infinity,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                     ),
                     child: Image.asset(profile_top_gs_Croped, fit: BoxFit.fill),
@@ -185,13 +185,13 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                 ? Container(
                                     width: 200,
                                     height: 200,
-                                    padding: EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border:
                                           Border.all(color: Colors.blueAccent),
                                     ),
-                                    child: Image(
+                                    child: const Image(
                                       height: 100,
                                       width: 100,
                                       image: NetworkImage(
@@ -202,7 +202,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                 : Container(
                                     width: 200,
                                     height: 200,
-                                    padding: EdgeInsets.all(5),
+                                    padding: const EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border:
@@ -220,7 +220,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
+                                  const BorderRadius.all(Radius.circular(30)),
                               color: Colors.blue.shade900),
                           child: IconButton(
                             onPressed: () {
@@ -243,7 +243,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
-                                          children: [
+                                          children: const [
                                             Text(
                                               "Profile picture",
                                               style: TextStyle(
@@ -251,7 +251,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                             )
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 20,
                                         ),
                                         Row(
@@ -266,7 +266,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    decoration: BoxDecoration(
+                                                    decoration: const BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius.all(
                                                                 Radius.circular(
@@ -278,12 +278,12 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                                         _ImageButton(
                                                             ImageSource.camera);
                                                       },
-                                                      icon: Icon(Icons
+                                                      icon: const Icon(Icons
                                                           .camera_alt_rounded),
                                                       color: Colors.blue,
                                                     ),
                                                   ),
-                                                  Text("Camera"),
+                                                  const Text("Camera"),
                                                 ],
                                               ),
                                             ),
@@ -296,7 +296,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    decoration: BoxDecoration(
+                                                    decoration: const BoxDecoration(
                                                         borderRadius:
                                                             BorderRadius.all(
                                                                 Radius.circular(
@@ -308,11 +308,11 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                                         _ImageButton(ImageSource
                                                             .gallery);
                                                       },
-                                                      icon: Icon(Icons.image),
+                                                      icon: const Icon(Icons.image),
                                                       color: Colors.blue,
                                                     ),
                                                   ),
-                                                  Text('Gallery')
+                                                  const Text('Gallery')
                                                 ],
                                               ),
                                             )
@@ -324,7 +324,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                 },
                               );
                             },
-                            icon: Icon(Icons.camera_alt_rounded),
+                            icon: const Icon(Icons.camera_alt_rounded),
                             color: Colors.white,
                           ),
                         ),
@@ -334,7 +334,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                   Center(
                     child: Text(
                       verifyNewUserProfileData.verifyprofile,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ),
                   SizedBox(
@@ -372,7 +372,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                   ),
                   Text(
                     verifyNewUserProfileData.verifyname,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
                   //SizedBox(height: 10),
                   SizedBox(
@@ -410,14 +410,14 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                   ),
                   Text(
                     verifyNewUserProfileData.verifyemail,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Column(
                     children: [
-                      Text('Choose your Gender'),
+                      const Text('Choose your Gender'),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -429,7 +429,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                   gender = value!;
                                 }); //selected value
                               }),
-                          Text('Male'),
+                          const Text('Male'),
                           Radio(
                               value: "female",
                               groupValue: gender,
@@ -438,7 +438,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                   gender = value!;
                                 }); //selected value
                               }),
-                          Text('Female'),
+                          const Text('Female'),
                           Radio(
                               value: "others",
                               groupValue: gender,
@@ -447,14 +447,14 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                   gender = value!;
                                 }); //selected value
                               }),
-                          Text('Others'),
+                          const Text('Others'),
                         ],
                       ),
                     ],
                   ),
                   Text(
                     verifyNewUserProfileData.verifygender,
-                    style: TextStyle(color: Colors.red),
+                    style: const TextStyle(color: Colors.red),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height / 14),
                   SizedBox(
@@ -495,7 +495,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                               emailbool == true &&
                               genderbool == true) {
                             ApiService()
-                                .file_upload(a_value.u_id, a_value.access_token,
+                                .file_upload(aValue.u_id, aValue.access_token,
                                     imageFile!.path)
                                 .then(
                               (value) {
@@ -506,8 +506,8 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                     var path = jsonDecode(event);
                                     profilePic = path['file_path'];
                                     patient_profile_details(
-                                            a_value.u_id,
-                                            a_value.access_token,
+                                            aValue.u_id,
+                                            aValue.access_token,
                                             gender,
                                             emailController.text,
                                             nameController.text,
@@ -586,9 +586,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
   }
 
   _ImageButton(
-    ImageSource source, {
-    BuildContext? context,
-  }) async {
+    ImageSource source) async {
     XFile? pickedFile = await _picker.pickImage(
       source: source,
       maxWidth: 1800,

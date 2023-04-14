@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
@@ -21,11 +20,11 @@ class _ReportFileScreenState extends State<ReportFileScreen> {
             onPressed: (() {
               Navigator.pop(context);
             }),
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
             )),
-        title: Text(
+        title: const Text(
           "File",
           style: TextStyle(color: Colors.black),
         ),

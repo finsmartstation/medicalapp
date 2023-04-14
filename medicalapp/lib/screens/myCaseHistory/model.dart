@@ -2,7 +2,6 @@
 //
 //     final listCaseHistory = listCaseHistoryFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class ListCaseHistory {
@@ -28,7 +27,8 @@ class ListCaseHistory {
         status: json["status"],
         statuscode: json["statuscode"],
         message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<Datum>.from(
+            json["data"].map((dynamic datumJson) => Datum.fromJson(datumJson))),
       );
 
   Map<String, dynamic> toJson() => {

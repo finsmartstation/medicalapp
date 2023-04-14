@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class GetpetientDetails with ChangeNotifier {
@@ -27,7 +25,7 @@ class GetpetientDetails with ChangeNotifier {
   //   }
   // }
 
-  fetchdata(user_id, access_token) async {
+  fetchdata(userId, accessToken) async {
     // final Data =
     //     await patient_details(user_id, access_token).then((value) async {
     //   username = value.data.username.toString(); 

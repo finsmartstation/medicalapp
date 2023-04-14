@@ -40,11 +40,11 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
             onPressed: (() {
               Navigator.pop(context);
             }),
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios_new,
               color: Colors.black,
             )),
-        title: Text(
+        title: const Text(
           "My Family Members",
           style: TextStyle(color: Colors.black),
         ),
@@ -58,7 +58,7 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
               print(snapshot.data!.data);
               return ListView.builder(
                 itemCount: snapshot.data!.data.length,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -106,7 +106,7 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
                                   children: [
                                     Text(snapshot.data!.data[index].username
                                         .toString()),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
                                     // Text(snapshot.data!.data[index].emailId
@@ -119,28 +119,28 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
                                   ],
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               index == 0
-                                  ? Spacer()
+                                  ? const Spacer()
                                   : IconButton(
                                       onPressed: (() {
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              title: Text(
+                                              title: const Text(
                                                   "Delete This Family Member?"),
-                                              content: Text(
+                                              content: const Text(
                                                   "This will delete the Family Member and Member all Details."),
                                               actions: <Widget>[
                                                 TextButton(
-                                                  child: Text("Cancel"),
+                                                  child: const Text("Cancel"),
                                                   onPressed: () {
                                                     Navigator.of(context).pop();
                                                   },
                                                 ),
                                                 TextButton(
-                                                  child: Text("OK"),
+                                                  child: const Text("OK"),
                                                   onPressed: () {
                                                     delete_family_member(
                                                             user_id,
@@ -187,7 +187,7 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
                                           },
                                         );
                                       }),
-                                      icon: Icon(Icons.delete_outline)),
+                                      icon: const Icon(Icons.delete_outline)),
                             ],
                           ),
                         ),
@@ -197,13 +197,13 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
                 },
               );
             } else {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => AddFamilyMember()));
+              MaterialPageRoute(builder: (context) => const AddFamilyMember()));
         },
         backgroundColor: Colors.blue[900],
         child: const Icon(Icons.add),

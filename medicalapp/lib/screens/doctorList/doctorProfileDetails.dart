@@ -10,7 +10,7 @@ class DoctorProfileDetails extends StatefulWidget {
   String? family_member_id;
   String? doctorId;
   DoctorProfileDetails(
-      {Key? key, required this.family_member_id, required this.doctorId});
+      {super.key, required this.family_member_id, required this.doctorId});
 
   @override
   State<DoctorProfileDetails> createState() => _DoctorProfileDetailsState();
@@ -67,16 +67,16 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                 image: NetworkImage(
                                     snapshot.data!.data.profilePic),
                                 fit: BoxFit.cover),
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 bottomLeft: Radius.circular(20),
                                 bottomRight: Radius.circular(20))),
                         child: Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                                 colors: [
-                                  Color(0xFF0C84FF).withOpacity(0.9),
-                                  Color(0xFF0C84FF).withOpacity(0),
-                                  Color(0xFF0C84FF).withOpacity(0)
+                                  const Color(0xFF0C84FF).withOpacity(0.9),
+                                  const Color(0xFF0C84FF).withOpacity(0),
+                                  const Color(0xFF0C84FF).withOpacity(0)
                                 ],
                                 begin: Alignment.bottomCenter,
                                 end: Alignment.topCenter),
@@ -86,14 +86,14 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     top: 30, left: 10, right: 10),
                                 child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        margin: EdgeInsets.all(8),
+                                        margin: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
@@ -106,13 +106,13 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                             onPressed: () {
                                               Navigator.pop(context, "refresh");
                                             },
-                                            icon: Icon(Icons.arrow_back_ios),
+                                            icon: const Icon(Icons.arrow_back_ios),
                                             color: Colors.black,
                                           ),
                                         ),
                                       ),
                                       Container(
-                                        margin: EdgeInsets.all(8),
+                                        margin: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
@@ -151,7 +151,7 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                                       });
                                                     });
                                                   },
-                                                  icon: Icon(
+                                                  icon: const Icon(
                                                     Icons.favorite,
                                                     color: Colors.red,
                                                     size: 25,
@@ -185,7 +185,7 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                                       });
                                                     });
                                                   },
-                                                  icon: Icon(Icons.favorite,
+                                                  icon: const Icon(Icons.favorite,
                                                       color: Colors.grey,
                                                       size: 25)),
                                         ),
@@ -203,19 +203,19 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Patients",
                                           style: TextStyle(
                                               fontSize: 27,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 8,
                                         ),
                                         Text(
                                           snapshot.data!.data.patientCount,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w800,
                                               color: Colors.white),
@@ -226,21 +226,19 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Experience",
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 8,
                                         ),
                                         Text(
-                                          snapshot.data!.data.experience
-                                                  .toString() +
-                                              "yr",
-                                          style: TextStyle(
+                                          "${snapshot.data!.data.experience}yr",
+                                          style: const TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w800,
                                               color: Colors.white),
@@ -251,19 +249,19 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(
+                                        const Text(
                                           "Rating",
                                           style: TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 8,
                                         ),
                                         Text(
                                           snapshot.data!.data.rating.toString(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.w800,
                                               color: Colors.white),
@@ -277,7 +275,7 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Padding(
@@ -288,29 +286,29 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                           children: [
                             Text(
                               snapshot.data!.data.doctorName,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 28,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.blue),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Text(
-                              "Designation:" + snapshot.data!.data.designation,
+                              "Designation:${snapshot.data!.data.designation}",
                               style: TextStyle(
                                   fontSize: 17, color: Colors.blue.shade500),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.heart_broken_outlined,
                                   color: Colors.red,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 Text(
@@ -321,21 +319,19 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                 )
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Text(
-                              "Consulting Fee: " +
-                                  snapshot.data!.data.consultingFee,
+                              "Consulting Fee: ${snapshot.data!.data.consultingFee}",
                               style: TextStyle(
                                   fontSize: 17, color: Colors.blue.shade500),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Text(
-                              "Organization:" +
-                                  snapshot.data!.data.organisation,
+                              "Organization:${snapshot.data!.data.organisation}",
                               style: TextStyle(
                                   fontSize: 17, color: Colors.blue.shade500),
                             ),
@@ -363,8 +359,8 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                   }
                                 });
                               },
-                              label: Text('Add as Family Doctor'),
-                              icon: Icon(
+                              label: const Text('Add as Family Doctor'),
+                              icon: const Icon(
                                 Icons.family_restroom,
                                 color: Colors.white,
                               ),
@@ -385,8 +381,8 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                   }
                                 });
                               },
-                              label: Text('Remove Family Doctor'),
-                              icon: Icon(Icons.family_restroom),
+                              label: const Text('Remove Family Doctor'),
+                              icon: const Icon(Icons.family_restroom),
                             ),
                           ),
                     Positioned(
@@ -413,16 +409,16 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                                     .data!.data.organisation,
                                               )));
                                 },
-                                label: Text('Book appointment'),
+                                label: const Text('Book appointment'),
                               )
                             : FloatingActionButton.extended(
                                 onPressed: () {},
-                                label: Text('Appointment Not Available'),
+                                label: const Text('Appointment Not Available'),
                               )),
                   ],
                 ));
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

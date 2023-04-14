@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,7 +64,7 @@ class _NearbyHospitalState extends State<NearbyHospital> {
               Icons.arrow_back,
               color: Colors.black,
             )),
-        title: Text(
+        title: const Text(
           'Hospital List',
           style: TextStyle(color: Colors.black),
         ),
@@ -97,7 +96,7 @@ class _NearbyHospitalState extends State<NearbyHospital> {
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.blue),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
+                                    const BorderRadius.all(Radius.circular(20))),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Row(
@@ -116,7 +115,7 @@ class _NearbyHospitalState extends State<NearbyHospital> {
                                                   image: hospitalList[index]
                                                               ['profile_pic'] ==
                                                           ''
-                                                      ? CachedNetworkImageProvider(
+                                                      ? const CachedNetworkImageProvider(
                                                           "https://cdn-icons-png.flaticon.com/512/147/147285.png")
                                                       : CachedNetworkImageProvider(
                                                           hospitalList[index]
@@ -127,17 +126,17 @@ class _NearbyHospitalState extends State<NearbyHospital> {
                                         ],
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 20,
                                     ),
                                     Container(
                                       width: 5,
                                       height: 100,
                                       decoration:
-                                          BoxDecoration(color: Colors.blue),
+                                          const BoxDecoration(color: Colors.blue),
                                       child: Column(),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 20,
                                     ),
                                     // SizedBox(width: 20,),
@@ -147,15 +146,15 @@ class _NearbyHospitalState extends State<NearbyHospital> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(hospitalList[index]['username']),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Text(hospitalList[index]['email']),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Text(hospitalList[index]['mobile']),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Row(
@@ -164,7 +163,7 @@ class _NearbyHospitalState extends State<NearbyHospital> {
                                               //SizedBox(width: 5,),
                                               Text(hospitalList[index]
                                                   ['latitude']),
-                                              SizedBox(
+                                              const SizedBox(
                                                 width: 5,
                                               ),
                                               Text(hospitalList[index]
@@ -181,7 +180,7 @@ class _NearbyHospitalState extends State<NearbyHospital> {
                       }),
                 );
               } else {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }

@@ -5,12 +5,12 @@ import '../../utility/constants.dart';
 import 'listfamilymodel.dart';
 
 Future<ListFavouriteFamilyDoctors> listFamilyAndFavoriteDoctors(
-    user_id, access_token, family_member_id) async {
-  String url = baseUrl + 'list_favourite_family_doctors';
+    userId, accessToken, familyMemberId) async {
+  String url = '${baseUrl}list_favourite_family_doctors';
   var obj = {
-    "user_id": user_id,
-    "access_token": access_token,
-    "family_member_id": family_member_id,
+    "user_id": userId,
+    "access_token": accessToken,
+    "family_member_id": familyMemberId,
   };
   var respons = await http.post(
     Uri.parse(url),

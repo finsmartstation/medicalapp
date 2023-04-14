@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
 
 import '../../utility/constants.dart';
@@ -41,7 +39,7 @@ class _MyReportDateFoldersState extends State<MyReportDateFolders> {
                   onPressed: (() {
                     Navigator.pop(context);
                   }),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios,
                     color: Colors.black,
                   )),
@@ -93,7 +91,7 @@ class _MyReportDateFoldersState extends State<MyReportDateFolders> {
             ),
           );
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }

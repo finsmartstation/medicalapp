@@ -3,7 +3,6 @@
 //     final patientBookSlotHistory = patientBookSlotHistoryFromJson(jsonString);
 
 import 'package:intl/intl.dart';
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class PatientBookSlotHistory {
@@ -33,11 +32,11 @@ class PatientBookSlotHistory {
   factory PatientBookSlotHistory.fromJson(Map<String, dynamic> json) =>
       PatientBookSlotHistory(
         loginStatus: json["login_status"].toString(),
-        upcommingData: List<Datum>.from(
-            json["upcomming_data"].map((x) => Datum.fromJson(x))),
+        upcommingData: List<Datum>.from(json["upcomming_data"]
+            .map((datumJson) => Datum.fromJson(datumJson as dynamic))),
         upcommingMessage: json["upcomming_message"],
-        previousData: List<Datum>.from(
-            json["previous_data"].map((x) => Datum.fromJson(x))),
+        previousData: List<Datum>.from(json["previous_data"]
+            .map((datumJson) => Datum.fromJson(datumJson as dynamic))),
         previousMessage: json["previous_message"],
         status: json["status"],
         statuscode: json["statuscode"],
@@ -152,8 +151,8 @@ class Data {
   String toRawJson() => json.encode(toJson());
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        date: List<Date>.from(json["date"].map((x) => Date.fromJson(x))),
-        slots: List<Slot>.from(json["slots"].map((x) => Slot.fromJson(x))),
+        date: List<Date>.from(json["date"].map(Date.fromJson)),
+        slots: List<Slot>.from(json["slots"].map(Slot.fromJson)),
       );
 
   Map<String, dynamic> toJson() => {

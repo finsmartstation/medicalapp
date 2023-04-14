@@ -37,7 +37,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
   String? access_token;
   String? user_id;
   String family_member_id = "";
-  PageController _StickerController = PageController(initialPage: 0);
+  final PageController _StickerController = PageController(initialPage: 0);
 
   Future<void> _showDialog() async {
     await Future.delayed(Duration.zero, () {
@@ -49,10 +49,10 @@ class _DashboardPatientState extends State<DashboardPatient> {
             onWillPop: () async {
               DateTime preBackpress = DateTime.now();
               final timegap = DateTime.now().difference(preBackpress);
-              final cantExit = timegap >= Duration(seconds: 2);
+              final cantExit = timegap >= const Duration(seconds: 2);
               preBackpress = DateTime.now();
               if (cantExit) {
-                final snack = SnackBar(
+                const snack = SnackBar(
                   content: Text('Press Back button again to Exit'),
                   duration: Duration(seconds: 2),
                 );
@@ -64,20 +64,20 @@ class _DashboardPatientState extends State<DashboardPatient> {
               }
             },
             child: AlertDialog(
-              title: Text('Your profile is incomplete'),
-              content: Text('please complete your profile for continue.'),
+              title: const Text('Your profile is incomplete'),
+              content: const Text('please complete your profile for continue.'),
               actions: [
                 ElevatedButton(
                   onPressed: () async {
                     String a = await Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => NewUserProfile()));
+                            builder: (context) => const NewUserProfile()));
                     if (a == "a") {
                       initState();
                     }
                   },
-                  child: Text('OK'),
+                  child: const Text('OK'),
                 ),
               ],
             ),
@@ -118,10 +118,10 @@ class _DashboardPatientState extends State<DashboardPatient> {
     return WillPopScope(
       onWillPop: () async {
         final timegap = DateTime.now().difference(preBackpress);
-        final cantExit = timegap >= Duration(seconds: 2);
+        final cantExit = timegap >= const Duration(seconds: 2);
         preBackpress = DateTime.now();
         if (cantExit) {
-          final snack = SnackBar(
+          const snack = SnackBar(
             content: Text('Press Back button again to Exit'),
             duration: Duration(seconds: 2),
           );
@@ -194,7 +194,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                     width: 2,
                                   ),
                                 ),
-                                child: Center(
+                                child: const Center(
                                   child: Text(
                                     "Search Doctors, Hospitals Etc...",
                                     style: TextStyle(
@@ -295,19 +295,19 @@ class _DashboardPatientState extends State<DashboardPatient> {
                         decoration: BoxDecoration(color: Colors.blue[900]),
                       ),
                       ListTile(
-                        leading: Icon(Icons.family_restroom_rounded),
-                        title: Text("Family Members"),
+                        leading: const Icon(Icons.family_restroom_rounded),
+                        title: const Text("Family Members"),
                         onTap: (() {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => FamilyMembersScreen()));
+                                  builder: (context) => const FamilyMembersScreen()));
                         }),
                       ),
                       if (snapshot.data!.patientDetails.relation == "self")
                         ListTile(
-                          leading: Icon(Icons.medical_services_outlined),
-                          title: Text("My Doctors"),
+                          leading: const Icon(Icons.medical_services_outlined),
+                          title: const Text("My Doctors"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -321,8 +321,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       if (snapshot.data!.patientDetails.gender == "female" &&
                           snapshot.data!.patientDetails.relation != "self")
                         ListTile(
-                          leading: Icon(Icons.medical_services_outlined),
-                          title: Text("Her Doctors"),
+                          leading: const Icon(Icons.medical_services_outlined),
+                          title: const Text("Her Doctors"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -336,8 +336,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       if (snapshot.data!.patientDetails.gender == "others" &&
                           snapshot.data!.patientDetails.relation != "self")
                         ListTile(
-                          leading: Icon(Icons.medical_services_outlined),
-                          title: Text("Doctors"),
+                          leading: const Icon(Icons.medical_services_outlined),
+                          title: const Text("Doctors"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -351,8 +351,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       if (snapshot.data!.patientDetails.gender == "male" &&
                           snapshot.data!.patientDetails.relation != "self")
                         ListTile(
-                          leading: Icon(Icons.medical_services_outlined),
-                          title: Text("His Doctors"),
+                          leading: const Icon(Icons.medical_services_outlined),
+                          title: const Text("His Doctors"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -365,8 +365,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                         ),
                       if (snapshot.data!.patientDetails.relation == "self")
                         ListTile(
-                          leading: Icon(Icons.file_open),
-                          title: Text("My Case History"),
+                          leading: const Icon(Icons.file_open),
+                          title: const Text("My Case History"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -380,8 +380,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       if (snapshot.data!.patientDetails.gender == "female" &&
                           snapshot.data!.patientDetails.relation != "self")
                         ListTile(
-                          leading: Icon(Icons.file_open),
-                          title: Text("Her Case History"),
+                          leading: const Icon(Icons.file_open),
+                          title: const Text("Her Case History"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -395,8 +395,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       if (snapshot.data!.patientDetails.gender == "others" &&
                           snapshot.data!.patientDetails.relation != "self")
                         ListTile(
-                          leading: Icon(Icons.file_open),
-                          title: Text("Case History"),
+                          leading: const Icon(Icons.file_open),
+                          title: const Text("Case History"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -410,8 +410,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       if (snapshot.data!.patientDetails.gender == "male" &&
                           snapshot.data!.patientDetails.relation != "self")
                         ListTile(
-                          leading: Icon(Icons.file_open),
-                          title: Text("His Case History"),
+                          leading: const Icon(Icons.file_open),
+                          title: const Text("His Case History"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -424,8 +424,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                         ),
                       if (snapshot.data!.patientDetails.relation == "self")
                         ListTile(
-                          leading: Icon(Icons.book),
-                          title: Text("My Appointment"),
+                          leading: const Icon(Icons.book),
+                          title: const Text("My Appointment"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -441,8 +441,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       if (snapshot.data!.patientDetails.gender == "female" &&
                           snapshot.data!.patientDetails.relation != "self")
                         ListTile(
-                          leading: Icon(Icons.book),
-                          title: Text("Her Appointment"),
+                          leading: const Icon(Icons.book),
+                          title: const Text("Her Appointment"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -458,8 +458,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       if (snapshot.data!.patientDetails.gender == "others" &&
                           snapshot.data!.patientDetails.relation != "self")
                         ListTile(
-                          leading: Icon(Icons.book),
-                          title: Text("Appointment"),
+                          leading: const Icon(Icons.book),
+                          title: const Text("Appointment"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -475,8 +475,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       if (snapshot.data!.patientDetails.gender == "male" &&
                           snapshot.data!.patientDetails.relation != "self")
                         ListTile(
-                          leading: Icon(Icons.book),
-                          title: Text("His Appointment"),
+                          leading: const Icon(Icons.book),
+                          title: const Text("His Appointment"),
                           onTap: () {
                             Navigator.push(
                                 context,
@@ -490,8 +490,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                           },
                         ),
                       ListTile(
-                        leading: Icon(Icons.local_hospital_rounded),
-                        title: Text("Nearby Hospital"),
+                        leading: const Icon(Icons.local_hospital_rounded),
+                        title: const Text("Nearby Hospital"),
                         onTap: () {},
                       ),
                       const Flexible(
@@ -501,8 +501,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       ),
                       const Divider(),
                       ListTile(
-                        leading: Icon(Icons.logout),
-                        title: Text('Log out'),
+                        leading: const Icon(Icons.logout),
+                        title: const Text('Log out'),
                         onTap: () async {
                           SharedPreferences prefs =
                               await SharedPreferences.getInstance();
@@ -544,25 +544,25 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.only(left: 15),
+                                        padding: const EdgeInsets.only(left: 15),
                                         child: Padding(
-                                          padding: EdgeInsets.only(left: 15),
+                                          padding: const EdgeInsets.only(left: 15),
                                           child: Text.rich(
                                             TextSpan(
                                               text: snapshot.data!
                                                   .patientDetails.username,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.white),
                                             ),
                                             style:
-                                                TextStyle(color: Colors.white),
+                                                const TextStyle(color: Colors.white),
                                             softWrap: false,
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(left: 5),
+                                        padding: const EdgeInsets.only(left: 5),
                                         child: VerticalDivider(
                                           color: Colors.grey.shade300,
                                           width: 10,
@@ -572,15 +572,14 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsets.only(left: 5),
+                                        padding: const EdgeInsets.only(left: 5),
                                         child: Text(
-                                            "Blood Group: " +
-                                                snapshot.data!.patientDetails
-                                                    .bloodGroup,
+                                            "Blood Group: ${snapshot.data!.patientDetails
+                                                    .bloodGroup}",
                                             style: const TextStyle(
                                                 color: Colors.white)),
                                       ),
-                                      Padding(
+                                      const Padding(
                                         padding: EdgeInsets.only(left: 5),
                                         child: VerticalDivider(
                                           color: Colors.white,
@@ -593,9 +592,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5),
                                         child: Text(
-                                            "Height: " +
-                                                snapshot.data!.patientDetails
-                                                    .height,
+                                            "Height: ${snapshot.data!.patientDetails
+                                                    .height}",
                                             style: const TextStyle(
                                                 color: Colors.white)),
                                       ),
@@ -613,11 +611,10 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                         padding: const EdgeInsets.only(
                                             left: 5, right: 5),
                                         child: Text(
-                                            "Weight: " +
-                                                snapshot.data!.patientDetails
-                                                    .weight,
+                                            "Weight: ${snapshot.data!.patientDetails
+                                                    .weight}",
                                             style:
-                                                TextStyle(color: Colors.white)),
+                                                const TextStyle(color: Colors.white)),
                                       )
                                     ],
                                   ),
@@ -715,7 +712,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              NewUserProfile()));
+                                                              const NewUserProfile()));
                                             },
                                             child: ClipOval(
                                                 child: CachedNetworkImage(
@@ -732,14 +729,14 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                   .familyMemberIds[0]
                                                   .familyMemberId
                                                   .isEmpty
-                                              ? SizedBox()
+                                              ? const SizedBox()
                                               : snapshot
                                                           .data!
                                                           .patientDetails
                                                           .familyMemberIds
                                                           .length <
                                                       2
-                                                  ? SizedBox()
+                                                  ? const SizedBox()
                                                   : Padding(
                                                       padding:
                                                           const EdgeInsets.only(
@@ -751,7 +748,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                   true;
                                                             });
                                                           }),
-                                                          icon: Icon(
+                                                          icon: const Icon(
                                                             Icons
                                                                 .arrow_drop_down,
                                                             size: 50,
@@ -761,7 +758,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                         ]),
                                   ),
                                 ),
-                                VerticalDivider(
+                                const VerticalDivider(
                                   color: Colors.white,
                                   width: 10,
                                   thickness: 3,
@@ -802,7 +799,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                           .familyMemberId,
                                                                     )));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     "My Doctors",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -834,7 +831,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                           .familyMemberId,
                                                                     )));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     "Her Doctors",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -866,7 +863,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                           .familyMemberId,
                                                                     )));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     " Doctors",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -898,7 +895,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                           .familyMemberId,
                                                                     )));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     "His Doctors",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -907,7 +904,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                 ),
                                               ),
                                             ),
-                                          Divider(
+                                          const Divider(
                                             color: Colors.white,
                                             height: 5,
                                             thickness: 5,
@@ -939,7 +936,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                       user_id),
                                                         ));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     "My Reports",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -976,7 +973,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                       user_id),
                                                         ));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     "Her Reports",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -1013,7 +1010,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                       user_id),
                                                         ));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     "Reports",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -1050,7 +1047,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                       user_id),
                                                         ));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     "His Reports",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -1059,7 +1056,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                 ),
                                               ),
                                             ),
-                                          Divider(
+                                          const Divider(
                                             color: Colors.white,
                                             height: 5,
                                             thickness: 5,
@@ -1090,7 +1087,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                       .username,
                                                                 )));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     "My Appointment",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -1126,7 +1123,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                       .username,
                                                                 )));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     "Her Appointment",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -1162,7 +1159,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                       .username,
                                                                 )));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     "Appointment",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -1198,7 +1195,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                       .username,
                                                                 )));
                                                   },
-                                                  child: Text(
+                                                  child: const Text(
                                                     "His Appointment",
                                                     style: TextStyle(
                                                         color: Colors.white,
@@ -1222,7 +1219,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               endIndent: 25,
                             ),
                             snapshot.data!.slotStickers.isEmpty
-                                ? SizedBox()
+                                ? const SizedBox()
                                 : SizedBox(
                                     height: 100,
                                     width: double.infinity,
@@ -1254,7 +1251,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                             child: Container(
                                               height: 100,
                                               width: 380,
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                 color: Colors.white,
                                                 borderRadius: BorderRadius.all(
                                                   Radius.circular(10),
@@ -1297,7 +1294,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                             topRight: Radius.circular(20))),
                                     child: Column(
                                       children: [
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 20,
                                         ),
                                         SizedBox(
@@ -1313,7 +1310,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                 color: Colors.white,
                                               )),
                                         ),
-                                        Text(
+                                        const Text(
                                           " Nearby\n Hospital",
                                           style: TextStyle(color: Colors.white),
                                         ),
@@ -1337,7 +1334,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                             Container(
                                               width: 125,
                                               height: 85,
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                   color: Colors.blueAccent,
                                                   borderRadius:
                                                       BorderRadius.only(
@@ -1349,7 +1346,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
                                                   children: [
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 15,
                                                     ),
                                                     snapshot
@@ -1383,10 +1380,10 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                   startPadding:
                                                                       10.0,
                                                                   pauseAfterRound:
-                                                                      Duration(
+                                                                      const Duration(
                                                                           seconds:
                                                                               1),
-                                                                  style: TextStyle(
+                                                                  style: const TextStyle(
                                                                       color: Colors
                                                                           .white),
                                                                 )))
@@ -1404,7 +1401,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                             Container(
                                               width: 125,
                                               height: 85,
-                                              decoration: BoxDecoration(
+                                              decoration: const BoxDecoration(
                                                   color: Colors.blueAccent,
                                                   borderRadius:
                                                       BorderRadius.only(
@@ -1415,7 +1412,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 15,
                                                   ),
                                                   snapshot
@@ -1447,9 +1444,9 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                             blankSpace: 20.0,
                                                             startPadding: 10.0,
                                                             pauseAfterRound:
-                                                                Duration(
+                                                                const Duration(
                                                                     seconds: 1),
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 color: Colors
                                                                     .white),
                                                           ))
@@ -1459,7 +1456,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                           ],
                                         ),
                                       ),
-                                      VerticalDivider(
+                                      const VerticalDivider(
                                         color: Colors.white,
                                         width: 2,
                                         thickness: 3,
@@ -1471,14 +1468,14 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                           Container(
                                             width: 122.41,
                                             height: 85,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               color: Colors.blueAccent,
                                             ),
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 15,
                                                 ),
                                                 snapshot
@@ -1506,9 +1503,9 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                           blankSpace: 20.0,
                                                           startPadding: 10.0,
                                                           pauseAfterRound:
-                                                              Duration(
+                                                              const Duration(
                                                                   seconds: 1),
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               color:
                                                                   Colors.white),
                                                         ))
@@ -1525,7 +1522,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                           Container(
                                             width: 122.41,
                                             height: 85,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               color: Colors.blueAccent,
                                             ),
                                             child: Flexible(
@@ -1533,7 +1530,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 15,
                                                   ),
                                                   snapshot
@@ -1549,7 +1546,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                 .nearByHospital[
                                                                     3]
                                                                 .hospitalName,
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 color: Colors
                                                                     .white),
                                                           ),
@@ -1569,10 +1566,10 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                 startPadding:
                                                                     10.0,
                                                                 pauseAfterRound:
-                                                                    Duration(
+                                                                    const Duration(
                                                                         seconds:
                                                                             1),
-                                                                style: TextStyle(
+                                                                style: const TextStyle(
                                                                     color: Colors
                                                                         .white),
                                                               )),
@@ -1583,7 +1580,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                           ),
                                         ],
                                       ),
-                                      VerticalDivider(
+                                      const VerticalDivider(
                                         color: Colors.white,
                                         width: 2,
                                         thickness: 3,
@@ -1910,7 +1907,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               width: double.infinity,
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  physics: BouncingScrollPhysics(),
+                                  physics: const BouncingScrollPhysics(),
                                   itemCount:
                                       snapshot.data!.specializationList.length,
                                   itemBuilder: ((context, index) {
@@ -1927,7 +1924,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
-                                        margin: EdgeInsets.all(10),
+                                        margin: const EdgeInsets.all(10),
                                         child: Stack(children: [
                                           InkWell(
                                             onTap: () {
@@ -1967,7 +1964,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                       .data!
                                                       .specializationList[index]
                                                       .specialization,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold),
                                                   textAlign: TextAlign.center,
@@ -1990,7 +1987,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               width: double.infinity,
                               child: ListView.builder(
                                   scrollDirection: Axis.horizontal,
-                                  physics: BouncingScrollPhysics(),
+                                  physics: const BouncingScrollPhysics(),
                                   itemCount: snapshot.data!.bannerList.length,
                                   itemBuilder: (context, index) {
                                     return SizedBox(
@@ -2039,7 +2036,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                 width: 250,
                                 child: ListView.builder(
                                     scrollDirection: Axis.vertical,
-                                    physics: BouncingScrollPhysics(),
+                                    physics: const BouncingScrollPhysics(),
                                     itemCount: snapshot.data!.patientDetails
                                         .familyMemberIds.length,
                                     itemBuilder: (context, index) {
@@ -2072,7 +2069,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                 decoration: BoxDecoration(
                                                     color: Colors.grey[50],
                                                     borderRadius:
-                                                        BorderRadius.all(
+                                                        const BorderRadius.all(
                                                       Radius.circular(10),
                                                     )),
                                                 child: Row(
@@ -2107,7 +2104,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             height: 10,
                                                           ),
                                                           Text.rich(
@@ -2120,7 +2117,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                           .familyMemberName
                                                                           .length >
                                                                       13
-                                                                  ? snapshot
+                                                                  ? "${snapshot
                                                                           .data!
                                                                           .patientDetails
                                                                           .familyMemberIds[
@@ -2128,19 +2125,18 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                           .familyMemberName
                                                                           .substring(
                                                                               0,
-                                                                              13) +
-                                                                      "..."
+                                                                              13)}..."
                                                                   : snapshot
                                                                       .data!
                                                                       .patientDetails
                                                                       .familyMemberIds[
                                                                           index]
                                                                       .familyMemberName,
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                   color: Colors
                                                                       .black),
                                                             ),
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 color: Colors
                                                                     .black),
                                                             softWrap: false,
@@ -2154,7 +2150,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                           //     .familyMemberIds[
                                                           //         index]
                                                           //     .familyMemberName),
-                                                          SizedBox(
+                                                          const SizedBox(
                                                             height: 5,
                                                           ),
                                                           Text(snapshot
@@ -2169,7 +2165,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                   ],
                                                 ),
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 color: Colors.transparent,
                                                 height: 2,
                                               )
@@ -2181,7 +2177,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               ),
                             ),
                           )
-                        : SizedBox()
+                        : const SizedBox()
                   ],
                 ),
                 // floatingActionButton: FloatingActionButton(
@@ -2208,31 +2204,31 @@ class _DashboardPatientState extends State<DashboardPatient> {
                   title: Center(
                     child: Shimmer.fromColors(
                         direction: ShimmerDirection.ltr,
+                        baseColor: Colors.grey.shade400,
+                        highlightColor: Colors.grey.shade100,
                         child: Container(
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20)),
                           height: 50,
                           width: 300,
-                        ),
-                        baseColor: Colors.grey.shade400,
-                        highlightColor: Colors.grey.shade100),
+                        )),
                   )),
               body: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Shimmer.fromColors(
                         direction: ShimmerDirection.ltr,
+                        baseColor: Colors.grey.shade400,
+                        highlightColor: Colors.grey.shade100,
                         child: Container( 
                           height: 50,
                           color: Colors.white,
-                        ),
-                        baseColor: Colors.grey.shade400,
-                        highlightColor: Colors.grey.shade100),
+                        )),
                    const SizedBox(
                       height: 5,
                     ),
@@ -2245,14 +2241,14 @@ class _DashboardPatientState extends State<DashboardPatient> {
                           child: Container(
                             height: 180,
                             width: 150,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.only(
                                     bottomRight: Radius.circular(20),
                                     topRight: Radius.circular(20))),
                           ),
                         ),
-                        VerticalDivider(
+                        const VerticalDivider(
                           color: Colors.white,
                           width: 10,
                           thickness: 3,
@@ -2297,7 +2293,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                       bottomRight: Radius.circular(20),
                                       topRight: Radius.circular(20)))),
                         ),
-                        VerticalDivider(
+                        const VerticalDivider(
                           color: Colors.white,
                           width: 10,
                           thickness: 3,
@@ -2313,7 +2309,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 80,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: Colors.blueAccent,
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(20))),
@@ -2333,7 +2329,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 80,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(20))),
@@ -2341,7 +2337,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                             ),
                           ],
                         ),
-                        VerticalDivider(
+                        const VerticalDivider(
                           color: Colors.white,
                           width: 2,
                           thickness: 3,
@@ -2357,7 +2353,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 80,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                 ),
                               ),
@@ -2376,7 +2372,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 80,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                 ),
                               ),
@@ -2399,7 +2395,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 87,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                 ),
                               ),
@@ -2418,7 +2414,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 87,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                 ),
                               ),
@@ -2427,7 +2423,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                         ),
                       ],
                     ),
-                    VerticalDivider(
+                    const VerticalDivider(
                       color: Colors.white,
                       width: 2,
                       thickness: 2,
@@ -2449,7 +2445,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                       bottomRight: Radius.circular(20),
                                       topRight: Radius.circular(20)))),
                         ),
-                        VerticalDivider(
+                        const VerticalDivider(
                           color: Colors.white,
                           width: 10,
                           thickness: 3,
@@ -2465,7 +2461,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 80,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: Colors.blueAccent,
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(20))),
@@ -2485,7 +2481,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 80,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.only(
                                         bottomLeft: Radius.circular(20))),
@@ -2493,7 +2489,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                             ),
                           ],
                         ),
-                        VerticalDivider(
+                        const VerticalDivider(
                           color: Colors.white,
                           width: 2,
                           thickness: 3,
@@ -2509,7 +2505,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 80,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                 ),
                               ),
@@ -2528,7 +2524,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 80,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                 ),
                               ),
@@ -2551,7 +2547,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 87,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                 ),
                               ),
@@ -2570,7 +2566,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               child: Container(
                                 width: 87,
                                 height: 85,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: Colors.white,
                                 ),
                               ),
@@ -2579,7 +2575,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Shimmer.fromColors(
@@ -2590,7 +2586,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                         height: 160,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           itemCount: 5,
                           itemBuilder: (context, index) {
                             return Card(
@@ -2602,12 +2598,12 @@ class _DashboardPatientState extends State<DashboardPatient> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              margin: EdgeInsets.all(10),
+                              margin: const EdgeInsets.all(10),
                               child: Shimmer.fromColors(
                                 direction: ShimmerDirection.ltr,
                                 baseColor: Colors.grey.shade400,
                                 highlightColor: Colors.grey.shade100,
-                                child: Container(
+                                child: const SizedBox(
                                   height: 160,
                                   width: 150,
                                 ),

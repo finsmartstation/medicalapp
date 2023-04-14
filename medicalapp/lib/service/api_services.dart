@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/services.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -8,28 +7,28 @@ import '../providers/auth_provider.dart';
 import '../utility/constants.dart';
 
 class ApiService {
-  String _u_id = '';
-  String _otp = '';
-  String _access_token = '';
+  final String _u_id = '';
+  final String _otp = '';
+  final String _access_token = '';
   AuthProvider authProvider = AuthProvider();
 
   // User Register
 
-  Future<http.Response> registerUser(String c_code, String phone, String type,
-      String a_id, String sign) async {
-    String url = baseUrl + 'register';
+  Future<http.Response> registerUser(String cCode, String phone, String type,
+      String aId, String sign) async {
+    String url = '${baseUrl}register';
     var obj = {
-      'country_code': c_code,
+      'country_code': cCode,
       'mobile': phone,
       'device_type': type,
-      'access_id': a_id,
+      'access_id': aId,
       'app_signature_id': sign,
     };
-    print('OBJECT : ${obj}');
+    print('OBJECT : $obj');
     var response = await http.post(Uri.parse(url), body: obj);
     if (response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);
-      print('RESPONSE: ${jsonData}');
+      print('RESPONSE: $jsonData');
       if(jsonData['status']=="false"){
       authProvider.getDetails(
           jsonData['user_id'], jsonData['otp'], jsonData['access_token']);
@@ -41,7 +40,7 @@ class ApiService {
   // Resend OTP
 
   Future<void> resendOTP(String id) async {
-    String url = baseUrl + 'resend_otp';
+    String url = '${baseUrl}resend_otp';
     var obj = {
       'user_id': id,
     };
@@ -50,18 +49,18 @@ class ApiService {
 
     if (response.statusCode == 200) {
       var jsonOTP = jsonDecode(response.body)['data'];
-      print('OTP : ${jsonOTP}');
+      print('OTP : $jsonOTP');
     }
   }
 
   // Verify OTP
 
   Future<http.Response> verifyOTP(
-      String userId, String access_token, String otp) async {
-    String url = baseUrl + 'verify_otp';
+      String userId, String accessToken, String otp) async {
+    String url = '${baseUrl}verify_otp';
     var obj = {
       "user_id": userId,
-      "access_token": access_token,
+      "access_token": accessToken,
       "otp": otp,
     };
     var response = await http.post(Uri.parse(url), body: obj);
@@ -70,25 +69,25 @@ class ApiService {
 
   // Fill Profile
 
-  Future<http.StreamedResponse> fillProfile(id, acces_token, username, email,
-      lat, lon, ip_add, File imageFile, gender) async {
-    String url = baseUrl + 'fill_profile';
+  Future<http.StreamedResponse> fillProfile(id, accesToken, username, email,
+      lat, lon, ipAdd, File imageFile, gender) async {
+    String url = '${baseUrl}fill_profile';
     print("TESTING================> : ${imageFile.path}");
 
     // print("OBJ UPR: ${obj}");
     // var response = await http.post(Uri.parse(url), body: {});
-    var stream = new http.ByteStream(imageFile.openRead());
+    var stream = http.ByteStream(imageFile.openRead());
     var length = await imageFile.length();
-    var request = new http.MultipartRequest("POST", Uri.parse(url));
+    var request = http.MultipartRequest("POST", Uri.parse(url));
     var multipartFile = http.MultipartFile('profile_pic', stream, length,
         filename: imageFile.path);
     request.fields['user_id'] = id;
-    request.fields['access_token'] = acces_token;
+    request.fields['access_token'] = accesToken;
     request.fields['username'] = username;
     request.fields['email'] = email;
     request.fields['latitude'] = lat;
     request.fields['longitude'] = lon;
-    request.fields['ip_address'] = ip_add;
+    request.fields['ip_address'] = ipAdd;
     request.fields['gender'] = gender;
     request.files.add(multipartFile);
     var resp = await request.send();
@@ -106,11 +105,11 @@ class ApiService {
   // Add Specialization
 
   Future<http.Response> addSpecialization(
-      user_id, access_token, specialization) async {
-    String url = baseUrl + 'add_employee_specialization';
+      userId, accessToken, specialization) async {
+    String url = '${baseUrl}add_employee_specialization';
     var obj = {
-      'user_id': user_id,
-      'access_token': access_token,
+      'user_id': userId,
+      'access_token': accessToken,
       'specialization': specialization,
     };
 
@@ -128,12 +127,12 @@ class ApiService {
   //Doctor consulting fee
 
   Future<http.Response> addConsultingFee(
-      user_id, access_token, consulting_fee) async {
-    String url = baseUrl + 'add_doctor_consulting_fee';
+      userId, accessToken, consultingFee) async {
+    String url = '${baseUrl}add_doctor_consulting_fee';
     var obj = {
-      "user_id": user_id,
-      "access_token": access_token,
-      "consulting_fee": consulting_fee,
+      "user_id": userId,
+      "access_token": accessToken,
+      "consulting_fee": consultingFee,
     };
 
     var response = await http.post(Uri.parse(url), body: obj);
@@ -145,7 +144,7 @@ class ApiService {
   //Add specialization
 
   Future<http.Response> getSpecialization() async {
-    String url = baseUrl + 'get_all_specialization';
+    String url = '${baseUrl}get_all_specialization';
     var response = await http.post(Uri.parse(url));
     print("success");
     var jsonData;
@@ -154,11 +153,11 @@ class ApiService {
 
 //  get Userdetails
 
-  Future<http.Response> getUserDetails(user_id, access_token) async {
-    String url = baseUrl + 'get_doctor_basic_details';
+  Future<http.Response> getUserDetails(userId, accessToken) async {
+    String url = '${baseUrl}get_doctor_basic_details';
     var userObj = {
-      'user_id': user_id,
-      'access_token': access_token,
+      'user_id': userId,
+      'access_token': accessToken,
     };
     var response = await http.post(Uri.parse(url), body: userObj);
     print("SETUP: ${response.body.length}");
@@ -167,11 +166,11 @@ class ApiService {
 
   //Add Employe Experience
   Future<http.StreamedResponse> addExperience(userId, accessToken, hospital,
-      years, position, experience_document) async {
-    String url = baseUrl + 'add_employee_experience';
-    var request = new http.MultipartRequest("POST", Uri.parse(url));
+      years, position, experienceDocument) async {
+    String url = '${baseUrl}add_employee_experience';
+    var request = http.MultipartRequest("POST", Uri.parse(url));
     request.files.add(await http.MultipartFile.fromPath(
-        'experience_document', experience_document));
+        'experience_document', experienceDocument));
     request.fields['user_id'] = userId;
     request.fields['access_token'] = accessToken;
     request.fields['hospital'] = hospital;
@@ -186,19 +185,19 @@ class ApiService {
     userId,
     accessToken,
     qualification,
-    start_year,
-    end_year,
-    qualification_document,
+    startYear,
+    endYear,
+    qualificationDocument,
   ) async {
-    String url = baseUrl + 'add_employee_qualification';
+    String url = '${baseUrl}add_employee_qualification';
     var request = http.MultipartRequest("POST", Uri.parse(url));
     request.files.add(await http.MultipartFile.fromPath(
-        'qualification_document', qualification_document));
+        'qualification_document', qualificationDocument));
     request.fields['user_id'] = userId;
     request.fields['access_token'] = accessToken;
     request.fields['qualification'] = qualification;
-    request.fields['start_year'] = start_year;
-    request.fields['end_year'] = end_year;
+    request.fields['start_year'] = startYear;
+    request.fields['end_year'] = endYear;
     var resp = await request.send();
     return resp;
   }
@@ -206,7 +205,7 @@ class ApiService {
 //Add Employe add_employee_specialization
   Future<http.Response> addEmployeeSpecialization(
       userId, accessToken, specialization) async {
-    String url = baseUrl + 'add_employee_specialization';
+    String url = '${baseUrl}add_employee_specialization';
     var userObj = {
       'user_id': userId,
       'access_token': accessToken,
@@ -217,18 +216,18 @@ class ApiService {
   }
   //add doctor slot
 
-  Future<http.Response> addDoctorSlot(user_id, access_token, consulting_time,
-      consulting_type, start_datetime, end_datetime, break_status,organization_id) async {
-    String url = baseUrl + 'add_doctor_slot';
+  Future<http.Response> addDoctorSlot(userId, accessToken, consultingTime,
+      consultingType, startDatetime, endDatetime, breakStatus,organizationId) async {
+    String url = '${baseUrl}add_doctor_slot';
     var userObj = {
-      'user_id': user_id,
-      'access_token': access_token,
-      'consulting_time': consulting_time,
-      'consulting_type': consulting_type,
-      'start_datetime': start_datetime,
-      'end_datetime': end_datetime,
-      'break_status': break_status,
-      'organization_id':organization_id
+      'user_id': userId,
+      'access_token': accessToken,
+      'consulting_time': consultingTime,
+      'consulting_type': consultingType,
+      'start_datetime': startDatetime,
+      'end_datetime': endDatetime,
+      'break_status': breakStatus,
+      'organization_id':organizationId
     };
     print('obj---$userObj');
     var response = await http.post(Uri.parse(url), body: userObj);
@@ -239,33 +238,33 @@ class ApiService {
   }
 
   //file_upload
-  Future<http.StreamedResponse> file_upload(user_id, access_token, file) async {
-    String url = baseUrl + 'file_upload';
+  Future<http.StreamedResponse> file_upload(userId, accessToken, file) async {
+    String url = '${baseUrl}file_upload';
      var obj = {
-      'user_id': user_id,
-      'access_token': access_token,
+      'user_id': userId,
+      'access_token': accessToken,
       "file":file
     };
     print("obj==$obj");
     var request = http.MultipartRequest("POST", Uri.parse(url));
     request.files.add(await http.MultipartFile.fromPath('file', file));
-    request.fields['user_id'] = user_id;
-    request.fields['access_token'] = access_token;
+    request.fields['user_id'] = userId;
+    request.fields['access_token'] = accessToken;
     var resp = await request.send();
     return resp;
   }
 
   //update_employee_qualification
-  Future<http.Response> update_employee_qualification(user_id, access_token,
-      qualification, start_year, end_year, upload_documents) async {
-    String url = baseUrl + 'update_employee_qualification';
+  Future<http.Response> update_employee_qualification(userId, accessToken,
+      qualification, startYear, endYear, uploadDocuments) async {
+    String url = '${baseUrl}update_employee_qualification';
     var obj = {
-      'user_id': user_id,
-      'access_token': access_token,
+      'user_id': userId,
+      'access_token': accessToken,
       'qualification': qualification,
-      'start_year': start_year,
-      'end_year': end_year,
-      'upload_documents': upload_documents,
+      'start_year': startYear,
+      'end_year': endYear,
+      'upload_documents': uploadDocuments,
     };
     print(obj);
     var respons = await http.post(Uri.parse(url), body: obj);
@@ -274,16 +273,16 @@ class ApiService {
   }
 
   //update_employee_experience
-  Future<http.Response> update_employee_experience(user_id, access_token,
-      hospital, position, years, experience_documents) async {
-    String url = baseUrl + 'update_employee_experience';
+  Future<http.Response> update_employee_experience(userId, accessToken,
+      hospital, position, years, experienceDocuments) async {
+    String url = '${baseUrl}update_employee_experience';
     var obj = {
-      'user_id': user_id,
-      'access_token': access_token,
+      'user_id': userId,
+      'access_token': accessToken,
       'hospital': hospital,
       'position': position,
       'years': years,
-      'experience_documents': experience_documents,
+      'experience_documents': experienceDocuments,
     };
     print(obj);
     var respons = await http.post(Uri.parse(url), body: obj);
@@ -292,19 +291,19 @@ class ApiService {
   }
 
   //add_doctor_basic_details
-  Future<http.Response> add_doctor_basic_details(user_id, access_token,
-      username, email, profile_pic, List specialization, consulting_fee) async {
-    String url = baseUrl + 'add_doctor_basic_details';
-    print("#######TTTTT######: ${specialization}");
+  Future<http.Response> add_doctor_basic_details(userId, accessToken,
+      username, email, profilePic, List specialization, consultingFee) async {
+    String url = '${baseUrl}add_doctor_basic_details';
+    print("#######TTTTT######: $specialization");
 
     var userObj = {
-      "user_id": user_id,
-      "access_token": access_token,
+      "user_id": userId,
+      "access_token": accessToken,
       "specialization": specialization,
       "username": username,
       "email": email,
-      "consulting_fee": consulting_fee,
-      "profile_pic": profile_pic,
+      "consulting_fee": consultingFee,
+      "profile_pic": profilePic,
     };
     print("obj---$userObj");
     var response = await http.post(Uri.parse(url), body: jsonEncode(userObj));
@@ -314,11 +313,11 @@ class ApiService {
 
   //doctor details
 
-  Future<http.Response> doctorDetails(user_id, access_token) async {
-    String url = baseUrl + 'doctor_details';
+  Future<http.Response> doctorDetails(userId, accessToken) async {
+    String url = '${baseUrl}doctor_details';
     var obj = {
-      "user_id": user_id,
-      "access_token": access_token,
+      "user_id": userId,
+      "access_token": accessToken,
     };
     print("obj---$obj");
     var response = await http.post(Uri.parse(url), body: obj);
@@ -425,12 +424,12 @@ class ApiService {
 
 
   Future<http.Response> consultationStatus(
-      String user_id, String access_token, String slot_id) async {
-    String url = baseUrl + 'consultation_status';
+      String userId, String accessToken, String slotId) async {
+    String url = '${baseUrl}consultation_status';
     var obj = {
-      "user_id": user_id,
-      "access_token": access_token,
-      "slot_id": slot_id
+      "user_id": userId,
+      "access_token": accessToken,
+      "slot_id": slotId
     };
 
     var response = await http.post(Uri.parse(url), body: obj);
@@ -440,13 +439,13 @@ class ApiService {
     return response;
   }
 
-  Future<http.Response> addPrescription(String slot_id, String access_token,
-      String user_id, String prescription) async {
-    String url = baseUrl + 'add_prescription';
+  Future<http.Response> addPrescription(String slotId, String accessToken,
+      String userId, String prescription) async {
+    String url = '${baseUrl}add_prescription';
     var obj = {
-      "slot_id": slot_id,
-      "access_token": access_token,
-      "user_id": user_id,
+      "slot_id": slotId,
+      "access_token": accessToken,
+      "user_id": userId,
       "prescription": prescription
     };
 
@@ -458,24 +457,24 @@ class ApiService {
   }
 
   Future<http.Response> generateMedicalReport(
-    String user_id,
-      String access_token,
-      String booking_slot_id,
-      String reffered_doctor  ,
-      String reffered_lab,
-      String clinical_notes,
-      String lab_note,
-      String follow_up_date) async {
-    String url = baseUrl + 'generate_medical_report';
+    String userId,
+      String accessToken,
+      String bookingSlotId,
+      String refferedDoctor  ,
+      String refferedLab,
+      String clinicalNotes,
+      String labNote,
+      String followUpDate) async {
+    String url = '${baseUrl}generate_medical_report';
     var obj = {
-      "user_id": user_id,
-      "access_token": access_token,
-      "booking_slot_id": booking_slot_id,
-      "reffered_doctor": reffered_doctor,
-      "reffered_lab": reffered_lab,
-      "clinical_notes": clinical_notes,
-      "lab_note":lab_note,
-      "follow_up_date": follow_up_date,
+      "user_id": userId,
+      "access_token": accessToken,
+      "booking_slot_id": bookingSlotId,
+      "reffered_doctor": refferedDoctor,
+      "reffered_lab": refferedLab,
+      "clinical_notes": clinicalNotes,
+      "lab_note":labNote,
+      "follow_up_date": followUpDate,
     };
 
     var response = await http.post(Uri.parse(url), body: obj);
@@ -485,12 +484,12 @@ class ApiService {
     return response;
   }
 
-  Future<http.Response> doctorFeedback(String user_id, String access_token,
+  Future<http.Response> doctorFeedback(String userId, String accessToken,
       String feedback, String rating) async {
-    String url = baseUrl + 'doctor_feedback';
+    String url = '${baseUrl}doctor_feedback';
     var obj = {
-      "user_id": user_id,
-      "access_token": access_token,
+      "user_id": userId,
+      "access_token": accessToken,
       "feedback": feedback,
       "rating": rating
     };
@@ -501,13 +500,13 @@ class ApiService {
     print("resp:${jsonDecode(response.body)}");
     return response;
   }
-   Future<http.Response> deleteDoctorSlot(String user_id,String doctor_slot_id, String access_token,
+   Future<http.Response> deleteDoctorSlot(String userId,String doctorSlotId, String accessToken,
       ) async {
-    String url = baseUrl + 'delete_doctor_slot';
+    String url = '${baseUrl}delete_doctor_slot';
     var obj = {
-      "user_id": user_id,
-      "doctor_slot_id": doctor_slot_id,
-      "access_token": access_token,
+      "user_id": userId,
+      "doctor_slot_id": doctorSlotId,
+      "access_token": accessToken,
     };
 
     var response = await http.post(Uri.parse(url), body: obj);
@@ -516,16 +515,16 @@ class ApiService {
     print("resp:${jsonDecode(response.body)}");
     return response;
   }
-  Future<http.Response> editDoctorProfile(String user_id, String access_token,
-      String name, String gender,String email,String profile_pic) async {
-    String url = baseUrl + 'edit_doctor_profile';
+  Future<http.Response> editDoctorProfile(String userId, String accessToken,
+      String name, String gender,String email,String profilePic) async {
+    String url = '${baseUrl}edit_doctor_profile';
     var obj = {
-      "user_id": user_id,
-      "access_token": access_token,
+      "user_id": userId,
+      "access_token": accessToken,
       "name": name,
       "gender": gender,
       "email":email,
-      "profile_pic":profile_pic
+      "profile_pic":profilePic
     };
     print("obj--$obj");
     var response = await http.post(Uri.parse(url), body: obj);
@@ -534,15 +533,15 @@ class ApiService {
     print("resp:${jsonDecode(response.body)}");
     return response;
   }
-  Future<http.Response> doctorBasicDetails(String user_id, String access_token,
-      String name, String email,String profile_pic,String gender) async {
-    String url = baseUrl + 'doctor_basic_details';
+  Future<http.Response> doctorBasicDetails(String userId, String accessToken,
+      String name, String email,String profilePic,String gender) async {
+    String url = '${baseUrl}doctor_basic_details';
     var obj = {
-      "user_id": user_id,
-      "access_token": access_token,
+      "user_id": userId,
+      "access_token": accessToken,
       "name": name,
       "email":email,
-      "profile_pic":profile_pic,
+      "profile_pic":profilePic,
       "gender": gender,
     };
     print("obj--$obj");
@@ -552,11 +551,11 @@ class ApiService {
     print("resp:${jsonDecode(response.body)}");
     return response;
   } 
-  Future<http.Response> getOrganization(String user_id,String access_token) async {
-    String url = baseUrl + 'list_all_organization';
+  Future<http.Response> getOrganization(String userId,String accessToken) async {
+    String url = '${baseUrl}list_all_organization';
     var obj={
-      "user_id":user_id,
-      "access_token":access_token
+      "user_id":userId,
+      "access_token":accessToken
     };
     print("obj---$obj");
     var response = await http.post(Uri.parse(url),body: obj);
@@ -564,12 +563,12 @@ class ApiService {
     var jsonData;
     return response;
   }
-  Future<http.Response> addOrganization(String doctor_id,String access_token,List hospital_id) async {
-    String url = baseUrl + 'add_doctor_organizations';
+  Future<http.Response> addOrganization(String doctorId,String accessToken,List hospitalId) async {
+    String url = '${baseUrl}add_doctor_organizations';
     var obj={
-      "access_token":access_token,
-      "doctor_id":doctor_id,
-      "hospital_ids":hospital_id
+      "access_token":accessToken,
+      "doctor_id":doctorId,
+      "hospital_ids":hospitalId
     };
     print("obj---$obj");
     var response = await http.post(Uri.parse(url),body: jsonEncode(obj));
@@ -578,11 +577,11 @@ class ApiService {
     var jsonData;
     return response;
   }
-  Future<http.Response> listDoctorOrganization(String user_id,String access_token) async {
-    String url = baseUrl + 'list_doctor_current_organization';
+  Future<http.Response> listDoctorOrganization(String userId,String accessToken) async {
+    String url = '${baseUrl}list_doctor_current_organization';
     var obj={
-      "user_id":user_id,
-      "access_token":access_token,
+      "user_id":userId,
+      "access_token":accessToken,
     };
     print("obj1111---$obj");
     var response = await http.post(Uri.parse(url),body: obj);

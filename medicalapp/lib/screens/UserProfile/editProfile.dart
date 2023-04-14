@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -139,7 +138,7 @@ class _EditProfileState extends State<EditProfile> {
                 Icons.arrow_back_ios,
                 color: Colors.black,
               )),
-          title: Text(
+          title: const Text(
             "Edit profile",
             style: TextStyle(color: Colors.black),
           ),
@@ -147,7 +146,7 @@ class _EditProfileState extends State<EditProfile> {
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         ),
         body: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
                 Center(
@@ -159,7 +158,7 @@ class _EditProfileState extends State<EditProfile> {
                           Container(
                               width: 150,
                               height: 150,
-                              padding: EdgeInsets.all(5),
+                              padding: const EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border: Border.all(color: Colors.blueAccent),
@@ -177,7 +176,7 @@ class _EditProfileState extends State<EditProfile> {
                         child: Container(
                           height: 40,
                           width: 40,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Colors.blue,
                           ),
@@ -380,11 +379,11 @@ class _EditProfileState extends State<EditProfile> {
                                                         });
                                                       }
                                                     },
-                                                    icon: Icon(Icons.image),
+                                                    icon: const Icon(Icons.image),
                                                     color: Colors.blue,
                                                   ),
                                                 ),
-                                                Text('Gallery')
+                                                const Text('Gallery')
                                               ],
                                             )
                                           ],
@@ -395,7 +394,7 @@ class _EditProfileState extends State<EditProfile> {
                                 },
                               );
                             },
-                            icon: Icon(Icons.camera_alt_rounded),
+                            icon: const Icon(Icons.camera_alt_rounded),
                             color: Colors.white,
                           ),
                         ),
@@ -419,12 +418,12 @@ class _EditProfileState extends State<EditProfile> {
                           hintText: "Name")),
                 ),
                 widget.relation != "self"
-                    ? SizedBox()
+                    ? const SizedBox()
                     : const SizedBox(
                         height: 20,
                       ),
                 widget.relation != "self"
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
@@ -438,12 +437,12 @@ class _EditProfileState extends State<EditProfile> {
                                 hintText: "Email")),
                       ),
                 widget.relation == "self"
-                    ? SizedBox()
+                    ? const SizedBox()
                     : const SizedBox(
                         height: 20,
                       ),
                 widget.relation == "self"
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
@@ -456,7 +455,7 @@ class _EditProfileState extends State<EditProfile> {
                                 icon: Icon(Icons.family_restroom),
                                 hintText: "Relation")),
                       ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
@@ -465,7 +464,7 @@ class _EditProfileState extends State<EditProfile> {
                       child: TextFormField(
                     focusNode: dobFocusNode,
                     controller: dobController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(20))),
@@ -494,7 +493,7 @@ class _EditProfileState extends State<EditProfile> {
                     },
                   )),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
@@ -507,7 +506,7 @@ class _EditProfileState extends State<EditProfile> {
                         'Blood Group:',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       )),
-                      SizedBox(
+                      const SizedBox(
                         width: 20,
                       ),
                       SizedBox(
@@ -534,7 +533,7 @@ class _EditProfileState extends State<EditProfile> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Padding(
@@ -571,12 +570,12 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Column(
                   children: [
-                    Text('Choose your Gender'),
+                    const Text('Choose your Gender'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -588,7 +587,7 @@ class _EditProfileState extends State<EditProfile> {
                                 gender = value.toString();
                               }); //selected value
                             }),
-                        Text('Male'),
+                        const Text('Male'),
                         Radio(
                             value: "female",
                             groupValue: gender,
@@ -597,7 +596,7 @@ class _EditProfileState extends State<EditProfile> {
                                 gender = value.toString();
                               }); //selected value
                             }),
-                        Text('Female'),
+                        const Text('Female'),
                         Radio(
                             value: "others",
                             groupValue: gender,
@@ -606,12 +605,12 @@ class _EditProfileState extends State<EditProfile> {
                                 gender = value.toString();
                               }); //selected value
                             }),
-                        Text('Others'),
+                        const Text('Others'),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 ElevatedButton(
@@ -644,7 +643,7 @@ class _EditProfileState extends State<EditProfile> {
                         }
                       });
                     }),
-                    child: Text("Submit"))
+                    child: const Text("Submit"))
               ],
             )),
       ),

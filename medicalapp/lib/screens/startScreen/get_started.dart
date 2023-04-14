@@ -1,10 +1,8 @@
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../../providers/phone_provider.dart';
 import '../../utility/constants.dart';
-import '../authScreen/auth_screen.dart';
 import '../authScreen/inputMobileNumScreen.dart';
 
 class GetStarted extends StatefulWidget {
@@ -42,7 +40,7 @@ class _GetStartedState extends State<GetStarted> {
                   top: 135,
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         "WELCOME",
                         style: TextStyle(
@@ -55,7 +53,7 @@ class _GetStartedState extends State<GetStarted> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 60,
             ),
             SizedBox(
@@ -65,7 +63,7 @@ class _GetStartedState extends State<GetStarted> {
                 child: Container(child: Image.asset(appLogo)),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Padding(
@@ -76,18 +74,18 @@ class _GetStartedState extends State<GetStarted> {
                 child: Image.asset(elems),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             SizedBox(
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
                   phoneProv.getAcessId("3", "Patient");
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => InputMobileNumScreen()));
+                      builder: (context) => const InputMobileNumScreen()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                  padding: EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
@@ -102,11 +100,11 @@ class _GetStartedState extends State<GetStarted> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: Container(
-                child: Text(
+                child: const Text(
                   textAlign: TextAlign.center,
                   'Read our Privacy Policy. Tap "Get Started" to \naccept the Terms of services.',
                   style: TextStyle(

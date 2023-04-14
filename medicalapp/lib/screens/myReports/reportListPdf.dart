@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class ReportListPdf extends StatefulWidget {
   String? userId;
@@ -33,7 +32,7 @@ class _ReportListPdfState extends State<ReportListPdf> {
               onPressed: (() {
                 Navigator.pop(context);
               }),
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back_ios_new,
                 color: Colors.black,
               )),
@@ -59,14 +58,14 @@ class _ReportListPdfState extends State<ReportListPdf> {
                       onTap: () {
                         if (index == index) {}
                       },
-                      leading: Icon(Icons.picture_as_pdf),
-                      trailing: Text(
+                      leading: const Icon(Icons.picture_as_pdf),
+                      trailing: const Text(
                         "fghj",
                         // DateFormat("dd/MM/yyyy")
                         //     .format(snapshot.data!.data[index].dateTime),
                         style: TextStyle(color: Colors.black, fontSize: 15),
                       ),
-                      title: Text("fghjkdsyhj"),
+                      title: const Text("fghjkdsyhj"),
                     ),
                   ),
                 ),

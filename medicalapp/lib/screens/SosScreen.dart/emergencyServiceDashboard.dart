@@ -23,11 +23,11 @@ class _EmergencyServicesDashboardState
             onPressed: (() {
               Navigator.pop(context);
             }),
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
             )),
-        title: Text(
+        title: const Text(
           "Emergency Service",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
@@ -36,7 +36,7 @@ class _EmergencyServicesDashboardState
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(60),
@@ -46,24 +46,24 @@ class _EmergencyServicesDashboardState
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
-            Text(
+            const Text(
               "Create Emergency Profile",
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 20),
             ),
-            Text(
+            const Text(
               "For quick access during an emergency,add emergency contact",
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
                   fontSize: 10),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             InkWell(
@@ -71,7 +71,7 @@ class _EmergencyServicesDashboardState
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => EmergencyServicesContact()));
+                        builder: (context) => const EmergencyServicesContact()));
               },
               child: Container(
                 height: 80,
@@ -85,13 +85,13 @@ class _EmergencyServicesDashboardState
                       )
                     ],
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                    borderRadius: const BorderRadius.all(Radius.circular(20))),
                 child: Center(
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: Colors.grey.shade300,
                       radius: 30,
-                      child: CircleAvatar(
+                      child: const CircleAvatar(
                           backgroundColor: Colors.white,
                           radius: 25,
                           child: Icon(
@@ -99,7 +99,7 @@ class _EmergencyServicesDashboardState
                             color: Colors.black,
                           )),
                     ),
-                    title: Text(
+                    title: const Text(
                       "Manage Contact",
                       style: TextStyle(
                           fontWeight: FontWeight.w700, color: Colors.black),
@@ -107,7 +107,7 @@ class _EmergencyServicesDashboardState
                     trailing: CircleAvatar(
                       backgroundColor: Colors.grey.shade300,
                       radius: 25,
-                      child: CircleAvatar(
+                      child: const CircleAvatar(
                           backgroundColor: Colors.white,
                           radius: 20,
                           child: Icon(
@@ -119,7 +119,7 @@ class _EmergencyServicesDashboardState
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             InkWell(
@@ -143,13 +143,13 @@ class _EmergencyServicesDashboardState
                       )
                     ],
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                    borderRadius: const BorderRadius.all(Radius.circular(20))),
                 child: Center(
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: Colors.grey.shade300,
                       radius: 30,
-                      child: CircleAvatar(
+                      child: const CircleAvatar(
                           backgroundColor: Colors.white,
                           radius: 25,
                           child: Icon(
@@ -158,7 +158,7 @@ class _EmergencyServicesDashboardState
                           )),
                     ),
                     title: Column(
-                      children: [
+                      children: const [
                         SizedBox(
                           height: 12,
                         ),
@@ -177,7 +177,7 @@ class _EmergencyServicesDashboardState
                     trailing: CircleAvatar(
                       backgroundColor: Colors.grey.shade300,
                       radius: 25,
-                      child: CircleAvatar(
+                      child: const CircleAvatar(
                           backgroundColor: Colors.white,
                           radius: 20,
                           child: Icon(

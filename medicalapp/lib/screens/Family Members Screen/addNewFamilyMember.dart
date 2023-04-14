@@ -8,7 +8,6 @@ import '../../providers/verifiyaddFamilyMembersData.dart';
 import '../../service/api_services.dart';
 import '../../service/patient_api.dart';
 import '../../utility/constants.dart';
-import '../dashboard/dashboardScreen.dart';
 import 'familyMembersScreen.dart';
 
 class AddFamilyMember extends StatefulWidget {
@@ -96,7 +95,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                     Icons.arrow_back_ios,
                     color: Colors.black,
                   )),
-              title: Text(
+              title: const Text(
                 "Add Family Member profile",
                 style: TextStyle(color: Colors.black),
               ),
@@ -104,7 +103,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             ),
             body: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   children: [
                     Center(
@@ -116,7 +115,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                               Container(
                                   width: 150,
                                   height: 150,
-                                  padding: EdgeInsets.all(5),
+                                  padding: const EdgeInsets.all(5),
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     border:
@@ -141,7 +140,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                             child: Container(
                               height: 40,
                               width: 40,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.blue,
                               ),
@@ -345,11 +344,11 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                                             });
                                                           }
                                                         },
-                                                        icon: Icon(Icons.image),
+                                                        icon: const Icon(Icons.image),
                                                         color: Colors.blue,
                                                       ),
                                                     ),
-                                                    Text('Gallery')
+                                                    const Text('Gallery')
                                                   ],
                                                 )
                                               ],
@@ -360,7 +359,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                     },
                                   );
                                 },
-                                icon: Icon(Icons.camera_alt_rounded),
+                                icon: const Icon(Icons.camera_alt_rounded),
                                 color: Colors.white,
                               ),
                             ),
@@ -370,7 +369,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                     ),
                     Text(
                       verifyAddFamilyMembersData.verifyprofilePath,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
                     const SizedBox(
                       height: 30,
@@ -389,7 +388,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                     ),
                     Text(
                       verifyAddFamilyMembersData.verifyName,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
                     const SizedBox(
                       height: 20,
@@ -408,9 +407,9 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                     ),
                     Text(
                       verifyAddFamilyMembersData.verifyRelation,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Padding(
@@ -419,7 +418,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                           child: TextFormField(
                         focusNode: dobFocusNode,
                         controller: dobController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(20))),
@@ -452,9 +451,9 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                     ),
                     Text(
                       verifyAddFamilyMembersData.verifyDob,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     SizedBox(
@@ -467,7 +466,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                             'Blood Group:',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                           SizedBox(
@@ -496,9 +495,9 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                     ),
                     Text(
                       verifyAddFamilyMembersData.verifyBlood,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Padding(
@@ -522,7 +521,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                               ),
                               Text(
                                 verifyAddFamilyMembersData.verifyHight,
-                                style: TextStyle(color: Colors.red),
+                                style: const TextStyle(color: Colors.red),
                               ),
                             ],
                           ),
@@ -542,19 +541,19 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                               ),
                               Text(
                                 verifyAddFamilyMembersData.verifiyWeight,
-                                style: TextStyle(color: Colors.red),
+                                style: const TextStyle(color: Colors.red),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Column(
                       children: [
-                        Text('Choose your Gender'),
+                        const Text('Choose your Gender'),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -566,7 +565,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                     gender = value.toString();
                                   }); //selected value
                                 }),
-                            Text('Male'),
+                            const Text('Male'),
                             Radio(
                                 value: "female",
                                 groupValue: gender,
@@ -575,7 +574,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                     gender = value.toString();
                                   }); //selected value
                                 }),
-                            Text('Female'),
+                            const Text('Female'),
                             Radio(
                                 value: "others",
                                 groupValue: gender,
@@ -584,16 +583,16 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                     gender = value.toString();
                                   }); //selected value
                                 }),
-                            Text('Others'),
+                            const Text('Others'),
                           ],
                         ),
                       ],
                     ),
                     Text(
                       verifyAddFamilyMembersData.verifyGender,
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     ElevatedButton(
@@ -686,12 +685,12 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                 .then((value) {
                               if (value.statusCode == 200) {
                                 var respons = jsonDecode(value.body);
-                                String family_member_id =
+                                String familyMemberId =
                                     respons['family_member_id'].toString();
                                 print(respons);
-                                print(family_member_id);
+                                print(familyMemberId);
                                 showSuccessDialog(context, "Added Successfully",
-                                    FamilyMembersScreen(), "Success");
+                                    const FamilyMembersScreen(), "Success");
                                 // Navigator.pushReplacement(
                                 //     context,
                                 //     MaterialPageRoute(
@@ -710,7 +709,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                             });
                           }
                         }),
-                        child: Text("Submit"))
+                        child: const Text("Submit"))
                   ],
                 )),
           ),
@@ -727,16 +726,16 @@ void showSuccessDialog(BuildContext context, String message,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(title),
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
             fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),
         backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
         content: Text(message),
       );
     },
   );
-  Future.delayed(Duration(seconds: 1), () {
+  Future.delayed(const Duration(seconds: 1), () {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => navigationRoute),

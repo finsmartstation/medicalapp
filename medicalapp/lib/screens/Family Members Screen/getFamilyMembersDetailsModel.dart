@@ -2,7 +2,6 @@
 //
 //     final getFamilyMembers = getFamilyMembersFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class GetFamilyMembers {
@@ -26,7 +25,7 @@ class GetFamilyMembers {
         status: json["status"],
         statuscode: json["statuscode"],
         message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: List<Datum>.from(json["data"].map(Datum.fromJson)),
     );
 
     Map<String, dynamic> toJson() => {

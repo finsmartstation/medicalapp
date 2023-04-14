@@ -50,7 +50,7 @@ class _ProfilePatientState extends State<ProfilePatient> {
             onPressed: (() {
               Navigator.pop(context);
             }),
-            icon: Icon(Icons.arrow_back_ios)),
+            icon: const Icon(Icons.arrow_back_ios)),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -62,7 +62,7 @@ class _ProfilePatientState extends State<ProfilePatient> {
                   Container(
                     height: 70,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(20),
                           bottomRight: Radius.circular(20),
                         ),
@@ -71,11 +71,11 @@ class _ProfilePatientState extends State<ProfilePatient> {
                               color: Colors.blue.withOpacity(0.5),
                               spreadRadius: 5,
                               blurRadius: 7,
-                              offset: Offset(0, 2))
+                              offset: const Offset(0, 2))
                         ],
                         color: Colors.blue[700]),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 75,
                   ),
                 ],
@@ -84,14 +84,14 @@ class _ProfilePatientState extends State<ProfilePatient> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 200,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Name: " + widget.name,
-                      style: TextStyle(
+                      "Name: ${widget.name}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -100,8 +100,8 @@ class _ProfilePatientState extends State<ProfilePatient> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Mobile: " + widget.mobile,
-                      style: TextStyle(
+                      "Mobile: ${widget.mobile}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -110,8 +110,8 @@ class _ProfilePatientState extends State<ProfilePatient> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Email: " + widget.email,
-                      style: TextStyle(
+                      "Email: ${widget.email}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -120,8 +120,8 @@ class _ProfilePatientState extends State<ProfilePatient> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Blood Group: " + widget.blood,
-                      style: TextStyle(
+                      "Blood Group: ${widget.blood}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -130,8 +130,8 @@ class _ProfilePatientState extends State<ProfilePatient> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Gender: " + widget.gender,
-                      style: TextStyle(
+                      "Gender: ${widget.gender}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -140,8 +140,8 @@ class _ProfilePatientState extends State<ProfilePatient> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Height: " + widget.height,
-                      style: TextStyle(
+                      "Height: ${widget.height}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -150,20 +150,20 @@ class _ProfilePatientState extends State<ProfilePatient> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Weight: " + widget.weight,
-                      style: TextStyle(
+                      "Weight: ${widget.weight}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
                     ),
                   ),
                   widget.relation == "self"
-                      ? SizedBox()
+                      ? const SizedBox()
                       : Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            "Relation: " + widget.relation,
-                            style: TextStyle(
+                            "Relation: ${widget.relation}",
+                            style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400),
@@ -172,8 +172,8 @@ class _ProfilePatientState extends State<ProfilePatient> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Dob: " + DateFormat("dd/MM/yyyy").format(widget.dob),
-                      style: TextStyle(
+                      "Dob: ${DateFormat("dd/MM/yyyy").format(widget.dob)}",
+                      style: const TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
@@ -187,8 +187,8 @@ class _ProfilePatientState extends State<ProfilePatient> {
                 child: Container(
                   width: 150,
                   height: 150,
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
                   child: AvatarGlow(
@@ -214,7 +214,7 @@ class _ProfilePatientState extends State<ProfilePatient> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue.shade700,
-        child: Icon(Icons.edit),
+        child: const Icon(Icons.edit),
         onPressed: () {
           Navigator.push(
               context,

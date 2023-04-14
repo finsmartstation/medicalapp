@@ -62,7 +62,7 @@ class _MyReportsState extends State<MyReports> {
                   onPressed: (() {
                     Navigator.pop(context);
                   }),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios_new,
                     color: Colors.black,
                   )),
@@ -96,8 +96,8 @@ class _MyReportsState extends State<MyReports> {
                       //       );
                       //     }));
                     }),
-                    icon: Padding(
-                      padding: const EdgeInsets.only(right: 15),
+                    icon: const Padding(
+                      padding: EdgeInsets.only(right: 15),
                       child: Icon(
                         Icons.add,
                         color: Colors.black,
@@ -113,8 +113,8 @@ class _MyReportsState extends State<MyReports> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         print(snapshot.data);
-                        return snapshot.data!.data.length == 0
-                            ? Center(
+                        return snapshot.data!.data.isEmpty
+                            ? const Center(
                                 child: Text(
                                 "No Case reports",
                                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -164,7 +164,7 @@ class _MyReportsState extends State<MyReports> {
                                                 DateFormat("dd/MM/yyyy").format(
                                                     snapshot.data!.data[index]
                                                         .dateTime),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 15),
                                               ),
@@ -182,13 +182,13 @@ class _MyReportsState extends State<MyReports> {
                                                   builder:
                                                       (BuildContext context) {
                                                     return AlertDialog(
-                                                      title: Text(
+                                                      title: const Text(
                                                           "Delete This Case?"),
-                                                      content: Text(
+                                                      content: const Text(
                                                           "This will delete the File from your Medical Case History?"),
                                                       actions: <Widget>[
                                                         TextButton(
-                                                          child: Text("Cancel"),
+                                                          child: const Text("Cancel"),
                                                           onPressed: () {
                                                             Navigator.of(
                                                                     context)
@@ -196,7 +196,7 @@ class _MyReportsState extends State<MyReports> {
                                                           },
                                                         ),
                                                         TextButton(
-                                                          child: Text("OK"),
+                                                          child: const Text("OK"),
                                                           onPressed: () {
                                                             delete_medical_history(
                                                                     user_id,
@@ -216,7 +216,7 @@ class _MyReportsState extends State<MyReports> {
                                                                       .pop();
                                                                   ScaffoldMessenger.of(
                                                                           context)
-                                                                      .showSnackBar(SnackBar(
+                                                                      .showSnackBar(const SnackBar(
                                                                           content:
                                                                               Text("Deleted Successfully ")));
                                                                 });
@@ -231,7 +231,7 @@ class _MyReportsState extends State<MyReports> {
                                                   },
                                                 );
                                               }),
-                                              icon: Icon(
+                                              icon: const Icon(
                                                 Icons.delete,
                                                 color: Colors.red,
                                               ))
@@ -253,7 +253,7 @@ class _MyReportsState extends State<MyReports> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.grey.shade100,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
@@ -262,7 +262,7 @@ class _MyReportsState extends State<MyReports> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 SizedBox(
@@ -279,9 +279,9 @@ class _MyReportsState extends State<MyReports> {
                                 ),
                                 Text(
                                   vrifydata.documentVerify.toString(),
-                                  style: TextStyle(color: Colors.red),
+                                  style: const TextStyle(color: Colors.red),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 SizedBox(
@@ -297,7 +297,7 @@ class _MyReportsState extends State<MyReports> {
                                     ),
                                     onPressed: (() {
                                       DatePicker.showDatePicker(context,
-                                          theme: DatePickerTheme(
+                                          theme: const DatePickerTheme(
                                             containerHeight: 210.0,
                                           ),
                                           showTitleActions: true,
@@ -349,9 +349,9 @@ class _MyReportsState extends State<MyReports> {
                                 ),
                                 Text(
                                   vrifydata.dates.toString(),
-                                  style: TextStyle(color: Colors.red),
+                                  style: const TextStyle(color: Colors.red),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 SizedBox(
@@ -368,7 +368,7 @@ class _MyReportsState extends State<MyReports> {
                                     onPressed: (() {
                                       setState(() {
                                         DatePicker.showTimePicker(context,
-                                            theme: DatePickerTheme(
+                                            theme: const DatePickerTheme(
                                               containerHeight: 210.0,
                                             ),
                                             showSecondsColumn: false,
@@ -417,7 +417,7 @@ class _MyReportsState extends State<MyReports> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 SizedBox(
@@ -473,20 +473,20 @@ class _MyReportsState extends State<MyReports> {
                                       ),
                                     ),
                                     icon: const Text('Upload File '),
-                                    label: Icon(Icons.upload),
+                                    label: const Icon(Icons.upload),
                                   ),
                                 ),
                                 Text(
                                   vrifydata.fileVerify.toString(),
-                                  style: TextStyle(color: Colors.red),
+                                  style: const TextStyle(color: Colors.red),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     SizedBox(
@@ -500,7 +500,7 @@ class _MyReportsState extends State<MyReports> {
                                           }),
                                           child: const Text("Close")),
                                     ),
-                                    Spacer(),
+                                    const Spacer(),
                                     SizedBox(
                                       height: 50,
                                       width: 100,
@@ -509,12 +509,9 @@ class _MyReportsState extends State<MyReports> {
                                             setState(() {
                                               _time == "Not set"
                                                   ? apiDateTimeFormat =
-                                                      _dateee + " " + "00:00:00"
+                                                      "$_dateee 00:00:00"
                                                   : apiDateTimeFormat =
-                                                      _dateee +
-                                                          " " +
-                                                          _time +
-                                                          ":00";
+                                                      "$_dateee $_time:00";
                                             });
                                             print(apiDateTimeFormat);
                                             bool documentbool = false;
@@ -561,7 +558,7 @@ class _MyReportsState extends State<MyReports> {
                                                     showDialogbool = false;
                                                     ScaffoldMessenger.of(
                                                             context)
-                                                        .showSnackBar(SnackBar(
+                                                        .showSnackBar(const SnackBar(
                                                             content: Text(
                                                                 "Added Successfully ")));
                                                   });
@@ -569,9 +566,9 @@ class _MyReportsState extends State<MyReports> {
                                               });
                                             }
                                           }),
-                                          child: Text("Submit")),
+                                          child: const Text("Submit")),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                   ],
@@ -581,7 +578,7 @@ class _MyReportsState extends State<MyReports> {
                           ),
                         ),
                       )
-                    : SizedBox()
+                    : const SizedBox()
               ],
             ));
       },

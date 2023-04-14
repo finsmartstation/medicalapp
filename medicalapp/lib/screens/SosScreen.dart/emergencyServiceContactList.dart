@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -46,11 +44,11 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
             onPressed: (() {
               Navigator.pop(context);
             }),
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
             )),
-        title: Text(
+        title: const Text(
           "Emergency Contact",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
@@ -63,7 +61,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
             return Container(
               height: double.infinity,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(60),
@@ -73,14 +71,14 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 70),
-                    snapshot.data!.data.length == 0
-                        ? Center(
+                    const SizedBox(height: 70),
+                    snapshot.data!.data.isEmpty
+                        ? const Center(
                             child: Text("Add Emergency Contact"),
                           )
                         : Expanded(
                             child: ListView.builder(
-                              physics: BouncingScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               itemCount: snapshot.data!.data.length,
                               itemBuilder: (context, index) {
                                 return Column(
@@ -97,11 +95,11 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                             )
                                           ],
                                           color: Colors.white,
-                                          borderRadius: BorderRadius.all(
+                                          borderRadius: const BorderRadius.all(
                                               Radius.circular(20))),
                                       child: Row(
                                         children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           ),
                                           Padding(
@@ -114,15 +112,12 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    snapshot.data!.data[index]
-                                                            .name +
-                                                        "  (" +
-                                                        snapshot
+                                                    "${snapshot.data!.data[index]
+                                                            .name}  (${snapshot
                                                             .data!
                                                             .data[index]
-                                                            .relation +
-                                                        ")",
-                                                    style: TextStyle(
+                                                            .relation})",
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontSize: 15),
@@ -130,14 +125,14 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                   Text(
                                                     snapshot.data!.data[index]
                                                         .mobile,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.w600,
                                                         fontSize: 15),
                                                   )
                                                 ]),
                                           ),
-                                          Spacer(),
+                                          const Spacer(),
                                           Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceAround,
@@ -149,13 +144,13 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                       builder: (BuildContext
                                                           context) {
                                                         return AlertDialog(
-                                                          title: Text(
+                                                          title: const Text(
                                                               "Delete This Contact?"),
-                                                          content: Text(
+                                                          content: const Text(
                                                               "This will delete the Contact from your Emergency Contact List."),
                                                           actions: <Widget>[
                                                             TextButton(
-                                                              child: Text(
+                                                              child: const Text(
                                                                   "Cancel"),
                                                               onPressed: () {
                                                                 Navigator.of(
@@ -164,7 +159,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                               },
                                                             ),
                                                             TextButton(
-                                                              child: Text("OK"),
+                                                              child: const Text("OK"),
                                                               onPressed: () {
                                                                 delete_emergency_contact(
                                                                         user_id,
@@ -187,7 +182,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                                       ScaffoldMessenger.of(
                                                                               context)
                                                                           .showSnackBar(
-                                                                              SnackBar(content: Text("Deleted Successfully ")));
+                                                                              const SnackBar(content: Text("Deleted Successfully ")));
                                                                     });
                                                                     print(value
                                                                         .body);
@@ -200,7 +195,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                       },
                                                     );
                                                   }),
-                                                  icon: Icon(Icons.delete)),
+                                                  icon: const Icon(Icons.delete)),
                                               IconButton(
                                                   onPressed: (() async {
                                                     String url =
@@ -211,16 +206,16 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                       throw 'Could not launch $url';
                                                     }
                                                   }),
-                                                  icon: Icon(Icons.call))
+                                                  icon: const Icon(Icons.call))
                                             ],
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 5,
                                           )
                                         ],
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 5,
                                     )
                                   ],
@@ -230,8 +225,9 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                           )
                   ]),
             );
-          } else
-            return Center(child: CircularProgressIndicator());
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -249,7 +245,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                   width: 500,
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       SizedBox(
@@ -264,7 +260,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                               hintText: "Full Name"),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       SizedBox(
@@ -283,7 +279,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                               hintText: "Mobile Number"),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       SizedBox(
@@ -298,7 +294,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                               hintText: "Enter Relation"),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       Row(
@@ -317,7 +313,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                 onPressed: (() {
                                   Navigator.pop(context);
                                 }),
-                                child: Text("Close")),
+                                child: const Text("Close")),
                           ),
                           SizedBox(
                             height: 40,
@@ -349,7 +345,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                     }
                                   });
                                 }),
-                                child: Text("Save")),
+                                child: const Text("Save")),
                           )
                         ],
                       )
@@ -360,7 +356,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
             },
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

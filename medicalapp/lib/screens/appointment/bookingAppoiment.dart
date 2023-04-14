@@ -1,8 +1,5 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
 import 'package:medicalapp/screens/appointment/paymentPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +14,7 @@ class BookingAppoiment extends StatefulWidget {
   String? drSpl;
   String? organization;
   BookingAppoiment(
-      {Key? key,
+      {super.key,
       required this.family_member_id,
       required this.doctorId,
       required this.consultingfee,
@@ -138,11 +135,11 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                     onPressed: (() {
                       Navigator.pop(context);
                     }),
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back_ios,
                       color: Colors.black,
                     )),
-                title: Text(
+                title: const Text(
                   "Booking Appointment",
                   style: TextStyle(color: Colors.black),
                 ),
@@ -152,15 +149,15 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 18),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 18),
                       child: Text("Select Date",
                           style: TextStyle(color: Colors.black, fontSize: 20)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     SizedBox(
@@ -196,7 +193,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                             Colors.blue,
                                             Colors.blue.shade700
                                           ])
-                                        : LinearGradient(colors: [
+                                        : const LinearGradient(colors: [
                                             Colors.white,
                                             Colors.white10
                                           ]),
@@ -219,7 +216,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                                           .date.day ==
                                                       DateTime.now()
                                                           .add(
-                                                              Duration(days: 1))
+                                                              const Duration(days: 1))
                                                           .day &&
                                                   snapshot
                                                           .data!
@@ -229,7 +226,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                                           .month ==
                                                       DateTime.now()
                                                           .add(
-                                                              Duration(days: 1))
+                                                              const Duration(days: 1))
                                                           .month &&
                                                   snapshot
                                                           .data!
@@ -238,7 +235,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                                           .date
                                                           .year ==
                                                       DateTime.now()
-                                                          .add(Duration(days: 1))
+                                                          .add(const Duration(days: 1))
                                                           .year)
                                               ? 'Tomorrow'
                                               : DateFormat.E().format(snapshot.data!.data.date[index].date),
@@ -278,9 +275,8 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                                       : Colors.black)),
                                         ),
                                         Text(
-                                          " " +
-                                              DateFormat.MMM().format(snapshot
-                                                  .data!.data.date[index].date),
+                                          " ${DateFormat.MMM().format(snapshot
+                                                  .data!.data.date[index].date)}",
                                           style: TextStyle(
                                             fontSize: 20,
                                             color:
@@ -294,14 +290,10 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                     Text(
                                         snapshot.data!.data.date[index].count ==
                                                 "1"
-                                            ? snapshot.data!.data.date[index]
-                                                    .count
-                                                    .toString() +
-                                                " slot Available"
-                                            : snapshot.data!.data.date[index]
-                                                    .count
-                                                    .toString() +
-                                                " slots Available",
+                                            ? "${snapshot.data!.data.date[index]
+                                                    .count} slot Available"
+                                            : "${snapshot.data!.data.date[index]
+                                                    .count} slots Available",
                                         style: TextStyle(
                                             fontSize: 15,
                                             color:
@@ -323,7 +315,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                         child: GridView.builder(
                           itemCount: snapshot.data!.data.slots.length,
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
                             childAspectRatio: 2.5,
                             crossAxisSpacing: 10,
@@ -364,8 +356,8 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
+                    const Padding(
+                      padding: EdgeInsets.all(10.0),
                       child: Text("Appointment Type",
                           style: TextStyle(color: Colors.black, fontSize: 20)),
                     ),
@@ -373,7 +365,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                             .data!.data.slots[timeButtonIndex].appoinmentType ==
                         "1")
                       Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Container(
                           height: 50,
                           width: double.infinity,
@@ -393,7 +385,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                             .data!.data.slots[timeButtonIndex].appoinmentType ==
                         "0")
                       Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Container(
                           height: 50,
                           width: double.infinity,
@@ -479,7 +471,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                           ],
                         ),
                       ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Padding(
@@ -498,7 +490,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                 controller: noteController,
                                 focusNode: noteFocusNode,
                                 maxLines: 3,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
                                     disabledBorder: InputBorder.none,
@@ -506,7 +498,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                     hintStyle: TextStyle(color: Colors.grey)),
                               ),
                             ),
-                            Text(
+                            const Text(
                               "Before meeting with doctor, you can write your problems so that it will be easier for doctor to understand before counsulting",
                               textAlign: TextAlign.center,
                               style: TextStyle(color: Colors.grey),
@@ -551,13 +543,13 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                                 visit_typeId: visit_typeId,
                                               )));
                                 }),
-                                child: Text("Set Appointment"))))
+                                child: const Text("Set Appointment"))))
                   ],
                 ),
               ),
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

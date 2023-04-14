@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,6 +42,7 @@ class _MyDoctorState extends State<MyDoctor> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: listFamilyAndFavoriteDoctors(
@@ -67,7 +66,7 @@ class _MyDoctorState extends State<MyDoctor> {
                     });
                   }
                 }),
-                child: Icon(Icons.add),
+                child: const Icon(Icons.add),
               ),
               appBar: AppBar(
                 leading: IconButton(
@@ -78,7 +77,7 @@ class _MyDoctorState extends State<MyDoctor> {
                       Icons.arrow_back_ios,
                       color: Colors.black,
                     )),
-                title: Text(
+                title: const Text(
                   "My Doctor(s)",
                   style: TextStyle(color: Colors.black),
                 ),
@@ -90,16 +89,16 @@ class _MyDoctorState extends State<MyDoctor> {
                 child: Expanded(
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         "Family Doctor",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       snapshot.data!.familyDoctorStatus == false
-                          ? Text('No Family Doctor')
+                          ? const Text('No Family Doctor')
                           : InkWell(
                               onTap: () async {
                                 String refresh = await Navigator.push(
@@ -145,15 +144,14 @@ class _MyDoctorState extends State<MyDoctor> {
                                                   fit: BoxFit.fill,
                                                 ),
                                               )),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
-                                          Text("Exp:" +
-                                              snapshot.data!.familyDoctor
-                                                  .experience)
+                                          Text(
+                                              "Exp:${snapshot.data!.familyDoctor.experience}")
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                       Column(
@@ -163,13 +161,13 @@ class _MyDoctorState extends State<MyDoctor> {
                                           Text(snapshot
                                               .data!.familyDoctor.username
                                               .toString()),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Text(snapshot
                                               .data!.familyDoctor.organisation
                                               .toString()),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Text(snapshot
@@ -177,7 +175,7 @@ class _MyDoctorState extends State<MyDoctor> {
                                               .toString())
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 10,
                                       ),
                                     ],
@@ -185,12 +183,12 @@ class _MyDoctorState extends State<MyDoctor> {
                                 ),
                               ),
                             ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       snapshot.data!.recentDoctor.isEmpty
-                          ? SizedBox()
-                          : Center(
+                          ? const SizedBox()
+                          : const Center(
                               child: Text(
                               "Recently visited Doctor(s)",
                               style: TextStyle(
@@ -200,10 +198,10 @@ class _MyDoctorState extends State<MyDoctor> {
                         child: Column(
                           children: [
                             snapshot.data!.recentDoctor.isEmpty
-                                ? SizedBox()
+                                ? const SizedBox()
                                 : ListView.builder(
                                     shrinkWrap: true,
-                                    physics: BouncingScrollPhysics(),
+                                    physics: const BouncingScrollPhysics(),
                                     itemCount:
                                         snapshot.data!.recentDoctor.length,
                                     itemBuilder: (context, index) {
@@ -260,18 +258,14 @@ class _MyDoctorState extends State<MyDoctor> {
                                                             fit: BoxFit.fill,
                                                           ),
                                                         )),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 10,
                                                     ),
-                                                    Text("Exp:" +
-                                                        snapshot
-                                                            .data!
-                                                            .recentDoctor[index]
-                                                            .experience
-                                                            .toString())
+                                                    Text(
+                                                        "Exp:${snapshot.data!.recentDoctor[index].experience}")
                                                   ],
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 10,
                                                 ),
                                                 Column(
@@ -285,7 +279,7 @@ class _MyDoctorState extends State<MyDoctor> {
                                                         .recentDoctor[index]
                                                         .doctorName
                                                         .toString()),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 10,
                                                     ),
                                                     Text(snapshot
@@ -293,7 +287,7 @@ class _MyDoctorState extends State<MyDoctor> {
                                                         .recentDoctor[index]
                                                         .organisation
                                                         .toString()),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 10,
                                                     ),
                                                     Text(snapshot
@@ -303,7 +297,7 @@ class _MyDoctorState extends State<MyDoctor> {
                                                         .toString())
                                                   ],
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 10,
                                                 ),
                                               ],
@@ -312,21 +306,22 @@ class _MyDoctorState extends State<MyDoctor> {
                                         ),
                                       );
                                     }),
-                            Center(
+                            const Center(
                               child: Text(
                                 "Favourite Doctor(s)",
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             snapshot.data!.favouriteDoctorStatus == false
-                                ? Center(child: Text('No Favourite Doctor'))
+                                ? const Center(
+                                    child: Text('No Favourite Doctor'))
                                 : ListView.builder(
                                     shrinkWrap: true,
-                                    physics: BouncingScrollPhysics(),
+                                    physics: const BouncingScrollPhysics(),
                                     itemCount:
                                         snapshot.data!.favouriteDoctor.length,
                                     itemBuilder: (context, index) {
@@ -378,19 +373,14 @@ class _MyDoctorState extends State<MyDoctor> {
                                                             fit: BoxFit.fill,
                                                           ),
                                                         )),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 10,
                                                     ),
-                                                    Text("Exp:" +
-                                                        snapshot
-                                                            .data!
-                                                            .favouriteDoctor[
-                                                                index]
-                                                            .experience
-                                                            .toString())
+                                                    Text(
+                                                        "Exp:${snapshot.data!.favouriteDoctor[index].experience}")
                                                   ],
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 10,
                                                 ),
                                                 Column(
@@ -402,7 +392,7 @@ class _MyDoctorState extends State<MyDoctor> {
                                                         .favouriteDoctor[index]
                                                         .username
                                                         .toString()),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 10,
                                                     ),
                                                     Text(snapshot
@@ -410,7 +400,7 @@ class _MyDoctorState extends State<MyDoctor> {
                                                         .favouriteDoctor[index]
                                                         .organisation
                                                         .toString()),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 10,
                                                     ),
                                                     Text(snapshot
@@ -420,7 +410,7 @@ class _MyDoctorState extends State<MyDoctor> {
                                                         .toString())
                                                   ],
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 10,
                                                 ),
                                               ],
@@ -440,7 +430,7 @@ class _MyDoctorState extends State<MyDoctor> {
           return Scaffold(
             appBar: AppBar(
               elevation: 0,
-              title: Text(
+              title: const Text(
                 "My Doctor",
                 style: TextStyle(color: Colors.black),
               ),
@@ -455,7 +445,7 @@ class _MyDoctorState extends State<MyDoctor> {
                   )),
             ),
             body: ListView.builder(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               itemCount: 10,
               itemBuilder: (BuildContext context, int index) {
                 return Shimmer.fromColors(
@@ -463,7 +453,7 @@ class _MyDoctorState extends State<MyDoctor> {
                     baseColor: Colors.grey.shade400,
                     highlightColor: Colors.grey.shade100,
                     child: Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),

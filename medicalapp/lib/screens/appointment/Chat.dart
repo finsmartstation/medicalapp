@@ -10,23 +10,23 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   final _textController = TextEditingController();
   final List<ChatMessage> _messages = [
-    ChatMessage(
+    const ChatMessage(
       text: 'How was the concert?',
       isCurrentUser: false,
     ),
-    ChatMessage(
+    const ChatMessage(
       text: 'Awesome! Next time you gotta come as well!',
       isCurrentUser: true,
     ),
-    ChatMessage(
+    const ChatMessage(
       text: 'Ok, when is the next date?',
       isCurrentUser: false,
     ),
-    ChatMessage(
+    const ChatMessage(
       text: 'They\'re playing on the 20th of November',
       isCurrentUser: true,
     ),
-    ChatMessage(
+    const ChatMessage(
       text: 'Let\'s do it!',
       isCurrentUser: false,
     ),
@@ -37,7 +37,7 @@ class _ChatState extends State<Chat> {
     List<bool> isMe = [true, false, true, false, true];
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat Screen'),
+        title: const Text('Chat Screen'),
       ),
       body: Column(
         children: [
@@ -51,24 +51,24 @@ class _ChatState extends State<Chat> {
                       : MainAxisAlignment.start,
                   children: [
                     Container(
-                      constraints: BoxConstraints(maxWidth: 300),
+                      constraints: const BoxConstraints(maxWidth: 300),
                       margin:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+                          const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30.0),
-                          topRight: Radius.circular(30.0),
+                          topLeft: const Radius.circular(30.0),
+                          topRight: const Radius.circular(30.0),
                           bottomLeft:
-                              isMe[index] ? Radius.circular(30.0) : Radius.zero,
+                              isMe[index] ? const Radius.circular(30.0) : Radius.zero,
                           bottomRight:
-                              isMe[index] ? Radius.zero : Radius.circular(30.0),
+                              isMe[index] ? Radius.zero : const Radius.circular(30.0),
                         ),
                         color: isMe[index]
                             ? Colors.lightBlueAccent
                             : Colors.grey[300],
                       ),
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,13 +119,13 @@ class _ChatState extends State<Chat> {
                 Expanded(
                   child: TextField(
                     controller: _textController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: 'Type your message...',
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                   onPressed: () {
                     final message = ChatMessage(
                       text: _textController.text,

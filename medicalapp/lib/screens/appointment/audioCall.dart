@@ -5,7 +5,7 @@ class AudioCall extends StatefulWidget {
   final String roomID;
   final String userName;
 
-  AudioCall({Key? key, required this.roomID, required this.userName})
+  const AudioCall({Key? key, required this.roomID, required this.userName})
       : super(key: key);
 
   @override
