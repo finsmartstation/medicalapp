@@ -103,123 +103,256 @@ class Datum {
 //
 //     final doctorAvailableSlotDetails = doctorAvailableSlotDetailsFromJson(jsonString);
 
+
+// class DoctorAvailableSlotDetails {
+//     final bool status;
+//     final int statuscode;
+//     final String message;
+//     final  data;
+
+//     DoctorAvailableSlotDetails({
+//         required this.status,
+//         required this.statuscode,
+//         required this.message,
+//         required this.data,
+//     });
+
+//     factory DoctorAvailableSlotDetails.fromRawJson(String str) => DoctorAvailableSlotDetails.fromJson(json.decode(str));
+
+//     String toRawJson() => json.encode(toJson());
+
+//     factory DoctorAvailableSlotDetails.fromJson(Map<String, dynamic> json) => DoctorAvailableSlotDetails(
+//         status: json["status"],
+//         statuscode: json["statuscode"],
+//         message: json["message"],
+//         data: Data.fromJson(json["data"]),
+//     );
+
+//     Map<String, dynamic> toJson() => {
+//         "status": status,
+//         "statuscode": statuscode,
+//         "message": message,
+//         "data": data.toJson(),
+//     };
+// }
+
+// class Data {
+//     final List<Date> date;
+//     final List<Slot> slots;
+
+//     Data({
+//         required this.date,
+//         required this.slots,
+//     });
+
+//     factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
+
+//     String toRawJson() => json.encode(toJson());
+
+//     factory Data.fromJson(Map<String, dynamic> json) => Data(
+//         date: List<Date>.from(json["date"].map((x) => Date.fromJson(x))),
+//         slots: List<Slot>.from(json["slots"].map((x) => Slot.fromJson(x))),
+//     );
+
+//     Map<String, dynamic> toJson() => {
+//         "date": List<dynamic>.from(date.map((x) => x.toJson())),
+//         "slots": List<dynamic>.from(slots.map((x) => x.toJson())),
+//     };
+// }
+
+// class Date {
+//     final String dateId;
+//     final DateTime date;
+//     final int count;
+
+//     Date({
+//         required this.dateId,
+//         required this.date,
+//         required this.count,
+//     });
+
+//     factory Date.fromRawJson(String str) => Date.fromJson(json.decode(str));
+
+//     String toRawJson() => json.encode(toJson());
+
+//     factory Date.fromJson(Map<String, dynamic> json) => Date(
+//         dateId: json["date_id"],
+//         date: DateTime.parse(json["date"]),
+//         count: json["count"],
+//     );
+
+//     Map<String, dynamic> toJson() => {
+//         "date_id": dateId,
+//         "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+//         "count": count,
+//     };
+// }
+
+// class Slot {
+//     final String id;
+//     final String dateId;
+//     final DateTime date;
+//     final String slotTime;
+//     final String appoinmentType;
+
+//     Slot({
+//         required this.id,
+//         required this.dateId,
+//         required this.date,
+//         required this.slotTime,
+//         required this.appoinmentType,
+//     });
+
+//     factory Slot.fromRawJson(String str) => Slot.fromJson(json.decode(str));
+
+//     String toRawJson() => json.encode(toJson());
+
+//     factory Slot.fromJson(Map<String, dynamic> json) => Slot(
+//         id: json["id"],
+//         dateId: json["date_id"],
+//         date: DateTime.parse(json["date"]),
+//         slotTime: json["slot_time"],
+//         appoinmentType: json["appoinment_type"],
+//     );
+
+//     Map<String, dynamic> toJson() => {
+//         "id": id,
+//         "date_id": dateId,
+//         "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+//         "slot_time": slotTime,
+//         "appoinment_type": appoinmentType,
+//     };
+// }
+
+
+// To parse this JSON data, do
+//
+//     final doctorAvailableSlotDetails = doctorAvailableSlotDetailsFromJson(jsonString);
+
+
+
+// To parse this JSON data, do
+//
+//     final doctorAvailableSlotDetails = doctorAvailableSlotDetailsFromJson(jsonString);
+
+
+
 class DoctorAvailableSlotDetails {
-  DoctorAvailableSlotDetails({
-    required this.status,
-    required this.statuscode,
-    required this.message,
-    required this.data,
-  });
+    final bool status;
+    final int statuscode;
+    final String message;
+    final Data data;
 
-  bool status;
-  int statuscode;
-  String message;
-  Data data;
+    DoctorAvailableSlotDetails({
+        required this.status,
+        required this.statuscode,
+        required this.message,
+        required this.data,
+    });
 
-  factory DoctorAvailableSlotDetails.fromRawJson(String str) =>
-      DoctorAvailableSlotDetails.fromJson(json.decode(str));
+    factory DoctorAvailableSlotDetails.fromRawJson(String str) => DoctorAvailableSlotDetails.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+    String toRawJson() => json.encode(toJson());
 
-  factory DoctorAvailableSlotDetails.fromJson(Map<String, dynamic> json) =>
-      DoctorAvailableSlotDetails(
+    factory DoctorAvailableSlotDetails.fromJson(Map<String, dynamic> json) => DoctorAvailableSlotDetails(
         status: json["status"],
         statuscode: json["statuscode"],
         message: json["message"],
         data: Data.fromJson(json["data"]),
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "status": status,
         "statuscode": statuscode,
         "message": message,
         "data": data.toJson(),
-      };
+    };
 }
 
 class Data {
-  Data({
-    required this.date,
-    required this.slots,
-  });
+    final List<Date> date;
+    final List<Slot> slots;
 
-  List<Date> date;
-  List<Slot> slots;
+    Data({
+        required this.date,
+        required this.slots,
+    });
 
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
+    factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+    String toRawJson() => json.encode(toJson());
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        date: List<Date>.from(json["date"].map(Date.fromJson)),
-        slots: List<Slot>.from(json["slots"].map(Slot.fromJson)),
-      );
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
+        date: List<Date>.from(json["date"].map((x) => Date.fromJson(x))),
+        slots: List<Slot>.from(json["slots"].map((x) => Slot.fromJson(x))),
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "date": List<dynamic>.from(date.map((x) => x.toJson())),
         "slots": List<dynamic>.from(slots.map((x) => x.toJson())),
-      };
+    };
 }
 
 class Date {
-  Date({required this.dateId, required this.date, required this.count});
+    final String dateId;
+    final String date;
+    final int count;
 
-  String dateId;
-  String count;
-  DateTime date;
+    Date({
+        required this.dateId,
+        required this.date,
+        required this.count,
+    });
 
-  factory Date.fromRawJson(String str) => Date.fromJson(json.decode(str));
+    factory Date.fromRawJson(String str) => Date.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+    String toRawJson() => json.encode(toJson());
 
-  factory Date.fromJson(Map<String, dynamic> json) => Date(
-        dateId: json["date_id"].toString(),
-        date: DateTime.parse(json["date"]),
-        count: json["count"].toString(),
-      );
+    factory Date.fromJson(Map<String, dynamic> json) => Date(
+        dateId: json["date_id"],
+        date: json["date"],
+        count: json["count"],
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "date_id": dateId,
-        "date":
-            "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
+        "date": date,
         "count": count,
-      };
+    };
 }
 
 class Slot {
-  Slot({
-    required this.id,
-    required this.dateId,
-    required this.date,
-    required this.slotTime,
-    required this.appoinmentType,
-  });
+    final String id;
+    final String dateId;
+    final String date;
+    final String slotTime;
+    final String appoinmentType;
 
-  String id;
-  String dateId;
-  DateTime date;
-  DateTime slotTime;
-  String appoinmentType;
+    Slot({
+        required this.id,
+        required this.dateId,
+        required this.date,
+        required this.slotTime,
+        required this.appoinmentType,
+    });
 
-  factory Slot.fromRawJson(String str) => Slot.fromJson(json.decode(str));
+    factory Slot.fromRawJson(String str) => Slot.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+    String toRawJson() => json.encode(toJson());
 
-  factory Slot.fromJson(Map<String, dynamic> json) => Slot(
-        id: json["id"].toString(),
-        dateId: json["date_id"].toString(),
-        date: DateTime.parse(json["date"]),
-        slotTime: DateFormat("HH:mm:ss").parse(json["slot_time"]),
-        appoinmentType: json["appoinment_type"].toString(),
-      );
+    factory Slot.fromJson(Map<String, dynamic> json) => Slot(
+        id: json["id"],
+        dateId: json["date_id"],
+        date: json["date"],
+        slotTime: json["slot_time"],
+        appoinmentType: json["appoinment_type"],
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "date_id": dateId,
-        "date":
-            "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
-        "slot_time":
-            "${slotTime.hour.toString().padLeft(2, '0')}:${slotTime.minute.toString().padLeft(2, '0')}:${slotTime.second.toString().padLeft(2, '0')}",
+        "date": date,
+        "slot_time": slotTime,
         "appoinment_type": appoinmentType,
-      };
+    };
 }
