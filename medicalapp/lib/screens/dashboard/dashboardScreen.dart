@@ -1251,7 +1251,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                               .data!
                                                               .slotStickers[
                                                                   index]
-                                                              .slotId,
+                                                              ['slot_id'],
                                                           userName: snapshot
                                                               .data!
                                                               .patientDetails
@@ -1273,7 +1273,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                   image: NetworkImage(snapshot
                                                       .data!
                                                       .slotStickers[index]
-                                                      .stickers)),
+                                                      ['stickers'])),
                                             ),
                                           ),
                                         );

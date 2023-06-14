@@ -132,7 +132,7 @@ class _MyReportsState extends State<MyReports> {
                                       child: Row(
                                         children: [
                                           SizedBox(
-                                            width: 350,
+                                            width: 300,
                                             height: 60,
                                             child: ListTile(
                                               onTap: () {

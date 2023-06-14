@@ -237,6 +237,11 @@ class Datum {
 
 
 
+// To parse this JSON data, do
+//
+//     final doctorAvailableSlotDetails = doctorAvailableSlotDetailsFromJson(jsonString);
+
+
 class DoctorAvailableSlotDetails {
     final bool status;
     final int statuscode;
@@ -295,7 +300,7 @@ class Data {
 
 class Date {
     final String dateId;
-    final String date;
+    final DateTime date;
     final int count;
 
     Date({
@@ -310,13 +315,13 @@ class Date {
 
     factory Date.fromJson(Map<String, dynamic> json) => Date(
         dateId: json["date_id"],
-        date: json["date"],
+        date: DateTime.parse(json["date"]),
         count: json["count"],
     );
 
     Map<String, dynamic> toJson() => {
         "date_id": dateId,
-        "date": date,
+        "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
         "count": count,
     };
 }
@@ -324,7 +329,7 @@ class Date {
 class Slot {
     final String id;
     final String dateId;
-    final String date;
+    final DateTime date;
     final String slotTime;
     final String appoinmentType;
 
@@ -343,7 +348,7 @@ class Slot {
     factory Slot.fromJson(Map<String, dynamic> json) => Slot(
         id: json["id"],
         dateId: json["date_id"],
-        date: json["date"],
+        date: DateTime.parse(json["date"]),
         slotTime: json["slot_time"],
         appoinmentType: json["appoinment_type"],
     );
@@ -351,7 +356,7 @@ class Slot {
     Map<String, dynamic> toJson() => {
         "id": id,
         "date_id": dateId,
-        "date": date,
+        "date": "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
         "slot_time": slotTime,
         "appoinment_type": appoinmentType,
     };

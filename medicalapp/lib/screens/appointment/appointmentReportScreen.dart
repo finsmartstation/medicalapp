@@ -20,7 +20,7 @@ class AppointmentReport extends StatefulWidget {
 class _AppointmentReportState extends State<AppointmentReport> {
   String? access_token;
   String? user_id;
-  getUserData() async {
+  Future getUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       access_token = prefs.getString('access_token');
@@ -32,6 +32,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
 
   @override
   void initState() {
+    print(widget.slot_id);
     // TODO: implement initState
     super.initState();
     getUserData();
@@ -65,7 +66,8 @@ class _AppointmentReportState extends State<AppointmentReport> {
                   actions: [
                     IconButton(
                         onPressed: (() {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
                             content:
                                 Text("Complete Appointment for Start Chat"),
                           ));
@@ -96,8 +98,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
                             height: 15,
                           ),
                           Text(
-                            "Date of Appointment: ${DateFormat("yyyy/MM/dd")
-                                    .format(snapshot.data!.data.bookedFor)}",
+                            "Date of Appointment: ${DateFormat("yyyy/MM/dd").format(snapshot.data!.data.bookedFor)}",
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700),
@@ -106,8 +107,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
                             height: 15,
                           ),
                           Text(
-                            "Time of Appointment: ${DateFormat("h:mm a")
-                                    .format(snapshot.data!.data.bookedFor)}",
+                            "Time of Appointment: ${DateFormat("h:mm a").format(snapshot.data!.data.bookedFor)}",
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w700),
@@ -149,8 +149,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                       height: 15,
                                     ),
                                     Text(
-                                      "Organization address: ${snapshot
-                                              .data!.data.organisationAddress}",
+                                      "Organization address: ${snapshot.data!.data.organisationAddress}",
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700),
@@ -159,8 +158,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                       height: 15,
                                     ),
                                     Text(
-                                      "Organization Mobile Number: ${snapshot
-                                              .data!.data.organisationMobile}",
+                                      "Organization Mobile Number: ${snapshot.data!.data.organisationMobile}",
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700),
@@ -178,9 +176,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                       height: 15,
                                     ),
                                     Text(
-                                      "Booked Date: ${DateFormat("yyyy/MM/dd").format(
-                                              snapshot
-                                                  .data!.data.bookedDatetime)}",
+                                      "Booked Date: ${DateFormat("yyyy/MM/dd").format(snapshot.data!.data.bookedDatetime)}",
                                       style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.w700),
@@ -265,9 +261,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                         height: 15,
                                       ),
                                       Text(
-                                          "Follow Up Date: ${DateFormat("yyyy/MM/dd").format(
-                                                  snapshot.data!.data
-                                                      .bookedDatetime)}",
+                                          "Follow Up Date: ${DateFormat("yyyy/MM/dd").format(snapshot.data!.data.bookedDatetime)}",
                                           style: const TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w700)),
@@ -275,8 +269,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                         height: 15,
                                       ),
                                       Text(
-                                          "Referred Doctor: ${snapshot
-                                                  .data!.data.refferedDoctor}",
+                                          "Referred Doctor: ${snapshot.data!.data.refferedDoctor}",
                                           style: const TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w700)),

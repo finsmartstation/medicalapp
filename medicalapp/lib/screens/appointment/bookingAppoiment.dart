@@ -74,12 +74,9 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
             widget.user_id, widget.accessToken, widget.doctorId, date_id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print("hasdata");
-            print(snapshot);
             if (selectedDate == "") {
-              // selectedDate = DateFormat("dd/MM/yyyy")
-              //     .format(snapshot.data!.data.date[0].date);
-              selectedDate = snapshot.data!.data.date[0].date;
+              selectedDate = DateFormat("dd/MM/yyyy")
+                  .format(snapshot.data!.data.date[0].date);
               print(selectedDate);
             }
 
@@ -190,11 +187,9 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                         snapshot.data!.data.date[index].dateId;
                                     selectDateButtonIndex = index;
                                     timeButtonIndex = 0;
-                                    // selectedDate = DateFormat("dd/MM/yyyy")
-                                    //     .format(snapshot
-                                    //         .data!.data.date[index].date);
-                                    selectedDate =
-                                        snapshot.data!.data.date[index].date;
+                                    selectedDate = DateFormat("dd/MM/yyyy")
+                                        .format(snapshot
+                                            .data!.data.date[index].date);
                                   });
                                 }
                               },
@@ -217,41 +212,40 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     Text(
-                                      // (snapshot.data!.data.date[index].date.day ==
-                                      //             DateTime.now().day &&
-                                      //         snapshot.data!.data.date[index]
-                                      //                 .date.month ==
-                                      //             DateTime.now().month &&
-                                      //         snapshot.data!.data.date[index].date.year ==
-                                      //             DateTime.now().year)
-                                      //     ? 'Today'
-                                      //     : (snapshot.data!.data.date[index].date.day ==
-                                      //                 DateTime.now()
-                                      //                     .add(const Duration(
-                                      //                         days: 1))
-                                      //                     .day &&
-                                      //             snapshot
-                                      //                     .data!
-                                      //                     .data
-                                      //                     .date[index]
-                                      //                     .date
-                                      //                     .month ==
-                                      //                 DateTime.now()
-                                      //                     .add(const Duration(
-                                      //                         days: 1))
-                                      //                     .month &&
-                                      //             snapshot
-                                      //                     .data!
-                                      //                     .data
-                                      //                     .date[index]
-                                      //                     .date
-                                      //                     .year ==
-                                      //                 DateTime.now()
-                                      //                     .add(const Duration(days: 1))
-                                      //                     .year)
-                                      //         ? 'Tomorrow'
-                                      //         : DateFormat.E().format(snapshot.data!.data.date[index].date),
-                                      "date",
+                                      (snapshot.data!.data.date[index].date.day ==
+                                                  DateTime.now().day &&
+                                              snapshot.data!.data.date[index]
+                                                      .date.month ==
+                                                  DateTime.now().month &&
+                                              snapshot.data!.data.date[index].date.year ==
+                                                  DateTime.now().year)
+                                          ? 'Today'
+                                          : (snapshot.data!.data.date[index].date.day ==
+                                                      DateTime.now()
+                                                          .add(const Duration(
+                                                              days: 1))
+                                                          .day &&
+                                                  snapshot
+                                                          .data!
+                                                          .data
+                                                          .date[index]
+                                                          .date
+                                                          .month ==
+                                                      DateTime.now()
+                                                          .add(const Duration(
+                                                              days: 1))
+                                                          .month &&
+                                                  snapshot
+                                                          .data!
+                                                          .data
+                                                          .date[index]
+                                                          .date
+                                                          .year ==
+                                                      DateTime.now()
+                                                          .add(const Duration(days: 1))
+                                                          .year)
+                                              ? 'Tomorrow'
+                                              : DateFormat.E().format(snapshot.data!.data.date[index].date),
                                       style: TextStyle(
                                         fontSize: 20,
                                         color: index == selectDateButtonIndex
@@ -264,10 +258,9 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          // snapshot
-                                          //     .data!.data.date[index].date.day
-                                          //     .toString(),
-                                          "date",
+                                          snapshot
+                                              .data!.data.date[index].date.day
+                                              .toString(),
                                           style: TextStyle(
                                               fontSize: 20,
                                               color:
@@ -279,9 +272,8 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                           padding:
                                               const EdgeInsets.only(bottom: 15),
                                           child: Text(
-                                              // getDayOfMonthSuffix(snapshot.data!
-                                              //     .data.date[index].date.day),
-                                              "day",
+                                              getDayOfMonthSuffix(snapshot.data!
+                                                  .data.date[index].date.day),
                                               style: TextStyle(
                                                   fontSize: 20,
                                                   color: index ==
@@ -290,8 +282,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                                       : Colors.black)),
                                         ),
                                         Text(
-                                          // " ${DateFormat.MMM().format(snapshot.data!.data.date[index].date)}",
-                                          "date",
+                                          " ${DateFormat.MMM().format(snapshot.data!.data.date[index].date)}",
                                           style: TextStyle(
                                             fontSize: 20,
                                             color:
@@ -358,8 +349,8 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                               child: Center(
                                   child: Text(
                                 // DateFormat('hh:mm a').format(
-                                //     snapshot.data!.data.slots[index].slotTime)
-                                "date",
+                                //     snapshot.data!.data.slots[index].slotTime),
+                                snapshot.data!.data.slots[index].slotTime,
                                 style: TextStyle(
                                     color: index == timeButtonIndex
                                         ? Colors.white
@@ -557,7 +548,11 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                                 visit_typeId: visit_typeId,
                                               )));
                                 }),
-                                child: const Text("Set Appointment"))))
+                                child: const Text("Set Appointment")))
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                )
                   ],
                 ),
               ),

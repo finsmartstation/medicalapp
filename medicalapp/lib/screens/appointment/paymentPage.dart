@@ -77,193 +77,195 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ),
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              height: 200,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.blue.shade700,
-                  borderRadius: BorderRadius.circular(25)),
-              child: Column(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.blue.shade700,
+                    borderRadius: BorderRadius.circular(25)),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const SizedBox(),
+                      const Text(
+                        "Total Payment",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      Text(
+                        "₹${widget.consultingfee}",
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(),
+                    ]),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const Text(
+                "Payment Details",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 300,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey.shade300,
+                          blurRadius: 3,
+                          spreadRadius: 3)
+                    ]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     const SizedBox(),
-                    const Text(
-                      "Total Payment",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    Text(
-                      "₹${widget.consultingfee}",
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    const SizedBox(),
-                  ]),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Text(
-              "Payment Details",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              height: 300,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.shade300,
-                        blurRadius: 3,
-                        spreadRadius: 3)
-                  ]),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const SizedBox(),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: Text(
-                      "Dr ${widget.drName}",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: Text(
-                      widget.drSpl.toString(),
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: Text(
-                      "Organization: ${widget.organization}",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: Text(
-                      "consulting Fees: ${widget.consultingfee}",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: Text(
-                      "Date : ${widget.bookingDate}  Time : ${widget.bookingTime}",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: Text(
-                      "Visit Type : ${widget.visit_type}",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  const SizedBox(),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Center(
-              child: SizedBox(
-                height: 70,
-                width: double.infinity,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue.shade700,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Text(
+                        "Dr ${widget.drName}",
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
                       ),
                     ),
-                    onPressed: (() {
-                      slot_booking(
-                              user_id,
-                              access_token,
-                              widget.doctorId,
-                              widget.family_member_id,
-                              widget.book_slot_id,
-                              widget.sick_notes,
-                              widget.visit_typeId)
-                          .then((value) {
-                        if (value.statusCode == 200) {
-                          showSuccessDialog(
-                              context,
-                              "Slot booked successfully",
-                              DashboardPatient(
-                                family_member_id:
-                                    widget.family_member_id.toString(),
-                              ),
-                              "Success");
-
-                          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          //   content: Text(
-                          //     "Slot booked",
-                          //     style: TextStyle(color: Colors.white),
-                          //   ),
-                          //   backgroundColor: Colors.blue[800],
-                          //   elevation: 10,
-                          // ));
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => DashboardPatient(
-                          //               family_member_id:
-                          //                   widget.family_member_id.toString(),
-                          //             )));
-                          print(value.body);
-                        }
-                      });
-                    }),
-                    child: const Text("Pay Now")),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Text(
+                        widget.drSpl.toString(),
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Text(
+                        "Organization: ${widget.organization}",
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Text(
+                        "consulting Fees: ${widget.consultingfee}",
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Text(
+                        "Date : ${widget.bookingDate}  Time : ${widget.bookingTime}",
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Text(
+                        "Visit Type : ${widget.visit_type}",
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    const SizedBox(),
+                  ],
+                ),
               ),
-            )
-          ],
+              const SizedBox(
+                height: 50,
+              ),
+              Center(
+                child: SizedBox(
+                  height: 70,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue.shade700,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                      onPressed: (() {
+                        slot_booking(
+                                user_id,
+                                access_token,
+                                widget.doctorId,
+                                widget.family_member_id,
+                                widget.book_slot_id,
+                                widget.sick_notes,
+                                widget.visit_typeId)
+                            .then((value) {
+                          if (value.statusCode == 200) {
+                            showSuccessDialog(
+                                context,
+                                "Slot booked successfully",
+                                DashboardPatient(
+                                  family_member_id:
+                                      widget.family_member_id.toString(),
+                                ),
+                                "Success");
+      
+                            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            //   content: Text(
+                            //     "Slot booked",
+                            //     style: TextStyle(color: Colors.white),
+                            //   ),
+                            //   backgroundColor: Colors.blue[800],
+                            //   elevation: 10,
+                            // ));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => DashboardPatient(
+                            //               family_member_id:
+                            //                   widget.family_member_id.toString(),
+                            //             )));
+                            print(value.body);
+                          }
+                        });
+                      }),
+                      child: const Text("Pay Now")),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
