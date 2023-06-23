@@ -389,7 +389,23 @@ class _AppointmentReportState extends State<AppointmentReport> {
                               backgroundColor: Colors.blue.shade700,
                               onPressed: () {
                                 setState(() {
-                                  Navigator.push(
+                                  if(snapshot.data!.data.reportPath.toString()==''){
+                                     showDialog(context: context,
+                                                 builder: (BuildContext context){
+                                                  return AlertDialog(
+                                                    title: const Text('Report not available'),
+                                                    actions: [
+                                                      ElevatedButton(
+                                                        onPressed:(){
+                                                          Navigator.pop(context);
+                                                        }, 
+                                                        child: const Text('Ok'))
+                                                    ],
+                                                  );
+                                                 });
+                                  }
+                                  else {
+                                    Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => AppointmentPdf(
@@ -397,6 +413,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                                     .data!.data.reportPath
                                                     .toString(),
                                               )));
+                                  }
                                   // Navigator.push(
                                   //     context,
                                   //     MaterialPageRoute(
