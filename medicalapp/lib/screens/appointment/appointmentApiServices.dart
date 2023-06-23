@@ -16,7 +16,7 @@ Future<PatientBookSlotHistory> patientBookSlotHistory(
     "family_member_id": familyMemberId
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
-  print("success");
+  print("=====success=====");
   print(obj);
   if (response.statusCode == 200) {
     final data = PatientBookSlotHistory.fromJson(json.decode(response.body));
@@ -37,8 +37,9 @@ Future<DoctorAvailableSlotDetails> doctor_available_slot_details(
     "date_id": dateId,
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
-  print("success");
   print(obj);
+  print("---------success-----------");
+  print(json.decode(response.body));
   if (response.statusCode == 200) {
     final data =
         DoctorAvailableSlotDetails.fromJson(json.decode(response.body));
@@ -73,7 +74,7 @@ Future<PatientAppoinmentDetails> patient_appoinment_details(
     "slot_id": slotId,
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
-  print("success");
+  print("+++++++success+++++++");
   print(obj);
   if (response.statusCode == 200) {
     final data = PatientAppoinmentDetails.fromJson(json.decode(response.body));

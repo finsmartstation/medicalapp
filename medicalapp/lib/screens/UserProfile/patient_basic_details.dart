@@ -31,7 +31,8 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
     _imageFileList = (value == null ? null : <XFile>[value])!;
     // print("File : ${value!.}");
   }
-
+  var emailValidate = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   Location location = Location();
   final bool _serviceEnabled = false;
   bool nameEmpty = false;
@@ -494,7 +495,8 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                               namebool == true &&
                               emailbool == true &&
                               genderbool == true) {
-                            ApiService()
+                                if(emailValidate.hasMatch(emailController.text)) {
+                                  ApiService()
                                 .file_upload(aValue.u_id, aValue.access_token,
                                     imageFile!.path)
                                 .then(
@@ -561,6 +563,15 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                 }
                               },
                             );
+                                }
+                                else{
+                                  ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  duration: Duration(milliseconds: 1000),
+                                  content: Text(
+                                      'Please enter a valid email address'),
+                                ));
+                                }
                           }
                         },
                         style: ElevatedButton.styleFrom(

@@ -63,6 +63,10 @@ class _EditProfileState extends State<EditProfile> {
   String user_id = "";
   String access_token = "";
 
+  bool nameStatus = false;
+  bool emailStatus = false;
+  bool heightStatus = false;
+  bool weightStatus = false;
   String profilePath = "";
   String paths = "";
   var items = [
@@ -164,10 +168,14 @@ class _EditProfileState extends State<EditProfile> {
                                 border: Border.all(color: Colors.blueAccent),
                               ),
                               child: ClipOval(
-                                  child: Image.network(
-                                profilePath,
-                                fit: BoxFit.fill,
-                              ))),
+                                  child: CircleAvatar(
+                                            backgroundImage: NetworkImage(profilePath),
+                                          )
+                              //     Image.network(
+                              //   profilePath,
+                              //   fit: BoxFit.fill,
+                              // )
+                              )),
                         ],
                       ),
                       Positioned(
@@ -417,6 +425,8 @@ class _EditProfileState extends State<EditProfile> {
                           icon: Icon(Icons.person),
                           hintText: "Name")),
                 ),
+                nameStatus?Text('Required',style: TextStyle(color: Colors.red),)
+                :SizedBox(),
                 widget.relation != "self"
                     ? const SizedBox()
                     : const SizedBox(
@@ -436,6 +446,8 @@ class _EditProfileState extends State<EditProfile> {
                                 icon: Icon(Icons.email),
                                 hintText: "Email")),
                       ),
+                      emailStatus?Text('Required',style: TextStyle(color: Colors.red),)
+                :SizedBox(),
                 widget.relation == "self"
                     ? const SizedBox()
                     : const SizedBox(
@@ -501,11 +513,10 @@ class _EditProfileState extends State<EditProfile> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Expanded(
-                          child: Text(
+                      Text(
                         'Blood Group:',
                         style: TextStyle(fontWeight: FontWeight.bold),
-                      )),
+                      ),
                       const SizedBox(
                         width: 20,
                       ),
@@ -538,36 +549,49 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Flexible(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          width: 190,
-                          child: TextFormField(
-                              focusNode: heightFocusNode,
-                              keyboardType: TextInputType.number,
-                              controller: heightController,
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20))),
-                                  hintText: "Hight")),
-                        ),
-                        SizedBox(
-                          width: 190,
-                          child: TextFormField(
-                              focusNode: weightFocusNode,
-                              keyboardType: TextInputType.number,
-                              controller: weightController,
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20))),
-                                  hintText: "Weight ")),
-                        ),
-                      ],
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: 190,
+                            child: TextFormField(
+                                focusNode: heightFocusNode,
+                                keyboardType: TextInputType.number,
+                                controller: heightController,
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                    hintText: "Height",
+                                    labelText: "Height")),
+                          ),
+                          heightStatus?Text('Required',style: TextStyle(color: Colors.red),)
+                          :SizedBox(),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          SizedBox(
+                            width: 190,
+                            child: TextFormField(
+                                focusNode: weightFocusNode,
+                                keyboardType: TextInputType.number,
+                                controller: weightController,
+                                decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20))),
+                                    hintText: "Weight ",
+                                    labelText: "Weight "),
+                                    ),
+                          ),
+                          weightStatus?Text('Required',style: TextStyle(color: Colors.red),)
+                          :SizedBox(),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(
@@ -618,7 +642,56 @@ class _EditProfileState extends State<EditProfile> {
                       print(dobController.text);
                       print(paths);
                       print(ApiformattedDate);
-                      edit_patient_details(
+                      if(nameController.text.isEmpty){
+                        nameStatus = true;
+                        setState(() {
+                          
+                        });
+                      }
+                      else{
+                        nameStatus = false;
+                        setState(() {
+                          
+                        });
+                      }
+                      if(emailController.text.isEmpty){
+                        emailStatus = true;
+                        setState(() {
+                          
+                        });
+                      }
+                      else{
+                        emailStatus = false;
+                        setState(() {
+                          
+                        });
+                      }
+                      if(heightController.text.isEmpty){
+                        heightStatus = true;
+                        setState(() {
+                          
+                        });
+                      }
+                      else{
+                        heightStatus = false;
+                        setState(() {
+                          
+                        });
+                      }
+                      if(weightController.text.isEmpty){
+                        weightStatus = true;
+                        setState(() {
+                          
+                        });
+                      }
+                      else{
+                        weightStatus = false;
+                        setState(() {
+                          
+                        });
+                      }
+                      if(nameStatus==false && emailStatus==false && heightStatus==false && weightStatus==false) {
+                        edit_patient_details(
                               user_id,
                               access_token,
                               widget.familyMemberId,
@@ -642,6 +715,7 @@ class _EditProfileState extends State<EditProfile> {
                           print(value.body);
                         }
                       });
+                      }
                     }),
                     child: const Text("Submit"))
               ],

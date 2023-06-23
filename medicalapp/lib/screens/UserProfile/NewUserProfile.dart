@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:medicalapp/screens/UserProfile/profileApiServices.dart';
@@ -462,63 +463,69 @@ class _NewUserProfileState extends State<NewUserProfile> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Flexible(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Flexible(
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 50,
-                                      width: 180,
-                                      child: TextField(
-                                          focusNode: heightFocusNode,
-                                          keyboardType: TextInputType.number,
-                                          controller: patientDetailProvider
-                                              .heightController,
-                                          decoration: const InputDecoration(
-                                              contentPadding: EdgeInsets.all(5),
-                                              border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(20))),
-                                              hintText: "Height")),
-                                    ),
-                                    Center(
-                                        child: Text(
-                                      verifyData.verifyHight,
-                                      style: const TextStyle(color: Colors.red),
-                                    )),
-                                  ],
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                  width: 180,
+                                  child: TextField(
+                                      focusNode: heightFocusNode,
+                                      keyboardType: TextInputType.number,
+                                      controller: patientDetailProvider
+                                          .heightController,
+                                          inputFormatters: [
+                                                     // LengthLimitingTextInputFormatter(2),
+                                                      FilteringTextInputFormatter.digitsOnly,
+                                              ],
+                                      decoration: const InputDecoration(
+                                          contentPadding: EdgeInsets.all(5),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.all(
+                                                      Radius.circular(20))),
+                                          hintText: "Height",
+                                          labelText: "Height", )),
                                 ),
-                              ),
-                              Column(
-                                children: [
-                                  SizedBox(
-                                    height: 50,
-                                    width: 190,
-                                    child: TextFormField(
-                                        focusNode: weightFocusNode,
-                                        keyboardType: TextInputType.number,
-                                        controller: patientDetailProvider
-                                            .weightController,
-                                        decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(5),
-                                            border: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20))),
-                                            hintText: "Weight ")),
-                                  ),
-                                  Center(
-                                      child: Text(
-                                    verifyData.verifyWeight,
-                                    style: const TextStyle(color: Colors.red),
-                                  )),
-                                ],
-                              ),
-                            ],
-                          ),
+                                Center(
+                                    child: Text(
+                                  verifyData.verifyHight,
+                                  style: const TextStyle(color: Colors.red),
+                                )),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                  width: 190,
+                                  child: TextFormField(
+                                      focusNode: weightFocusNode,
+                                      keyboardType: TextInputType.number,
+                                      controller: patientDetailProvider
+                                          .weightController,
+                                          inputFormatters: [
+                                                       // LengthLimitingTextInputFormatter(2),
+                                                        FilteringTextInputFormatter.digitsOnly,
+                                                ],
+                                      decoration: const InputDecoration(
+                                          contentPadding: EdgeInsets.all(5),
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20))),
+                                          hintText: "Weight ",
+                                          labelText: "Weight ")),
+                                ),
+                                Center(
+                                    child: Text(
+                                  verifyData.verifyWeight,
+                                  style: const TextStyle(color: Colors.red),
+                                )),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                       const SizedBox(
@@ -529,11 +536,10 @@ class _NewUserProfileState extends State<NewUserProfile> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Expanded(
-                                child: Text(
+                            Text(
                               'Blood Group:',
                               style: TextStyle(fontSize: 18),
-                            )),
+                            ),
                             const SizedBox(
                               width: 20,
                             ),

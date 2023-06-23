@@ -11,7 +11,7 @@ class VerifyProfileEditData with ChangeNotifier {
   }
 
   void hightRequired() {
-    verifyHight = "Required Hight";
+    verifyHight = "Required Height";
     notifyListeners();
   }
 
