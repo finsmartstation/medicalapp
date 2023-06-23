@@ -41,8 +41,12 @@ Future<DoctorAvailableSlotDetails> doctor_available_slot_details(
   print("---------success-----------");
   print(json.decode(response.body));
   if (response.statusCode == 200) {
+    print(response.body);
+    
     final data =
+   
         DoctorAvailableSlotDetails.fromJson(json.decode(response.body));
+        print(data.data.slots[0].appoinmentType);
     return data;
   } else {
     throw Exception('Failed to load users');

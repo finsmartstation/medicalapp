@@ -390,6 +390,7 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                         right: 0,
                         child: snapshot.data!.data.slotAvailableStatus == "true"
                             ? FloatingActionButton.extended(
+                              heroTag: "tag1",
                                 onPressed: () {
                                   Navigator.push(
                                       context,
@@ -407,11 +408,14 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                                     .data!.data.specialization,
                                                 organization: snapshot
                                                     .data!.data.organisation,
+                                                  user_id:user_id,
+                                                  accessToken : access_token
                                               )));
                                 },
                                 label: const Text('Book appointment'),
                               )
                             : FloatingActionButton.extended(
+                               heroTag: "tag2",
                                 onPressed: () {},
                                 label: const Text('Appointment Not Available'),
                               )),

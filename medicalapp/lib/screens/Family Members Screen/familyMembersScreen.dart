@@ -52,6 +52,7 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
       body: FutureBuilder(
           future: get_family_members(user_id, access_token),
           builder: (context, snapshot) {
+            print(snapshot);
             if (snapshot.hasData) {
               print(user_id);
               print(access_token);

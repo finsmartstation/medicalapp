@@ -367,40 +367,44 @@ class _DoctorListState extends State<DoctorList> {
   Padding searchBar(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Flexible(
-        child: Row(
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width / 1.22,
-              child: TextFormField(
-                focusNode: searchInputFocus,
-                controller: searchInput,
-                textInputAction: TextInputAction.search,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
-                      borderSide: const BorderSide(
-                        color: Colors.grey,
-                      )),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: const BorderSide(color: Colors.blue)),
-                  suffixIcon: const InkWell(
-                    child: Icon(Icons.search),
+      child: Row(
+        children: [
+          Flexible(
+            child: Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 1.22,
+                  child: TextFormField(
+                    focusNode: searchInputFocus,
+                    controller: searchInput,
+                    textInputAction: TextInputAction.search,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: const BorderSide(
+                            color: Colors.grey,
+                          )),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          borderSide: const BorderSide(color: Colors.blue)),
+                      suffixIcon: const InkWell(
+                        child: Icon(Icons.search),
+                      ),
+                      contentPadding: const EdgeInsets.all(15.0),
+                      hintText: 'Search Doctors, Hospitals Etc...',
+                    ),
+                    onChanged: ((value) {
+                      setState(() {
+                        searchkey = value;
+                      });
+                    }),
                   ),
-                  contentPadding: const EdgeInsets.all(15.0),
-                  hintText: 'Search Doctors, Hospitals Etc...',
                 ),
-                onChanged: ((value) {
-                  setState(() {
-                    searchkey = value;
-                  });
-                }),
-              ),
+                IconButton(onPressed: (() {}), icon: const Icon(Icons.filter_alt))
+              ],
             ),
-            IconButton(onPressed: (() {}), icon: const Icon(Icons.filter_alt))
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

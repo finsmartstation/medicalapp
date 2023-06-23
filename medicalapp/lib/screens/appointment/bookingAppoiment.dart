@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medicalapp/screens/appointment/paymentPage.dart';
@@ -13,6 +12,8 @@ class BookingAppoiment extends StatefulWidget {
   String? drName;
   String? drSpl;
   String? organization;
+  String? user_id;
+  String? accessToken;
   BookingAppoiment(
       {super.key,
       required this.family_member_id,
@@ -20,7 +21,9 @@ class BookingAppoiment extends StatefulWidget {
       required this.consultingfee,
       required this.drName,
       required this.drSpl,
-      required this.organization});
+      required this.organization,
+      required this.user_id,
+      required this.accessToken});
 
   @override
   State<BookingAppoiment> createState() => _BookingAppoimentState();
@@ -39,22 +42,22 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
   String selectedDate = "";
   String bookingTime = "";
   String visit_type = "";
-  String? access_token;
-  String? user_id;
+  // String? access_token;
+  // String? user_id;
 
-  getProfileData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      access_token = prefs.getString('access_token');
-      user_id = prefs.getString('user_id');
-    });
-  }
+  // getProfileData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     access_token = prefs.getString('access_token');
+  //     user_id = prefs.getString('user_id');
+  //   });
+  // }
 
   @override
   void initState() {
-    getProfileData();
-    print(access_token);
-    print(user_id);
+    // getProfileData();
+    // print(access_token);
+    // print(user_id);
 
     // TODO: implement initState
     super.initState();
@@ -68,7 +71,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
       },
       child: FutureBuilder(
         future: doctor_available_slot_details(
-            user_id, access_token, widget.doctorId, date_id),
+            widget.user_id, widget.accessToken, widget.doctorId, date_id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (selectedDate == "") {
@@ -80,8 +83,9 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
             if (snapshot.data!.data.slots[timeButtonIndex].appoinmentType ==
                 "1") {
               visit_type = "Online";
-              bookingTime = DateFormat('hh:mm a')
-                  .format(snapshot.data!.data.slots[timeButtonIndex].slotTime);
+              // bookingTime = DateFormat('hh:mm a')
+              //     .format(snapshot.data!.data.slots[timeButtonIndex].slotTime);
+              bookingTime = snapshot.data!.data.slots[timeButtonIndex].slotTime;
               book_slot_id =
                   snapshot.data!.data.slots[timeButtonIndex].id.toString();
               visit_typeId = snapshot
@@ -93,8 +97,9 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                     .data!.data.slots[timeButtonIndex].appoinmentType ==
                 "0") {
               visit_type = "Offline";
-              bookingTime = DateFormat('hh:mm a')
-                  .format(snapshot.data!.data.slots[timeButtonIndex].slotTime);
+              // bookingTime = DateFormat('hh:mm a')
+              //     .format(snapshot.data!.data.slots[timeButtonIndex].slotTime);
+              bookingTime = snapshot.data!.data.slots[timeButtonIndex].slotTime;
               book_slot_id =
                   snapshot.data!.data.slots[timeButtonIndex].id.toString();
               visit_typeId = snapshot
@@ -107,15 +112,19 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                 "2") {
               if (onlineOrOffline == "1") {
                 visit_type = "Online";
-                bookingTime = DateFormat('hh:mm a').format(
-                    snapshot.data!.data.slots[timeButtonIndex].slotTime);
+                // bookingTime = DateFormat('hh:mm a').format(
+                //     snapshot.data!.data.slots[timeButtonIndex].slotTime);
+                bookingTime =
+                    snapshot.data!.data.slots[timeButtonIndex].slotTime;
                 book_slot_id =
                     snapshot.data!.data.slots[timeButtonIndex].id.toString();
                 visit_typeId = "1";
               } else if (onlineOrOffline == "0") {
                 visit_type = "Offline";
-                bookingTime = DateFormat('hh:mm a').format(
-                    snapshot.data!.data.slots[timeButtonIndex].slotTime);
+                // bookingTime = DateFormat('hh:mm a').format(
+                //     snapshot.data!.data.slots[timeButtonIndex].slotTime);
+                bookingTime =
+                    snapshot.data!.data.slots[timeButtonIndex].slotTime;
                 book_slot_id =
                     snapshot.data!.data.slots[timeButtonIndex].id.toString();
                 visit_typeId = "0";
@@ -208,15 +217,13 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                               snapshot.data!.data.date[index]
                                                       .date.month ==
                                                   DateTime.now().month &&
-                                              snapshot.data!.data.date[index]
-                                                      .date.year ==
+                                              snapshot.data!.data.date[index].date.year ==
                                                   DateTime.now().year)
                                           ? 'Today'
-                                          : (snapshot.data!.data.date[index]
-                                                          .date.day ==
+                                          : (snapshot.data!.data.date[index].date.day ==
                                                       DateTime.now()
-                                                          .add(
-                                                              const Duration(days: 1))
+                                                          .add(const Duration(
+                                                              days: 1))
                                                           .day &&
                                                   snapshot
                                                           .data!
@@ -225,8 +232,8 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                                           .date
                                                           .month ==
                                                       DateTime.now()
-                                                          .add(
-                                                              const Duration(days: 1))
+                                                          .add(const Duration(
+                                                              days: 1))
                                                           .month &&
                                                   snapshot
                                                           .data!
@@ -275,8 +282,7 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                                       : Colors.black)),
                                         ),
                                         Text(
-                                          " ${DateFormat.MMM().format(snapshot
-                                                  .data!.data.date[index].date)}",
+                                          " ${DateFormat.MMM().format(snapshot.data!.data.date[index].date)}",
                                           style: TextStyle(
                                             fontSize: 20,
                                             color:
@@ -290,10 +296,8 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                     Text(
                                         snapshot.data!.data.date[index].count ==
                                                 "1"
-                                            ? "${snapshot.data!.data.date[index]
-                                                    .count} slot Available"
-                                            : "${snapshot.data!.data.date[index]
-                                                    .count} slots Available",
+                                            ? "${snapshot.data!.data.date[index].count} slot Available"
+                                            : "${snapshot.data!.data.date[index].count} slots Available",
                                         style: TextStyle(
                                             fontSize: 15,
                                             color:
@@ -344,8 +348,9 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                               },
                               child: Center(
                                   child: Text(
-                                DateFormat('hh:mm a').format(
-                                    snapshot.data!.data.slots[index].slotTime),
+                                // DateFormat('hh:mm a').format(
+                                //     snapshot.data!.data.slots[index].slotTime),
+                                snapshot.data!.data.slots[index].slotTime,
                                 style: TextStyle(
                                     color: index == timeButtonIndex
                                         ? Colors.white
@@ -543,7 +548,11 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                                 visit_typeId: visit_typeId,
                                               )));
                                 }),
-                                child: const Text("Set Appointment"))))
+                                child: const Text("Set Appointment")))
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                )
                   ],
                 ),
               ),
