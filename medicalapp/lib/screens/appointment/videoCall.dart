@@ -31,6 +31,7 @@ class VideoConferencePage extends StatelessWidget {
               useVideoViewAspectFill: true,
               isVideoMirror: false,
             ),
+            
             bottomMenuBarConfig: ZegoBottomMenuBarConfig(
               hideAutomatically: false,
               hideByClick: true,

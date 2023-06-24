@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:location/location.dart';
 import 'package:geolocator/geolocator.dart';
-//import 'package:geocoder/geocoder.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../providers/auth_provider.dart';
@@ -31,6 +31,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
     _imageFileList = (value == null ? null : <XFile>[value])!;
     // print("File : ${value!.}");
   }
+
   var emailValidate = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   Location location = Location();
@@ -45,8 +46,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
   FocusNode nameFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
   late Position position;
-  // double long = 0.0;
-  //double lat = 0.0;
+
   bool servicestatus = false;
   bool haspermission = false;
   late LocationPermission permission;
@@ -267,12 +267,15 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    decoration: const BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    30)),
-                                                        color: Colors.white),
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            30)),
+                                                            color:
+                                                                Colors.white),
                                                     child: IconButton(
                                                       onPressed: () {
                                                         Navigator.pop(context);
@@ -297,19 +300,23 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Container(
-                                                    decoration: const BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    30)),
-                                                        color: Colors.white),
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            30)),
+                                                            color:
+                                                                Colors.white),
                                                     child: IconButton(
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                         _ImageButton(ImageSource
                                                             .gallery);
                                                       },
-                                                      icon: const Icon(Icons.image),
+                                                      icon: const Icon(
+                                                          Icons.image),
                                                       color: Colors.blue,
                                                     ),
                                                   ),
@@ -495,83 +502,84 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                               namebool == true &&
                               emailbool == true &&
                               genderbool == true) {
-                                if(emailValidate.hasMatch(emailController.text)) {
-                                  ApiService()
-                                .file_upload(aValue.u_id, aValue.access_token,
-                                    imageFile!.path)
-                                .then(
-                              (value) {
-                                if (value.statusCode == 200) {
-                                  value.stream
-                                      .transform(utf8.decoder)
-                                      .listen((event) {
-                                    var path = jsonDecode(event);
-                                    profilePic = path['file_path'];
-                                    patient_profile_details(
-                                            aValue.u_id,
-                                            aValue.access_token,
-                                            gender,
-                                            emailController.text,
-                                            nameController.text,
-                                            profilePic)
-                                        .then(
-                                      (value) {
-                                        if (value.statusCode == 200) {
-                                          print(value.body);
-                                          SetProfileData();
-                                          patientProvider.newUserProfileFile(
-                                              profilePic.toString(),
-                                              baseUrl + profilePic!
-                                                ..toString(),
-                                              nameController.text.toString(),
-                                              emailController.text.toString(),
-                                              gender.toString(),
-                                              lat.toString(),
-                                              long.toString());
+                            if (emailValidate.hasMatch(emailController.text)) {
+                              ApiService()
+                                  .file_upload(aValue.u_id, aValue.access_token,
+                                      imageFile!.path)
+                                  .then(
+                                (value) {
+                                  if (value.statusCode == 200) {
+                                    value.stream
+                                        .transform(utf8.decoder)
+                                        .listen((event) {
+                                      var path = jsonDecode(event);
+                                      profilePic = path['file_path'];
+                                      patient_profile_details(
+                                              aValue.u_id,
+                                              aValue.access_token,
+                                              gender,
+                                              emailController.text,
+                                              nameController.text,
+                                              profilePic)
+                                          .then(
+                                        (value) {
+                                          if (value.statusCode == 200) {
+                                            print(value.body);
+                                            SetProfileData();
+                                            patientProvider.newUserProfileFile(
+                                                profilePic.toString(),
+                                                baseUrl + profilePic!
+                                                  ..toString(),
+                                                nameController.text.toString(),
+                                                emailController.text.toString(),
+                                                gender.toString(),
+                                                lat.toString(),
+                                                long.toString());
 
-                                          patientProvider.sharePrefSave();
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: ((context) =>
-                                                      DashboardPatient(
-                                                        family_member_id: "",
-                                                      ))));
-                                        }
-                                      },
-                                    );
-                                    print("path==");
-                                    print(path);
+                                            patientProvider.sharePrefSave();
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: ((context) =>
+                                                        DashboardPatient(
+                                                          family_member_id: "",
+                                                        ))));
+                                          }
+                                        },
+                                      );
+                                      print("path==");
+                                      print(path);
 
-                                    print(profilePic);
+                                      print(profilePic);
 
-                                    print("------------------");
-                                    print(patientProvider.emailCondroller.text);
-                                    print(patientProvider.full_profile_link);
-                                    print(patientProvider.Profile_path);
-                                    print(patientProvider.nameController.text);
-                                    print(patientProvider.gender);
-                                    print(patientProvider.lat);
-                                    print(patientProvider.long);
-                                    print("------------------");
+                                      print("------------------");
+                                      print(
+                                          patientProvider.emailCondroller.text);
+                                      print(patientProvider.full_profile_link);
+                                      print(patientProvider.Profile_path);
+                                      print(
+                                          patientProvider.nameController.text);
+                                      print(patientProvider.gender);
+                                      print(patientProvider.lat);
+                                      print(patientProvider.long);
+                                      print("------------------");
 
-                                    //SetProfileData();
-                                  });
-                                  // profilePic=imgUrl;
-                                  // print("profile path ====");
-                                  // print(profilePic);
-                                }
-                              },
-                            );
-                                }
-                                else{
-                                  ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                  duration: Duration(milliseconds: 1000),
-                                  content: Text(
-                                      'Please enter a valid email address'),
-                                ));
-                                }
+                                      //SetProfileData();
+                                    });
+                                    // profilePic=imgUrl;
+                                    // print("profile path ====");
+                                    // print(profilePic);
+                                  }
+                                },
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                duration: Duration(milliseconds: 1000),
+                                content:
+                                    Text('Please enter a valid email address'),
+                              ));
+                            }
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -596,8 +604,26 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
     );
   }
 
-  _ImageButton(
-    ImageSource source) async {
+  static Future<CroppedFile?> cropImage(File? imageFile) async {
+    print('FILE===========> ${imageFile!.path}');
+    var croppedFile = await ImageCropper().cropImage(
+      sourcePath: imageFile.path,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarColor: Colors.blue,
+          toolbarTitle: 'Crop Image',
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings()
+      ],
+    );
+
+    return croppedFile;
+  }
+
+  _ImageButton(ImageSource source) async {
     XFile? pickedFile = await _picker.pickImage(
       source: source,
       maxWidth: 1800,
@@ -607,6 +633,13 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
       setState(() {
         _setImageFileListFromFile(pickedFile);
         File img = File(pickedFile.path);
+        cropImage(img).then((value) {
+          print(value!.path);
+          setState(() {
+            imageFile = File(value.path);
+            print(imageFile.toString());
+          });
+        });
 
         setState(() {
           imageFile = img;

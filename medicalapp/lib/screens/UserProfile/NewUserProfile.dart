@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:medicalapp/screens/UserProfile/profileApiServices.dart';
@@ -48,6 +50,25 @@ class _NewUserProfileState extends State<NewUserProfile> {
   void _setImageFileListFromFile(XFile? value) {
     _imageFileList = value == null ? null : <XFile>[value];
     print(_imageFileList);
+  }
+
+  static Future<CroppedFile?> cropImage(File? imageFile) async {
+    print('FILE===========> ${imageFile!.path}');
+    var croppedFile = await ImageCropper().cropImage(
+      sourcePath: imageFile.path,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarColor: Colors.blue,
+          toolbarTitle: 'Crop Image',
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings()
+      ],
+    );
+
+    return croppedFile;
   }
 
   getProfileData() async {
@@ -219,44 +240,47 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                                               );
                                                               if (pickedFile !=
                                                                   null) {
-                                                                setState(() {
-                                                                  _setImageFileListFromFile(
-                                                                      pickedFile);
+                                                                cropImage(File(
+                                                                        pickedFile
+                                                                            .path))
+                                                                    .then(
+                                                                        (value) {
+                                                                  setState(() {
+                                                                    _setImageFileListFromFile(
+                                                                        XFile(value!
+                                                                            .path));
 
-                                                                  ApiService()
-                                                                      .file_upload(
-                                                                          user_id,
-                                                                          access_token,
-                                                                          pickedFile
-                                                                              .path)
-                                                                      .then(
-                                                                    (value) {
-                                                                      if (value
-                                                                              .statusCode ==
-                                                                          200) {
-                                                                        value
-                                                                            .stream
-                                                                            .transform(utf8.decoder)
-                                                                            .listen((event) {
-                                                                          var path =
-                                                                              jsonDecode(event);
-                                                                          patientDetailProvider.Profile_path =
-                                                                              path['file_path'];
-                                                                          patientDetailProvider.saveFilePath(baseUrl +
-                                                                              patientDetailProvider.Profile_path.toString());
-                                                                          print(
-                                                                              "-----------fghjk----------------");
-                                                                          print(
-                                                                              patientDetailProvider.Profile_path);
-                                                                        });
-                                                                      }
-                                                                    },
-                                                                  );
-                                                                  // print(pickedFile
-                                                                  //     .path);
+                                                                    ApiService()
+                                                                        .file_upload(
+                                                                            user_id,
+                                                                            access_token,
+                                                                            value.path)
+                                                                        .then(
+                                                                      (value) {
+                                                                        if (value.statusCode ==
+                                                                            200) {
+                                                                          value
+                                                                              .stream
+                                                                              .transform(utf8.decoder)
+                                                                              .listen((event) {
+                                                                            var path =
+                                                                                jsonDecode(event);
+                                                                            patientDetailProvider.Profile_path =
+                                                                                path['file_path'];
+                                                                            patientDetailProvider.saveFilePath(baseUrl +
+                                                                                patientDetailProvider.Profile_path.toString());
+                                                                            print("-----------fghjk----------------");
+                                                                            print(patientDetailProvider.Profile_path);
+                                                                          });
+                                                                        }
+                                                                      },
+                                                                    );
+                                                                    // print(pickedFile
+                                                                    //     .path);
 
-                                                                  print(
-                                                                      "---------------------------");
+                                                                    print(
+                                                                        "---------------------------");
+                                                                  });
                                                                 });
                                                               }
                                                             },
@@ -303,51 +327,53 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                                             );
                                                             if (pickedFile !=
                                                                 null) {
-                                                              setState(() {
-                                                                _setImageFileListFromFile(
-                                                                    pickedFile);
+                                                              cropImage(File(
+                                                                      pickedFile
+                                                                          .path))
+                                                                  .then(
+                                                                (value) {
+                                                                  setState(() {
+                                                                    _setImageFileListFromFile(
+                                                                        XFile(value!
+                                                                            .path));
 
-                                                                ApiService()
-                                                                    .file_upload(
-                                                                        user_id,
-                                                                        access_token,
-                                                                        pickedFile
-                                                                            .path)
-                                                                    .then(
-                                                                  (value) {
-                                                                    if (value
-                                                                            .statusCode ==
-                                                                        200) {
-                                                                      value
-                                                                          .stream
-                                                                          .transform(utf8
-                                                                              .decoder)
-                                                                          .listen(
-                                                                              (event) {
-                                                                        var path =
-                                                                            jsonDecode(event);
-                                                                        patientDetailProvider.Profile_path =
-                                                                            path['file_path'];
-                                                                        patientDetailProvider.saveFilePath(baseUrl +
-                                                                            patientDetailProvider.Profile_path.toString());
-                                                                        print(
-                                                                            "---------------------------");
-                                                                        print(
-                                                                            patientDetailProvider);
-                                                                      });
-                                                                    }
-                                                                  },
-                                                                );
-                                                                print(pickedFile
-                                                                    .path);
+                                                                    ApiService()
+                                                                        .file_upload(
+                                                                            user_id,
+                                                                            access_token,
+                                                                            value.path)
+                                                                        .then(
+                                                                      (value) {
+                                                                        if (value.statusCode ==
+                                                                            200) {
+                                                                          value
+                                                                              .stream
+                                                                              .transform(utf8.decoder)
+                                                                              .listen((event) {
+                                                                            var path =
+                                                                                jsonDecode(event);
+                                                                            patientDetailProvider.Profile_path =
+                                                                                path['file_path'];
+                                                                            patientDetailProvider.saveFilePath(baseUrl +
+                                                                                patientDetailProvider.Profile_path.toString());
+                                                                            print("---------------------------");
+                                                                            print(patientDetailProvider);
+                                                                          });
+                                                                        }
+                                                                      },
+                                                                    );
+                                                                    print(value
+                                                                        .path);
 
-                                                                print(
-                                                                    "---------------------------");
-                                                              });
+                                                                    print(
+                                                                        "---------------------------");
+                                                                  });
+                                                                },
+                                                              );
                                                             }
                                                           },
-                                                          icon:
-                                                              const Icon(Icons.image),
+                                                          icon: const Icon(
+                                                              Icons.image),
                                                           color: Colors.blue,
                                                         ),
                                                       ),
@@ -476,18 +502,18 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                       keyboardType: TextInputType.number,
                                       controller: patientDetailProvider
                                           .heightController,
-                                          inputFormatters: [
-                                                     // LengthLimitingTextInputFormatter(2),
-                                                      FilteringTextInputFormatter.digitsOnly,
-                                              ],
+                                      inputFormatters: [
+                                        // LengthLimitingTextInputFormatter(2),
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ],
                                       decoration: const InputDecoration(
-                                          contentPadding: EdgeInsets.all(5),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.all(
-                                                      Radius.circular(20))),
-                                          hintText: "Height",
-                                          labelText: "Height", )),
+                                        contentPadding: EdgeInsets.all(5),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20))),
+                                        hintText: "Height",
+                                        labelText: "Height",
+                                      )),
                                 ),
                                 Center(
                                     child: Text(
@@ -506,10 +532,10 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                       keyboardType: TextInputType.number,
                                       controller: patientDetailProvider
                                           .weightController,
-                                          inputFormatters: [
-                                                       // LengthLimitingTextInputFormatter(2),
-                                                        FilteringTextInputFormatter.digitsOnly,
-                                                ],
+                                      inputFormatters: [
+                                        // LengthLimitingTextInputFormatter(2),
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ],
                                       decoration: const InputDecoration(
                                           contentPadding: EdgeInsets.all(5),
                                           border: OutlineInputBorder(

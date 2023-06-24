@@ -3,8 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  audioplayers_windows
-  awesome_notifications
+  firebase_core
   geolocator_windows
   permission_handler_windows
   syncfusion_pdfviewer_windows

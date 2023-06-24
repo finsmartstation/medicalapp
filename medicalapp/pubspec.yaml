@@ -53,10 +53,14 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^20.4.44
   marquee: ^2.2.3
   flutter_datetime_picker: ^1.5.1
-  zego_uikit_prebuilt_video_conference: ^2.0.0
+  zego_uikit_prebuilt_video_conference: ^2.3.0
   flutter_device_type: ^0.4.0
   dio: ^5.0.0
-  zego_uikit_prebuilt_call: ^2.0.0
+  #zego_uikit_prebuilt_call: ^2.0.0
+  image_cropper: ^4.0.1
+  firebase_core: ^2.14.0
+ 
+
 
 dev_dependencies:
   flutter_test:

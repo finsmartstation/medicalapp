@@ -310,15 +310,15 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                       //                   .data!.data.reportPath
                                       //                   .toString(),
                                       //             )));
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => AudioCall(
-                                                    roomID: snapshot
-                                                        .data!.data.slotId,
-                                                    userName: widget.userName
-                                                        .toString(),
-                                                  )));
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => AudioCall(
+                                      //               roomID: snapshot
+                                      //                   .data!.data.slotId,
+                                      //               userName: widget.userName
+                                      //                   .toString(),
+                                      //             )));
                                     });
                                   },
                                   shape: const RoundedRectangleBorder(

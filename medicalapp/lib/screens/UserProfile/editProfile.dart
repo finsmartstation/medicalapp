@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:medicalapp/screens/UserProfile/profileApiServices.dart';
@@ -80,6 +82,26 @@ class _EditProfileState extends State<EditProfile> {
     'B+',
     'AB+',
   ];
+
+  static Future<CroppedFile?> cropImage(File? imageFile) async {
+    print('FILE===========> ${imageFile!.path}');
+    var croppedFile = await ImageCropper().cropImage(
+      sourcePath: imageFile.path,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarColor: Colors.blue,
+          toolbarTitle: 'Crop Image',
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings()
+      ],
+    );
+
+    return croppedFile;
+  }
+
   getSherPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -169,13 +191,13 @@ class _EditProfileState extends State<EditProfile> {
                               ),
                               child: ClipOval(
                                   child: CircleAvatar(
-                                            backgroundImage: NetworkImage(profilePath),
-                                          )
-                              //     Image.network(
-                              //   profilePath,
-                              //   fit: BoxFit.fill,
-                              // )
-                              )),
+                                backgroundImage: NetworkImage(profilePath),
+                              )
+                                  //     Image.network(
+                                  //   profilePath,
+                                  //   fit: BoxFit.fill,
+                                  // )
+                                  )),
                         ],
                       ),
                       Positioned(
@@ -256,48 +278,55 @@ class _EditProfileState extends State<EditProfile> {
                                                         );
                                                         if (pickedFile !=
                                                             null) {
-                                                          setState(() {
-                                                            _setImageFileListFromFile(
-                                                                pickedFile);
+                                                          cropImage(File(
+                                                                  pickedFile
+                                                                      .path))
+                                                              .then(
+                                                            (value) {
+                                                              setState(() {
+                                                                _setImageFileListFromFile(
+                                                                    XFile(value!
+                                                                        .path));
 
-                                                            ApiService()
-                                                                .file_upload(
-                                                                    user_id,
-                                                                    access_token,
-                                                                    pickedFile
-                                                                        .path)
-                                                                .then(
-                                                              (value) {
-                                                                if (value
-                                                                        .statusCode ==
-                                                                    200) {
-                                                                  value.stream
-                                                                      .transform(utf8
-                                                                          .decoder)
-                                                                      .listen(
-                                                                          (event) {
-                                                                    var path =
-                                                                        jsonDecode(
-                                                                            event);
-                                                                    setState(
-                                                                        () {
-                                                                      paths = path[
-                                                                          'file_path'];
-                                                                      profilePath =
-                                                                          baseUrl +
+                                                                ApiService()
+                                                                    .file_upload(
+                                                                        user_id,
+                                                                        access_token,
+                                                                        value
+                                                                            .path)
+                                                                    .then(
+                                                                  (value) {
+                                                                    if (value
+                                                                            .statusCode ==
+                                                                        200) {
+                                                                      value
+                                                                          .stream
+                                                                          .transform(utf8
+                                                                              .decoder)
+                                                                          .listen(
+                                                                              (event) {
+                                                                        var path =
+                                                                            jsonDecode(event);
+                                                                        setState(
+                                                                            () {
+                                                                          paths =
                                                                               path['file_path'];
+                                                                          profilePath =
+                                                                              baseUrl + path['file_path'];
 
-                                                                      print(
-                                                                          profilePath);
-                                                                    });
+                                                                          print(
+                                                                              profilePath);
+                                                                        });
 
-                                                                    print(
-                                                                        profilePath);
-                                                                  });
-                                                                }
-                                                              },
-                                                            );
-                                                          });
+                                                                        print(
+                                                                            profilePath);
+                                                                      });
+                                                                    }
+                                                                  },
+                                                                );
+                                                              });
+                                                            },
+                                                          );
                                                         }
                                                       },
                                                       icon: const Icon(Icons
@@ -339,55 +368,65 @@ class _EditProfileState extends State<EditProfile> {
                                                         maxHeight: 1800,
                                                       );
                                                       if (pickedFile != null) {
-                                                        setState(() {
-                                                          _setImageFileListFromFile(
-                                                              pickedFile);
-                                                          print(user_id);
-                                                          print(access_token);
+                                                        cropImage(File(
+                                                                pickedFile
+                                                                    .path))
+                                                            .then(
+                                                          (value) {
+                                                            setState(() {
+                                                              _setImageFileListFromFile(
+                                                                  XFile(value!
+                                                                      .path));
+                                                              print(user_id);
+                                                              print(
+                                                                  access_token);
 
-                                                          ApiService()
-                                                              .file_upload(
-                                                                  user_id,
-                                                                  access_token,
-                                                                  pickedFile
-                                                                      .path
-                                                                      .toString())
-                                                              .then(
-                                                            (value) {
-                                                              if (value
-                                                                      .statusCode ==
-                                                                  200) {
-                                                                value.stream
-                                                                    .transform(utf8
-                                                                        .decoder)
-                                                                    .listen(
-                                                                        (event) {
-                                                                  var path =
-                                                                      jsonDecode(
-                                                                          event);
-                                                                  setState(() {
-                                                                    paths = path[
-                                                                        'file_path'];
-                                                                    profilePath =
-                                                                        baseUrl +
+                                                              ApiService()
+                                                                  .file_upload(
+                                                                      user_id,
+                                                                      access_token,
+                                                                      value.path
+                                                                          .toString())
+                                                                  .then(
+                                                                (value) {
+                                                                  if (value
+                                                                          .statusCode ==
+                                                                      200) {
+                                                                    value.stream
+                                                                        .transform(utf8
+                                                                            .decoder)
+                                                                        .listen(
+                                                                            (event) {
+                                                                      var path =
+                                                                          jsonDecode(
+                                                                              event);
+                                                                      setState(
+                                                                          () {
+                                                                        paths =
                                                                             path['file_path'];
-                                                                    print(
-                                                                        profilePath);
-                                                                  });
-                                                                  print(paths);
-                                                                });
-                                                              }
-                                                            },
-                                                          );
-                                                          print(
-                                                              pickedFile.path);
+                                                                        profilePath =
+                                                                            baseUrl +
+                                                                                path['file_path'];
+                                                                        print(
+                                                                            profilePath);
+                                                                      });
+                                                                      print(
+                                                                          paths);
+                                                                    });
+                                                                  }
+                                                                },
+                                                              );
+                                                              print(value.path);
 
-                                                          print(
-                                                              "---------------------------");
-                                                        });
+                                                              print(
+                                                                  "---------------------------");
+                                                            });
+                                                          },
+                                                        );
                                                       }
                                                     },
-                                                    icon: const Icon(Icons.image),
+                                                    icon:
+                                                        const Icon(Icons.image),
                                                     color: Colors.blue,
                                                   ),
                                                 ),
@@ -425,8 +464,12 @@ class _EditProfileState extends State<EditProfile> {
                           icon: Icon(Icons.person),
                           hintText: "Name")),
                 ),
-                nameStatus?Text('Required',style: TextStyle(color: Colors.red),)
-                :SizedBox(),
+                nameStatus
+                    ? Text(
+                        'Required',
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : SizedBox(),
                 widget.relation != "self"
                     ? const SizedBox()
                     : const SizedBox(
@@ -446,8 +489,12 @@ class _EditProfileState extends State<EditProfile> {
                                 icon: Icon(Icons.email),
                                 hintText: "Email")),
                       ),
-                      emailStatus?Text('Required',style: TextStyle(color: Colors.red),)
-                :SizedBox(),
+                emailStatus
+                    ? Text(
+                        'Required',
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : SizedBox(),
                 widget.relation == "self"
                     ? const SizedBox()
                     : const SizedBox(
@@ -567,8 +614,12 @@ class _EditProfileState extends State<EditProfile> {
                                     hintText: "Height",
                                     labelText: "Height")),
                           ),
-                          heightStatus?Text('Required',style: TextStyle(color: Colors.red),)
-                          :SizedBox(),
+                          heightStatus
+                              ? Text(
+                                  'Required',
+                                  style: TextStyle(color: Colors.red),
+                                )
+                              : SizedBox(),
                         ],
                       ),
                       Column(
@@ -576,19 +627,23 @@ class _EditProfileState extends State<EditProfile> {
                           SizedBox(
                             width: 190,
                             child: TextFormField(
-                                focusNode: weightFocusNode,
-                                keyboardType: TextInputType.number,
-                                controller: weightController,
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20))),
-                                    hintText: "Weight ",
-                                    labelText: "Weight "),
-                                    ),
+                              focusNode: weightFocusNode,
+                              keyboardType: TextInputType.number,
+                              controller: weightController,
+                              decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  hintText: "Weight ",
+                                  labelText: "Weight "),
+                            ),
                           ),
-                          weightStatus?Text('Required',style: TextStyle(color: Colors.red),)
-                          :SizedBox(),
+                          weightStatus
+                              ? Text(
+                                  'Required',
+                                  style: TextStyle(color: Colors.red),
+                                )
+                              : SizedBox(),
                         ],
                       ),
                     ],
@@ -642,79 +697,63 @@ class _EditProfileState extends State<EditProfile> {
                       print(dobController.text);
                       print(paths);
                       print(ApiformattedDate);
-                      if(nameController.text.isEmpty){
+                      if (nameController.text.isEmpty) {
                         nameStatus = true;
-                        setState(() {
-                          
-                        });
-                      }
-                      else{
+                        setState(() {});
+                      } else {
                         nameStatus = false;
-                        setState(() {
-                          
-                        });
+                        setState(() {});
                       }
-                      if(emailController.text.isEmpty){
+                      if (emailController.text.isEmpty) {
                         emailStatus = true;
-                        setState(() {
-                          
-                        });
-                      }
-                      else{
+                        setState(() {});
+                      } else {
                         emailStatus = false;
-                        setState(() {
-                          
-                        });
+                        setState(() {});
                       }
-                      if(heightController.text.isEmpty){
+                      if (heightController.text.isEmpty) {
                         heightStatus = true;
-                        setState(() {
-                          
-                        });
-                      }
-                      else{
+                        setState(() {});
+                      } else {
                         heightStatus = false;
-                        setState(() {
-                          
-                        });
+                        setState(() {});
                       }
-                      if(weightController.text.isEmpty){
+                      if (weightController.text.isEmpty) {
                         weightStatus = true;
-                        setState(() {
-                          
-                        });
-                      }
-                      else{
+                        setState(() {});
+                      } else {
                         weightStatus = false;
-                        setState(() {
-                          
-                        });
+                        setState(() {});
                       }
-                      if(nameStatus==false && emailStatus==false && heightStatus==false && weightStatus==false) {
+                      if (nameStatus == false &&
+                          emailStatus == false &&
+                          heightStatus == false &&
+                          weightStatus == false) {
                         edit_patient_details(
-                              user_id,
-                              access_token,
-                              widget.familyMemberId,
-                              gender,
-                              emailController.text,
-                              nameController.text,
-                              ApiformattedDate.toString(),
-                              bloodGroup,
-                              heightController.text,
-                              weightController.text,
-                              relationController.text,
-                              paths)
-                          .then((value) {
-                        if (value.statusCode == 200) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DashboardPatient(
-                                        family_member_id: widget.familyMemberId,
-                                      )));
-                          print(value.body);
-                        }
-                      });
+                                user_id,
+                                access_token,
+                                widget.familyMemberId,
+                                gender,
+                                emailController.text,
+                                nameController.text,
+                                ApiformattedDate.toString(),
+                                bloodGroup,
+                                heightController.text,
+                                weightController.text,
+                                relationController.text,
+                                paths)
+                            .then((value) {
+                          if (value.statusCode == 200) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DashboardPatient(
+                                          family_member_id:
+                                              widget.familyMemberId,
+                                        )));
+                            print(value.body);
+                          }
+                        });
                       }
                     }),
                     child: const Text("Submit"))
