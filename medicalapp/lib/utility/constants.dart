@@ -1,5 +1,17 @@
 import 'dart:ui';
 
+import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
+
+import '../providers/auth_provider.dart';
+import '../providers/patientNewuserProdileVerifyData.dart';
+import '../providers/patient_provider.dart';
+import '../providers/petientdetailsGetProvider.dart';
+import '../providers/phone_provider.dart';
+import '../providers/reportdataVerify.dart';
+import '../providers/verifiProfileEdit.dart';
+import '../providers/verifiyaddFamilyMembersData.dart';
+
 //App Config
 
 String appName = "FSS Medical App";
@@ -34,3 +46,13 @@ String lab_technician = 'assets/images/lab_technician.png';
 String success = 'assets/images/success.png';
 String folder = 'assets/images/folder_bg.png';
 Color backgroundColor = const Color(0xFFE6E6E6);
+List<SingleChildWidget> providers = [
+  ChangeNotifierProvider(create: (_) => PhoneProvider()),
+  ChangeNotifierProvider(create: (_) => AuthProvider()),
+  ChangeNotifierProvider(create: (_) => VerifyProfileEditData()),
+  ChangeNotifierProvider(create: (_) => PatientDetailsProvider()),
+  ChangeNotifierProvider(create: (_) => ReportDataVerify()),
+  ChangeNotifierProvider(create: (_) => GetpetientDetails()),
+  ChangeNotifierProvider(create: (_) => VerifyNewUserProfileData()),
+  ChangeNotifierProvider(create: (_) => VerifyAddFamilyMembersData()),
+];

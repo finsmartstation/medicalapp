@@ -40,16 +40,7 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]).then((value) => runApp(
         MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => PhoneProvider()),
-            ChangeNotifierProvider(create: (_) => AuthProvider()),
-            ChangeNotifierProvider(create: (_) => VerifyProfileEditData()),
-            ChangeNotifierProvider(create: (_) => PatientDetailsProvider()),
-            ChangeNotifierProvider(create: (_) => ReportDataVerify()),
-            ChangeNotifierProvider(create: (_) => GetpetientDetails()),
-            ChangeNotifierProvider(create: (_) => VerifyNewUserProfileData()),
-            ChangeNotifierProvider(create: (_) => VerifyAddFamilyMembersData()),
-          ],
+          providers: providers,
           child: const MyApp(),
         ),
       ));
