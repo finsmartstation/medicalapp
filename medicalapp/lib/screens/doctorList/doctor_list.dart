@@ -121,7 +121,7 @@ class _DoctorListState extends State<DoctorList> {
                                       height: 30,
                                     ),
                                     SizedBox(
-                                      width: 350,
+                                      width: MediaQuery.of(context).size.width/1.2,
                                       child: Card(
                                         color: Colors.white,
                                         child: Padding(
@@ -129,72 +129,29 @@ class _DoctorListState extends State<DoctorList> {
                                           child: Column(
                                             children: [
                                               Row(
+                                               // mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15.0),
-                                                    child: Image(
-                                                      height: 90,
-                                                      width: 90,
-                                                      image:
-                                                          CachedNetworkImageProvider(
-                                                              snapshot
-                                                                  .data!
-                                                                  .data[index]
-                                                                  .profilePic),
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                    width: 10,
-                                                  ),
                                                   Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
                                                     children: [
-                                                      Text(snapshot
-                                                          .data!
-                                                          .data[index]
-                                                          .doctorName
-                                                          .toString()),
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                              "Experience:${snapshot.data!.data[index].experience}"),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        width: 150,
-                                                        child: Text(
-                                                          snapshot
-                                                              .data!
-                                                              .data[index]
-                                                              .organisation
-                                                              .toString(),
-                                                          maxLines: 5,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius.circular(
+                                                                15.0),
+                                                        child: Image(
+                                                          height: 90,
+                                                          width: 90,
+                                                          image:
+                                                              CachedNetworkImageProvider(
+                                                                  snapshot
+                                                                      .data!
+                                                                      .data[index]
+                                                                      .profilePic),
+                                                          fit: BoxFit.fill,
                                                         ),
                                                       ),
-                                                      SizedBox(
-                                                        width: 150,
-                                                        child: Text(
-                                                          snapshot
-                                                              .data!
-                                                              .data[index]
-                                                              .specialization
-                                                              .toString(),
-                                                          maxLines: 5,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  snapshot.data!.data[index]
+                                                      SizedBox(height: 10,),
+                                                      snapshot.data!.data[index]
                                                               .favouriteDoctorStatus ==
                                                           "1"
                                                       ? IconButton(
@@ -285,6 +242,149 @@ class _DoctorListState extends State<DoctorList> {
                                                               Icons.favorite,
                                                               color:
                                                                   Colors.grey)),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(
+                                                    //height: 10,
+                                                    width: 10,
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                            
+                                                    children: [
+                                                      Text(snapshot
+                                                          .data!
+                                                          .data[index]
+                                                          .doctorName
+                                                          .toString()),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                              "Experience:${snapshot.data!.data[index].experience}"),
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        width: MediaQuery.of(context).size.width/1.9,
+                                                        child: Text(
+                                                          snapshot
+                                                              .data!
+                                                              .data[index]
+                                                              .organisation
+                                                              .toString(),
+                                                         // maxLines: 5,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: MediaQuery.of(context).size.width/1.9,
+                                                        child: Text(
+                                                          snapshot
+                                                              .data!
+                                                              .data[index]
+                                                              .specialization
+                                                              .toString(),
+                                                          //maxLines: 5,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  // snapshot.data!.data[index]
+                                                  //             .favouriteDoctorStatus ==
+                                                  //         "1"
+                                                  //     ? IconButton(
+                                                  //         onPressed: () {
+                                                  //           print(snapshot
+                                                  //               .data!
+                                                  //               .data[index]
+                                                  //               .favouriteDoctorStatus);
+                                                  //           print(
+                                                  //               "userid---$user_id");
+                                                  //           print(
+                                                  //               "accesstoken---$access_token");
+                                                  //           setState(() {
+                                                  //             removeFavoriteDoctor(
+                                                  //                     user_id,
+                                                  //                     access_token,
+                                                  //                     widget
+                                                  //                         .family_member_id,
+                                                  //                     snapshot
+                                                  //                         .data!
+                                                  //                         .data[
+                                                  //                             index]
+                                                  //                         .doctorId
+                                                  //                         .toString())
+                                                  //                 .then(
+                                                  //                     (value) {
+                                                  //               if (value
+                                                  //                       .statusCode ==
+                                                  //                   200) {
+                                                  //                 var jsonData =
+                                                  //                     jsonDecode(
+                                                  //                         value
+                                                  //                             .body);
+                                                  //                 setState(() {
+                                                  //                   print(
+                                                  //                       jsonData);
+                                                  //                 });
+                                                  //               }
+                                                  //             });
+                                                  //           });
+                                                  //         },
+                                                  //         icon: const Icon(
+                                                  //             Icons.favorite,
+                                                  //             color:
+                                                  //                 Colors.red))
+                                                  //     : IconButton(
+                                                  //         onPressed: () {
+                                                  //           print(snapshot
+                                                  //               .data!
+                                                  //               .data[index]
+                                                  //               .favouriteDoctorStatus);
+                                                  //           print(
+                                                  //               "userid---$user_id");
+                                                  //           print(
+                                                  //               "accesstoken---$access_token");
+                                                  //           setState(() {
+                                                  //             addFavoriteDoctor(
+                                                  //                     user_id
+                                                  //                         .toString(),
+                                                  //                     access_token
+                                                  //                         .toString(),
+                                                  //                     widget
+                                                  //                         .family_member_id,
+                                                  //                     snapshot
+                                                  //                         .data!
+                                                  //                         .data[
+                                                  //                             index]
+                                                  //                         .doctorId
+                                                  //                         .toString())
+                                                  //                 .then(
+                                                  //                     (value) {
+                                                  //               if (value
+                                                  //                       .statusCode ==
+                                                  //                   200) {
+                                                  //                 var jsonData =
+                                                  //                     jsonDecode(
+                                                  //                         value
+                                                  //                             .body);
+                                                  //                 setState(() {
+                                                  //                   print(
+                                                  //                       jsonData);
+                                                  //                 });
+                                                  //               }
+                                                  //             });
+                                                  //           });
+                                                  //         },
+                                                  //         icon: const Icon(
+                                                  //             Icons.favorite,
+                                                  //             color:
+                                                  //                 Colors.grey)),
                                                 ],
                                               ),
                                             ],

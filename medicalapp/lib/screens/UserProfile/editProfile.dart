@@ -744,6 +744,12 @@ class _EditProfileState extends State<EditProfile> {
                                 paths)
                             .then((value) {
                           if (value.statusCode == 200) {
+                             ScaffoldMessenger.of(context)
+                              .showSnackBar( SnackBar(
+                                duration: Duration(seconds:3),
+                            content:
+                                Text("Profile updated"),
+                          ));
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
