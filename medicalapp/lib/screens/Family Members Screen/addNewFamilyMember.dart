@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -45,6 +47,25 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
     'B+',
     'AB+',
   ];
+   static Future<CroppedFile?> cropImage(File? imageFile) async {
+    print('FILE===========> ${imageFile!.path}');
+    var croppedFile = await ImageCropper().cropImage(
+      sourcePath: imageFile.path,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarColor: Colors.blue,
+          toolbarTitle: 'Crop Image',
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings()
+      ],
+    );
+
+    return croppedFile;
+  }
+
   getSherPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -215,15 +236,21 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                                             );
                                                             if (pickedFile !=
                                                                 null) {
+                                                                  cropImage(File(
+                                                                  pickedFile
+                                                                      .path))
+                                                              .then(
+                                                            (value) {
                                                               setState(() {
                                                                 _setImageFileListFromFile(
-                                                                    pickedFile);
+                                                                    XFile(value!
+                                                                        .path));
 
                                                                 ApiService()
                                                                     .file_upload(
                                                                         user_id,
                                                                         access_token,
-                                                                        pickedFile
+                                                                        value
                                                                             .path)
                                                                     .then(
                                                                   (value) {
@@ -256,6 +283,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                                                 print(
                                                                     "---------------------------");
                                                               });
+                                                            });
                                                             }
                                                           },
                                                           icon: const Icon(Icons
@@ -298,9 +326,15 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                                           );
                                                           if (pickedFile !=
                                                               null) {
+                                                             cropImage(File(
+                                                                  pickedFile
+                                                                      .path))
+                                                              .then(
+                                                            (value) {    
                                                             setState(() {
                                                               _setImageFileListFromFile(
-                                                                  pickedFile);
+                                                                  XFile(value!
+                                                                        .path));
                                                               print(user_id);
                                                               print(
                                                                   access_token);
@@ -309,7 +343,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                                                   .file_upload(
                                                                       user_id,
                                                                       access_token,
-                                                                      pickedFile
+                                                                      value
                                                                           .path
                                                                           .toString())
                                                                   .then(
@@ -341,6 +375,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
 
                                                               print(
                                                                   "---------------------------");
+                                                            });
                                                             });
                                                           }
                                                         },
