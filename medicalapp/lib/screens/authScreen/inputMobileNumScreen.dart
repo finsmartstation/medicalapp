@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -84,65 +85,73 @@ class _InputMobileNumScreenState extends State<InputMobileNumScreen> {
           onPressed: () async {
             if (pValue.phone.length > 12 && pValue.phone.length < 14) {
               appSignature = await SmsAutoFill().getAppSignature;
-              setState(() {
+              setState(() async {
                 pValue.isValid(true);
                 isLoading = true;
                 isOver = false;
-                ApiService()
-                    .registerUser(pValue.countryCode, _phone, pValue.type,
-                        pValue.a_id, appSignature.toString())
-                    .then((value) async {
-                  print("_________________");
-                  print(value.body);
-                  var jsonVal = jsonDecode(value.body);
-                  print("json val===$jsonVal");
-                  if (jsonVal['status'] == false) {
-                    showDialog(
-                      context: context,
-                      builder: (ctx) => AlertDialog(
-                        title: const Text("Message"),
-                        content: Text(jsonVal['message']),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(ctx).pop();
-                            },
-                            child: Container(
-                              color: Colors.blue,
-                              padding: const EdgeInsets.all(15),
-                              child: const Text(
-                                "okay",
-                                style: TextStyle(color: Colors.white),
+                //String? token = await FirebaseMessaging.instance.getToken();
+                print('Fcm');
+                //print(token);
+                FirebaseMessaging.instance.getToken().then(
+                  (value) {
+                    print(value);
+                    ApiService()
+                        .registerUser(pValue.countryCode, _phone, pValue.type,
+                            pValue.a_id, appSignature.toString(), value!)
+                        .then((value) async {
+                      print("_________________");
+                      print(value.body);
+                      var jsonVal = jsonDecode(value.body);
+                      print("json val===$jsonVal");
+                      if (jsonVal['status'] == false) {
+                        showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            title: const Text("Message"),
+                            content: Text(jsonVal['message']),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(ctx).pop();
+                                },
+                                child: Container(
+                                  color: Colors.blue,
+                                  padding: const EdgeInsets.all(15),
+                                  child: const Text(
+                                    "okay",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => OtpSection(
-                              otp: jsonVal['data']['otp'],
-                              phoneNum: _phone,
-                            )));
-                  }
-                  String otp = jsonVal['data']['otp'];
-                  print("___________________");
-                  print(otp);
-                  print("___________________");
-                  var aProvider =
-                      Provider.of<AuthProvider>(context, listen: false);
-                  aProvider.getDetails(
-                      jsonVal['data']['user_id'].toString(),
-                      jsonVal['data']['otp'].toString(),
-                      jsonVal['data']['access_token'].toString());
-                  aToken = jsonVal['data']['access_token'].toString();
-                  uId = jsonVal['data']['user_id'].toString();
-                  print("token and id");
-                  print(aToken);
-                  print(uId);
-                  SmsAutoFill().listenForCode;
-                });
+                        );
+                      } else {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => OtpSection(
+                                  otp: jsonVal['data']['otp'],
+                                  phoneNum: _phone,
+                                )));
+                      }
+                      String otp = jsonVal['data']['otp'];
+                      print("___________________");
+                      print(otp);
+                      print("___________________");
+                      var aProvider =
+                          Provider.of<AuthProvider>(context, listen: false);
+                      aProvider.getDetails(
+                          jsonVal['data']['user_id'].toString(),
+                          jsonVal['data']['otp'].toString(),
+                          jsonVal['data']['access_token'].toString());
+                      aToken = jsonVal['data']['access_token'].toString();
+                      uId = jsonVal['data']['user_id'].toString();
+                      print("token and id");
+                      print(aToken);
+                      print(uId);
+                      SmsAutoFill().listenForCode;
+                    });
+                  },
+                );
               });
             }
           },

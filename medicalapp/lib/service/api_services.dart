@@ -15,7 +15,7 @@ class ApiService {
   // User Register
 
   Future<http.Response> registerUser(String cCode, String phone, String type,
-      String aId, String sign) async {
+      String aId, String sign,String FCM_Token) async {
     String url = '${baseUrl}register';
     var obj = {
       'country_code': cCode,
@@ -23,6 +23,7 @@ class ApiService {
       'device_type': type,
       'access_id': aId,
       'app_signature_id': sign,
+      'FCM_Token':FCM_Token,
     };
     print('OBJECT : $obj');
     var response = await http.post(Uri.parse(url), body: obj);
