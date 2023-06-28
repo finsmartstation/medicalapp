@@ -282,6 +282,13 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                               color: Colors.black,
                                               fontWeight: FontWeight.w700)),
                                     ])
+                              :snapshot.data!.data.consultingMessage.toLowerCase()=='expired'?
+                               Center(
+                                  child: Text(
+                                    'Expired',
+                                 // snapshot.data!.data.consultingMessage,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ))
                               : const Center(
                                   child: Text(
                                   "Waiting for Consulting...",

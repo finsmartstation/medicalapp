@@ -311,11 +311,14 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                Text(
-                                  snapshot.data!.data.specialization,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.blue.shade500),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width/1.2,
+                                  child: Text(
+                                    snapshot.data!.data.specialization,
+                                    style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.blue.shade500),
+                                  ),
                                 )
                               ],
                             ),
