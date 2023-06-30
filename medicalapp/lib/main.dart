@@ -1,15 +1,8 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:medicalapp/providers/auth_provider.dart';
-import 'package:medicalapp/providers/patientNewuserProdileVerifyData.dart';
-import 'package:medicalapp/providers/patient_provider.dart';
-import 'package:medicalapp/providers/petientdetailsGetProvider.dart';
-import 'package:medicalapp/providers/phone_provider.dart';
-import 'package:medicalapp/providers/reportdataVerify.dart';
-import 'package:medicalapp/providers/verifiProfileEdit.dart';
-import 'package:medicalapp/providers/verifiyaddFamilyMembersData.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:medicalapp/screens/splashScreen/splash_screen.dart';
@@ -21,6 +14,19 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 Future<void> main() async {
+  AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+          channelKey: 'downloaded_pdf',
+          channelName: 'Downloaded PDFs',
+          channelDescription: 'PDFs downloaded from the app',
+          defaultColor: Colors.tealAccent,
+          ledColor: Colors.tealAccent,
+          playSound: true,
+          enableVibration: true),
+    ],
+  );
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));

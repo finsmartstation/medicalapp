@@ -103,28 +103,26 @@ class _NearbyHospitalState extends State<NearbyHospital> {
                                   //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Container(
-                                      child: Column(
-                                        children: [
-                                          CircleAvatar(
-                                              radius: 30,
-                                              child: ClipOval(
-                                                child: Image(
-                                                  height: 80,
-                                                  width: 80,
-                                                  image: hospitalList[index]
-                                                              ['profile_pic'] ==
-                                                          ''
-                                                      ? const CachedNetworkImageProvider(
-                                                          "https://cdn-icons-png.flaticon.com/512/147/147285.png")
-                                                      : CachedNetworkImageProvider(
-                                                          hospitalList[index]
-                                                              ['profile_pic']),
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              )),
-                                        ],
-                                      ),
+                                    Column(
+                                      children: [
+                                        CircleAvatar(
+                                            radius: 30,
+                                            child: ClipOval(
+                                              child: Image(
+                                                height: 80,
+                                                width: 80,
+                                                image: hospitalList[index]
+                                                            ['profile_pic'] ==
+                                                        ''
+                                                    ? const CachedNetworkImageProvider(
+                                                        "https://cdn-icons-png.flaticon.com/512/147/147285.png")
+                                                    : CachedNetworkImageProvider(
+                                                        hospitalList[index]
+                                                            ['profile_pic']),
+                                                fit: BoxFit.fill,
+                                              ),
+                                            )),
+                                      ],
                                     ),
                                     const SizedBox(
                                       width: 20,
@@ -140,38 +138,36 @@ class _NearbyHospitalState extends State<NearbyHospital> {
                                       width: 20,
                                     ),
                                     // SizedBox(width: 20,),
-                                    Container(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(hospitalList[index]['username']),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(hospitalList[index]['email']),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(hospitalList[index]['mobile']),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          Row(
-                                            children: [
-                                              //Image.asset(locs),
-                                              //SizedBox(width: 5,),
-                                              Text(hospitalList[index]
-                                                  ['latitude']),
-                                              const SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(hospitalList[index]
-                                                  ['longitude'])
-                                            ],
-                                          )
-                                        ],
-                                      ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(hospitalList[index]['username']),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(hospitalList[index]['email']),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(hospitalList[index]['mobile']),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            //Image.asset(locs),
+                                            //SizedBox(width: 5,),
+                                            Text(hospitalList[index]
+                                                ['latitude']),
+                                            const SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(hospitalList[index]
+                                                ['longitude'])
+                                          ],
+                                        )
+                                      ],
                                     )
                                   ]),
                             ),

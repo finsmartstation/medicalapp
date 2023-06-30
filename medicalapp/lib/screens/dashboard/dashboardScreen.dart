@@ -1,7 +1,11 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_geocoder/geocoder.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 import 'package:marquee/marquee.dart';
+import 'package:medicalapp/screens/dashboard/nearbyHospital.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../utility/constants.dart';
@@ -101,10 +105,134 @@ class _DashboardPatientState extends State<DashboardPatient> {
       });
     });
   }
+  //Location location = Location();
+  final bool _serviceEnabled = false;
+  PermissionStatus? _permissionGranted;
+  LocationData? _locationData;
+  late Position position;
+  String long = "", lat = "";
+  bool servicestatus = false;
+  bool hasPermission = false;
+  String? locationName;
+  String localityName ='';
+  late LocationPermission permission;
+  checkGps() async {
+  bool serviceStatus = await Geolocator.isLocationServiceEnabled();
+  if (serviceStatus) {
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        print('Location permissions are denied');
+      } else if (permission == LocationPermission.deniedForever) {
+        print('Location permissions are permanently denied');
+      } else {
+        hasPermission = true;
+      }
+    } else {
+      hasPermission = true;
+    }
+
+    if (hasPermission) {
+      setState(() {
+        // Refresh the UI
+      });
+
+      getLocation();
+    }
+  } else {
+    print('GPS Service is not enabled, turn on GPS location');
+  }
+
+  setState(() {
+    // Refresh the UI
+  });
+}
+
+getLocation() async {
+  Position position = await Geolocator.getCurrentPosition();
+  print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
+  lat =position.latitude.toString();
+  long= position.longitude.toString();
+
+  final coordinates =  Coordinates(position.latitude, position.longitude);
+  List<Address> addresses =
+      await Geocoder.local.findAddressesFromCoordinates(coordinates);
+
+  if (addresses != null && addresses.isNotEmpty) {
+    Address first = addresses.first;
+    locationName = first.addressLine;
+    localityName = first.locality!;
+   // String? locality = first.featureName;
+    print('Location Name: $locationName');
+    // print('1Location Name: ${first.addressLine}');
+    // print('2Location Name: ${first.adminArea}');
+    // print('3Location Name: ${first.countryName}');
+    // print('4Location Name: ${first.featureName}');
+    // print('5Location Name: ${first.locality}');
+    // print('6Location Name: ${first.subAdminArea}');
+    // print('7Location Name: ${first.subLocality}');
+    // print('8Location Name: ${first.postalCode}');
+    // print('9Location Name: ${first.countryCode}');
+    
+
+    setState(() {
+      // Update your UI or save the location name
+    });
+  }
+}
+  //   checkGps() async {
+  //   servicestatus = await Geolocator.isLocationServiceEnabled();
+  //   if (servicestatus) {
+  //     permission = await Geolocator.checkPermission();
+
+  //     if (permission == LocationPermission.denied) {
+  //       permission = await Geolocator.requestPermission();
+  //       if (permission == LocationPermission.denied) {
+  //         print('Location permissions are denied');
+  //       } else if (permission == LocationPermission.deniedForever) {
+  //         print("'Location permissions are permanently denied");
+  //       } else {
+  //         haspermission = true;
+  //       }
+  //     } else {
+  //       haspermission = true;
+  //     }
+
+  //     if (haspermission) {
+  //       setState(() {
+  //         //refresh the UI
+  //       });
+
+  //       getLocation();
+  //     }
+  //   } else {
+  //     print("GPS Service is not enabled, turn on GPS location");
+  //   }
+
+  //   setState(() {
+  //     //refresh the UI
+  //   });
+  // }
+
+  // getLocation() async {
+  //   position = await Geolocator.getCurrentPosition();
+  //   print(position.longitude); //Output: 80.24599079
+  //   print(position.latitude); //Output: 29.6593457
+
+  //   long = position.longitude.toString();
+  //   lat = position.latitude.toString();
+
+  //   setState(() {
+  //     //refresh UI
+  //   });
+  // }
 
   @override
   void initState() {
     family_member_id = widget.family_member_id.toString();
+    checkGps();
     setState(() {});
     getProfileData();
 
@@ -228,13 +356,43 @@ class _DashboardPatientState extends State<DashboardPatient> {
                     ),
                   ),
                   actions: [
-                    Center(
-                      child: IconButton(
-                          onPressed: (() {}),
-                          icon: ImageIcon(
-                            AssetImage(locs),
-                            color: Colors.blueAccent,
-                          )),
+                    Row(
+                      children: [
+                        InkWell(
+                            onTap: (() {
+                              checkGps();
+                             // print(object)
+                              showDialog(
+                              context: context,
+                              builder: (context) {
+                                return  AlertDialog(
+                                    title: Text("Location"),
+                                    shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                                    content: Text(locationName!),
+                                    actions: [
+                                      ElevatedButton(onPressed:(){
+                                        Navigator.pop(context);
+                                      }, child: Text('Ok'))
+                                    ],
+                                );
+                               },
+                              );
+                            }),
+                            child: Column(
+                              children: [
+                                ImageIcon(
+                                  AssetImage(locs),
+                                  color: Colors.blueAccent,
+                                ),
+                                 SizedBox(
+                           // width: MediaQuery.of(context).size.width /4,
+                            child: Text(localityName,overflow: TextOverflow.ellipsis,))
+                              ],
+                            )),
+                          
+                            
+                      ],
                     )
                   ],
                   elevation: 0,
@@ -1313,7 +1471,9 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                           height: 80,
                                           width: 80,
                                           child: IconButton(
-                                              onPressed: (() {}),
+                                              onPressed: (() {
+                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>NearbyHospitalList(lat:lat,long: lat,)));
+                                              }),
                                               icon: ImageIcon(
                                                 AssetImage(
                                                   hospital_icon,

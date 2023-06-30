@@ -2,7 +2,6 @@
 //
 //     final patientBookSlotHistory = patientBookSlotHistoryFromJson(jsonString);
 
-import 'package:intl/intl.dart';
 import 'dart:convert';
 
 class PatientBookSlotHistory {

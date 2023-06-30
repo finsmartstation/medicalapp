@@ -2,7 +2,6 @@
 //
 //     final dashboardGetModel = dashboardGetModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class DashboardGetModel {

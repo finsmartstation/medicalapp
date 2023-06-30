@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:medicalapp/screens/dashboard/nearbyHospitalModel.dart';
 
 import '../providers/auth_provider.dart';
 import '../utility/constants.dart';
@@ -591,4 +592,27 @@ class ApiService {
     //var jsonData;
     return response;
   }
+  Future<GetNearbyHospitalModel> getNearbyHospital(
+    userId, accessToken, lat,long) async {
+  String url = '${baseUrl}near_by_hospital_list';
+  var obj = {
+    "user_id": userId,
+    "access_token": accessToken,
+    "latitude": lat,
+    "longitude":long
+  };
+  print(obj);
+  var respons = await http.post(
+    Uri.parse(url),
+    body: jsonEncode(obj),
+  );
+  if (respons.statusCode == 200) {
+    final data = GetNearbyHospitalModel.fromJson(jsonDecode(respons.body));
+    //print(data.familyDoctor);
+   // print(data.data.length);
+    return data;
+  } else {
+    throw Exception('Failed to load users');
+  }
+}
 }

@@ -248,95 +248,93 @@ class _EditProfileState extends State<EditProfile> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Container(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            30)),
-                                                            color:
-                                                                Colors.white),
-                                                    child: IconButton(
-                                                      onPressed: () async {
-                                                        print(profilePath);
-                                                        Navigator.pop(context);
-                                                        setState(() {});
-                                                        XFile? pickedFile =
-                                                            await _picker
-                                                                .pickImage(
-                                                          source: ImageSource
-                                                              .camera,
-                                                          maxWidth: 1800,
-                                                          maxHeight: 1800,
-                                                        );
-                                                        if (pickedFile !=
-                                                            null) {
-                                                          cropImage(File(
-                                                                  pickedFile
-                                                                      .path))
-                                                              .then(
-                                                            (value) {
-                                                              setState(() {
-                                                                _setImageFileListFromFile(
-                                                                    XFile(value!
-                                                                        .path));
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          30)),
+                                                          color:
+                                                              Colors.white),
+                                                  child: IconButton(
+                                                    onPressed: () async {
+                                                      print(profilePath);
+                                                      Navigator.pop(context);
+                                                      setState(() {});
+                                                      XFile? pickedFile =
+                                                          await _picker
+                                                              .pickImage(
+                                                        source: ImageSource
+                                                            .camera,
+                                                        maxWidth: 1800,
+                                                        maxHeight: 1800,
+                                                      );
+                                                      if (pickedFile !=
+                                                          null) {
+                                                        cropImage(File(
+                                                                pickedFile
+                                                                    .path))
+                                                            .then(
+                                                          (value) {
+                                                            setState(() {
+                                                              _setImageFileListFromFile(
+                                                                  XFile(value!
+                                                                      .path));
 
-                                                                ApiService()
-                                                                    .file_upload(
-                                                                        user_id,
-                                                                        access_token,
-                                                                        value
-                                                                            .path)
-                                                                    .then(
-                                                                  (value) {
-                                                                    if (value
-                                                                            .statusCode ==
-                                                                        200) {
+                                                              ApiService()
+                                                                  .file_upload(
+                                                                      user_id,
+                                                                      access_token,
                                                                       value
-                                                                          .stream
-                                                                          .transform(utf8
-                                                                              .decoder)
-                                                                          .listen(
-                                                                              (event) {
-                                                                        var path =
-                                                                            jsonDecode(event);
-                                                                        setState(
-                                                                            () {
-                                                                          paths =
-                                                                              path['file_path'];
-                                                                          profilePath =
-                                                                              baseUrl + path['file_path'];
-
-                                                                          print(
-                                                                              profilePath);
-                                                                        });
+                                                                          .path)
+                                                                  .then(
+                                                                (value) {
+                                                                  if (value
+                                                                          .statusCode ==
+                                                                      200) {
+                                                                    value
+                                                                        .stream
+                                                                        .transform(utf8
+                                                                            .decoder)
+                                                                        .listen(
+                                                                            (event) {
+                                                                      var path =
+                                                                          jsonDecode(event);
+                                                                      setState(
+                                                                          () {
+                                                                        paths =
+                                                                            path['file_path'];
+                                                                        profilePath =
+                                                                            baseUrl + path['file_path'];
 
                                                                         print(
                                                                             profilePath);
                                                                       });
-                                                                    }
-                                                                  },
-                                                                );
-                                                              });
-                                                            },
-                                                          );
-                                                        }
-                                                      },
-                                                      icon: const Icon(Icons
-                                                          .camera_alt_rounded),
-                                                      color: Colors.blue,
-                                                    ),
+
+                                                                      print(
+                                                                          profilePath);
+                                                                    });
+                                                                  }
+                                                                },
+                                                              );
+                                                            });
+                                                          },
+                                                        );
+                                                      }
+                                                    },
+                                                    icon: const Icon(Icons
+                                                        .camera_alt_rounded),
+                                                    color: Colors.blue,
                                                   ),
-                                                  const Text("Camera"),
-                                                ],
-                                              ),
+                                                ),
+                                                const Text("Camera"),
+                                              ],
                                             ),
                                             Container(
                                               width: 40,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medicalapp/screens/appointment/paymentPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'appointmentApiServices.dart';
 

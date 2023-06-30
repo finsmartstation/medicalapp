@@ -60,7 +60,7 @@ class _GetStartedState extends State<GetStarted> {
               width: MediaQuery.of(context).size.width * 0.8,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Container(child: Image.asset(appLogo)),
+                child: Image.asset(appLogo),
               ),
             ),
             const SizedBox(
@@ -103,13 +103,11 @@ class _GetStartedState extends State<GetStarted> {
             const Spacer(),
             Padding(
               padding: const EdgeInsets.all(5.0),
-              child: Container(
-                child: const Text(
-                  textAlign: TextAlign.center,
-                  'Read our Privacy Policy. Tap "Get Started" to \naccept the Terms of services.',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
+              child: const Text(
+                textAlign: TextAlign.center,
+                'Read our Privacy Policy. Tap "Get Started" to \naccept the Terms of services.',
+                style: TextStyle(
+                  fontSize: 18,
                 ),
               ),
             ),

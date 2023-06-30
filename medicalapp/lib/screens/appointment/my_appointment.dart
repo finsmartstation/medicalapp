@@ -44,7 +44,6 @@ class _MyAppointmentState extends State<MyAppointment> {
     );
   }
 
-  @override
   String? access_token;
   String? user_id;
   String filterButtonIndex = "0";

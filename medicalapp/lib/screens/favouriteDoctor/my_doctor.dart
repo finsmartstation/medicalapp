@@ -16,9 +16,7 @@ class MyDoctor extends StatefulWidget {
 }
 
 class _MyDoctorState extends State<MyDoctor> {
-  @override
   String? access_token;
-
   String? user_id;
 
   getUserData() async {

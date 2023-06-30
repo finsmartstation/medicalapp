@@ -261,68 +261,64 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Container(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            30)),
-                                                            color:
-                                                                Colors.white),
-                                                    child: IconButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                        _ImageButton(
-                                                            ImageSource.camera);
-                                                      },
-                                                      icon: const Icon(Icons
-                                                          .camera_alt_rounded),
-                                                      color: Colors.blue,
-                                                    ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          30)),
+                                                          color:
+                                                              Colors.white),
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      _ImageButton(
+                                                          ImageSource.camera);
+                                                    },
+                                                    icon: const Icon(Icons
+                                                        .camera_alt_rounded),
+                                                    color: Colors.blue,
                                                   ),
-                                                  const Text("Camera"),
-                                                ],
-                                              ),
+                                                ),
+                                                const Text("Camera"),
+                                              ],
                                             ),
                                             Container(
                                               width: 40,
                                             ),
-                                            Container(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            30)),
-                                                            color:
-                                                                Colors.white),
-                                                    child: IconButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                        _ImageButton(ImageSource
-                                                            .gallery);
-                                                      },
-                                                      icon: const Icon(
-                                                          Icons.image),
-                                                      color: Colors.blue,
-                                                    ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          30)),
+                                                          color:
+                                                              Colors.white),
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      _ImageButton(ImageSource
+                                                          .gallery);
+                                                    },
+                                                    icon: const Icon(
+                                                        Icons.image),
+                                                    color: Colors.blue,
                                                   ),
-                                                  const Text('Gallery')
-                                                ],
-                                              ),
+                                                ),
+                                                const Text('Gallery')
+                                              ],
                                             )
                                           ],
                                         ),
