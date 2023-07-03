@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:medicalapp/screens/appointment/doctor_details.dart';
 import 'package:medicalapp/screens/appointment/videoCall.dart';
+import 'package:medicalapp/screens/doctorList/doctorProfileDetails.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'appointmentApiServices.dart';
@@ -10,7 +12,8 @@ import 'audioCall.dart';
 class AppointmentReport extends StatefulWidget {
   String? userName;
   String? slot_id;
-  AppointmentReport({Key? key, required this.slot_id, required this.userName})
+  String? familyMemberId;
+  AppointmentReport({Key? key, required this.slot_id, required this.userName, required this.familyMemberId})
       : super(key: key);
 
   @override
@@ -204,7 +207,9 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                     const SizedBox(
                                       height: 20,
                                     ),
-                                    Stack(
+                                    snapshot.data!.data.sickNotes==''?
+                                    SizedBox()
+                                    :Stack(
                                       children: [
                                         Container(
                                           width: double.infinity,
@@ -268,19 +273,34 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                       const SizedBox(
                                         height: 15,
                                       ),
-                                      Text(
-                                          "Referred Doctor: ${snapshot.data!.data.refferedDoctor}",
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w700)),
+                                      snapshot.data!.data.refferedDoctor.toString()=='0'?
+                                      SizedBox()
+                                      :InkWell(
+                                        onTap:(){ 
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                                          DoctorProfileDetails(family_member_id: widget.familyMemberId, doctorId: snapshot.data!.data.refferedDoctor)));
+                                        },
+                                        child: Text(
+                                            "Referred Doctor: ${snapshot.data!.data.refferedDoctorName}",
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w700)),
+                                      ),
                                       const SizedBox(
                                         height: 15,
                                       ),
-                                      Text(
-                                          "Referred Lab: ${snapshot.data!.data.refferedLab}",
-                                          style: const TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w700)),
+                                      snapshot.data!.data.refferedLab.toString()=='0'?
+                                      SizedBox()
+                                      :InkWell(
+                                        onTap: () {
+                                          
+                                        },
+                                        child: Text(
+                                            "Referred Lab: ${snapshot.data!.data.refferedLabName}",
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w700)),
+                                      ),
                                     ])
                               :snapshot.data!.data.consultingMessage.toLowerCase()=='expired'?
                                Center(
@@ -390,62 +410,136 @@ class _AppointmentReportState extends State<AppointmentReport> {
                               ),
                             ],
                           )
-                        : SizedBox(
-                            width: 100,
-                            child: FloatingActionButton(
-                              backgroundColor: Colors.blue.shade700,
-                              onPressed: () {
-                                setState(() {
-                                  if(snapshot.data!.data.reportPath.toString()==''){
-                                     showDialog(context: context,
-                                                 builder: (BuildContext context){
-                                                  return AlertDialog(
-                                                    title: const Text('Report not available'),
-                                                    actions: [
-                                                      ElevatedButton(
-                                                        onPressed:(){
-                                                          Navigator.pop(context);
-                                                        }, 
-                                                        child: const Text('Ok'))
-                                                    ],
-                                                  );
-                                                 });
-                                  }
-                                  else {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AppointmentPdf(
-                                                filePath: snapshot
-                                                    .data!.data.reportPath
-                                                    .toString(),
-                                              )));
-                                  }
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => VideoConferencePage(
-                                  //               conferenceID: "123",
-                                  //               user_name: "rishad",
-                                  //               userId: user_id.toString(),
-                                  //             )));
-                                });
-                              },
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16.0))),
-                              child: Row(children: const [
-                                SizedBox(
-                                  width: 8,
+                        : Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            snapshot.data!.data.reportPath.toString()==''?
+                            SizedBox()
+                            :SizedBox(
+                                width: 150,
+                                child: FloatingActionButton(
+                                  backgroundColor: Colors.blue.shade700,
+                                  onPressed: () {
+                                    setState(() {
+                                      if(snapshot.data!.data.reportPath.toString()==''){
+                                         showDialog(context: context,
+                                                     builder: (BuildContext context){
+                                                      return AlertDialog(
+                                                        title: const Text('Report not available'),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed:(){
+                                                              Navigator.pop(context);
+                                                            }, 
+                                                            child: const Text('Ok'))
+                                                        ],
+                                                      );
+                                                     });
+                                      }
+                                      else {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => AppointmentPdf(
+                                                    filePath: snapshot
+                                                        .data!.data.reportPath
+                                                        .toString(),
+                                                  )));
+                                      }
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => VideoConferencePage(
+                                      //               conferenceID: "123",
+                                      //               user_name: "rishad",
+                                      //               userId: user_id.toString(),
+                                      //             )));
+                                    });
+                                  },
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(16.0))),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                    // SizedBox(
+                                    //   width: 8,
+                                    // ),
+                                    // Icon(Icons.download),
+                                    Text(
+                                      "Report",
+                                      style: TextStyle(color: Colors.white),
+                                    )
+                                  ]),
                                 ),
-                                Icon(Icons.download),
-                                Text(
-                                  "Report",
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ]),
-                            ),
-                          ));
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                               snapshot.data!.data.prescription.toString()==''?
+                            SizedBox()
+                            :SizedBox(
+                                width: 150,
+                                child: FloatingActionButton(
+                                  backgroundColor: Colors.blue.shade700,
+                                  onPressed: () {
+                                    setState(() {
+                                      if(snapshot.data!.data.prescription.toString()==''){
+                                         showDialog(context: context,
+                                                     builder: (BuildContext context){
+                                                      return AlertDialog(
+                                                        title: const Text('Prescription not available'),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                            onPressed:(){
+                                                              Navigator.pop(context);
+                                                            }, 
+                                                            child: const Text('Ok'))
+                                                        ],
+                                                      );
+                                                     });
+                                      }
+                                      else {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => AppointmentPdf(
+                                                    filePath: snapshot
+                                                        .data!.data.prescription
+                                                        .toString(),
+                                                  )));
+                                      }
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) => VideoConferencePage(
+                                      //               conferenceID: "123",
+                                      //               user_name: "rishad",
+                                      //               userId: user_id.toString(),
+                                      //             )));
+                                    });
+                                  },
+                                  shape: const RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(16.0))),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: const [
+                                    // SizedBox(
+                                    //   width: 8,
+                                    // ),
+                                   // Icon(Icons.download),
+                                    Text(
+                                      "Prescription",
+                                      style: TextStyle(color: Colors.white),
+                                    )
+                                  ]),
+                                ),
+                              ),
+                          ],
+                        ));
           } else {
             return const Center(
               child: CircularProgressIndicator(),

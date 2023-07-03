@@ -149,7 +149,7 @@ class ApiService {
     String url = '${baseUrl}get_all_specialization';
     var response = await http.post(Uri.parse(url));
     print("success");
-    var jsonData;
+    //var jsonData;
     return response;
   }
 
@@ -562,7 +562,7 @@ class ApiService {
     print("obj---$obj");
     var response = await http.post(Uri.parse(url),body: obj);
     print("success");
-    var jsonData;
+    //var jsonData;
     return response;
   }
   Future<http.Response> addOrganization(String doctorId,String accessToken,List hospitalId) async {
@@ -576,7 +576,7 @@ class ApiService {
     var response = await http.post(Uri.parse(url),body: jsonEncode(obj));
     print("success");
     print("resp:${jsonDecode(response.body)}");
-    var jsonData;
+    //var jsonData;
     return response;
   }
   Future<http.Response> listDoctorOrganization(String userId,String accessToken) async {

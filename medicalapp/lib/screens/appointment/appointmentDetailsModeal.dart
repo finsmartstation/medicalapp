@@ -55,6 +55,9 @@ class Data {
     required this.reportPath,
     required this.refferedDoctor,
     required this.refferedLab,
+    required this.refferedDoctorName,
+    required this.refferedLabName,
+    required this.prescription,
     required this.consultingMessage,
     required this.chatStatus,
     required this.organisationName,
@@ -79,6 +82,9 @@ class Data {
   String reportPath;
   String refferedDoctor;
   String refferedLab;
+  String refferedDoctorName;
+  String refferedLabName;
+  String prescription;
   String consultingMessage;
   String chatStatus;
   String organisationName;
@@ -107,6 +113,9 @@ class Data {
         reportPath: json["report_path"].toString(),
         refferedDoctor: json["reffered_doctor"].toString(),
         refferedLab: json["reffered_lab"].toString(),
+        refferedDoctorName: json["reffered_doctor_name"].toString(),
+        refferedLabName: json["reffered_lab_name"].toString(),
+        prescription: json["prescription"].toString(),
         consultingMessage: json["consulting_message"].toString(),
         chatStatus: json["chat_status"].toString(),
         organisationName: json["organisation_name"].toString(),
@@ -132,6 +141,9 @@ class Data {
         "report_path": reportPath,
         "reffered_doctor": refferedDoctor,
         "reffered_lab": refferedLab,
+        "reffered_doctor_name": refferedDoctorName,
+        "reffered_lab_name": refferedLabName,
+        "prescription": prescription,
         "consulting_message": consultingMessage,
         "chat_status": chatStatus,
         "organisation_name": organisationName,

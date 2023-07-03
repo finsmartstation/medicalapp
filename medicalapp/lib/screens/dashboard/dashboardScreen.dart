@@ -1405,6 +1405,10 @@ getLocation() async {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         AppointmentReport(
+                                                          familyMemberId:  snapshot
+                                                                              .data!
+                                                                              .patientDetails
+                                                                              .familyMemberId,
                                                           slot_id: snapshot
                                                               .data!
                                                               .slotStickers[

@@ -194,6 +194,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                   builder:
                                                                       (context) =>
                                                                           AppointmentReport(
+                                                                            familyMemberId: widget.family_member_id,
                                                                             slot_id:
                                                                                 snapshot.data!.upcommingData[index].id,
                                                                             userName:
@@ -332,6 +333,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                   builder:
                                                                       (context) =>
                                                                           AppointmentReport(
+                                                                            familyMemberId: widget.family_member_id,
                                                                             slot_id:
                                                                                 snapshot.data!.previousData[index].id,
                                                                             userName:
@@ -487,6 +489,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                       MaterialPageRoute(
                                                           builder: (context) =>
                                                               AppointmentReport(
+                                                                familyMemberId: widget.family_member_id,
                                                                 slot_id: snapshot
                                                                     .data!
                                                                     .upcommingData[
@@ -643,6 +646,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                       MaterialPageRoute(
                                                           builder: (context) =>
                                                               AppointmentReport(
+                                                                familyMemberId: widget.family_member_id,
                                                                 slot_id: snapshot
                                                                     .data!
                                                                     .previousData[
