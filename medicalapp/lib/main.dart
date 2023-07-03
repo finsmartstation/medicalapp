@@ -9,6 +9,8 @@ import 'package:medicalapp/screens/splashScreen/splash_screen.dart';
 import 'package:medicalapp/utility/constants.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/mapScreen/mapView.dart';
+
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.notification?.body}");
 }
@@ -64,6 +66,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         ),
-        home: const SplashScreen());
+        home: const MapView());
   }
 }
