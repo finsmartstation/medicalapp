@@ -121,7 +121,8 @@ class _DoctorListState extends State<DoctorList> {
                                       height: 30,
                                     ),
                                     SizedBox(
-                                      width: MediaQuery.of(context).size.width/1.2,
+                                      width: MediaQuery.of(context).size.width /
+                                          1.2,
                                       child: Card(
                                         color: Colors.white,
                                         child: Padding(
@@ -129,119 +130,119 @@ class _DoctorListState extends State<DoctorList> {
                                           child: Column(
                                             children: [
                                               Row(
-                                               // mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                // mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Column(
                                                     children: [
                                                       ClipRRect(
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                15.0),
+                                                            BorderRadius
+                                                                .circular(15.0),
                                                         child: Image(
                                                           height: 90,
                                                           width: 90,
-                                                          image:
-                                                              CachedNetworkImageProvider(
-                                                                  snapshot
-                                                                      .data!
-                                                                      .data[index]
-                                                                      .profilePic),
+                                                          image: CachedNetworkImageProvider(
+                                                              snapshot
+                                                                  .data!
+                                                                  .data[index]
+                                                                  .profilePic),
                                                           fit: BoxFit.fill,
                                                         ),
                                                       ),
-                                                      SizedBox(height: 10,),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
                                                       snapshot.data!.data[index]
-                                                              .favouriteDoctorStatus ==
-                                                          "1"
-                                                      ? IconButton(
-                                                          onPressed: () {
-                                                            print(snapshot
-                                                                .data!
-                                                                .data[index]
-                                                                .favouriteDoctorStatus);
-                                                            print(
-                                                                "userid---$user_id");
-                                                            print(
-                                                                "accesstoken---$access_token");
-                                                            setState(() {
-                                                              removeFavoriteDoctor(
-                                                                      user_id,
-                                                                      access_token,
-                                                                      widget
-                                                                          .family_member_id,
-                                                                      snapshot
-                                                                          .data!
-                                                                          .data[
-                                                                              index]
-                                                                          .doctorId
-                                                                          .toString())
-                                                                  .then(
-                                                                      (value) {
-                                                                if (value
-                                                                        .statusCode ==
-                                                                    200) {
-                                                                  var jsonData =
-                                                                      jsonDecode(
-                                                                          value
-                                                                              .body);
-                                                                  setState(() {
-                                                                    print(
-                                                                        jsonData);
+                                                                  .favouriteDoctorStatus ==
+                                                              "1"
+                                                          ? IconButton(
+                                                              onPressed: () {
+                                                                print(snapshot
+                                                                    .data!
+                                                                    .data[index]
+                                                                    .favouriteDoctorStatus);
+                                                                print(
+                                                                    "userid---$user_id");
+                                                                print(
+                                                                    "accesstoken---$access_token");
+                                                                setState(() {
+                                                                  removeFavoriteDoctor(
+                                                                          user_id,
+                                                                          access_token,
+                                                                          widget
+                                                                              .family_member_id,
+                                                                          snapshot
+                                                                              .data!
+                                                                              .data[index]
+                                                                              .doctorId
+                                                                              .toString())
+                                                                      .then((value) {
+                                                                    if (value
+                                                                            .statusCode ==
+                                                                        200) {
+                                                                      var jsonData =
+                                                                          jsonDecode(
+                                                                              value.body);
+                                                                      setState(
+                                                                          () {
+                                                                        print(
+                                                                            jsonData);
+                                                                      });
+                                                                    }
                                                                   });
-                                                                }
-                                                              });
-                                                            });
-                                                          },
-                                                          icon: const Icon(
-                                                              Icons.favorite,
-                                                              color:
-                                                                  Colors.red))
-                                                      : IconButton(
-                                                          onPressed: () {
-                                                            print(snapshot
-                                                                .data!
-                                                                .data[index]
-                                                                .favouriteDoctorStatus);
-                                                            print(
-                                                                "userid---$user_id");
-                                                            print(
-                                                                "accesstoken---$access_token");
-                                                            setState(() {
-                                                              addFavoriteDoctor(
-                                                                      user_id
-                                                                          .toString(),
-                                                                      access_token
-                                                                          .toString(),
-                                                                      widget
-                                                                          .family_member_id,
-                                                                      snapshot
-                                                                          .data!
-                                                                          .data[
-                                                                              index]
-                                                                          .doctorId
-                                                                          .toString())
-                                                                  .then(
-                                                                      (value) {
-                                                                if (value
-                                                                        .statusCode ==
-                                                                    200) {
-                                                                  var jsonData =
-                                                                      jsonDecode(
-                                                                          value
-                                                                              .body);
-                                                                  setState(() {
-                                                                    print(
-                                                                        jsonData);
+                                                                });
+                                                              },
+                                                              icon: const Icon(
+                                                                  Icons
+                                                                      .favorite,
+                                                                  color: Colors
+                                                                      .red))
+                                                          : IconButton(
+                                                              onPressed: () {
+                                                                print(snapshot
+                                                                    .data!
+                                                                    .data[index]
+                                                                    .favouriteDoctorStatus);
+                                                                print(
+                                                                    "userid---$user_id");
+                                                                print(
+                                                                    "accesstoken---$access_token");
+                                                                setState(() {
+                                                                  addFavoriteDoctor(
+                                                                          user_id
+                                                                              .toString(),
+                                                                          access_token
+                                                                              .toString(),
+                                                                          widget
+                                                                              .family_member_id,
+                                                                          snapshot
+                                                                              .data!
+                                                                              .data[index]
+                                                                              .doctorId
+                                                                              .toString())
+                                                                      .then((value) {
+                                                                    if (value
+                                                                            .statusCode ==
+                                                                        200) {
+                                                                      var jsonData =
+                                                                          jsonDecode(
+                                                                              value.body);
+                                                                      setState(
+                                                                          () {
+                                                                        print(
+                                                                            jsonData);
+                                                                      });
+                                                                    }
                                                                   });
-                                                                }
-                                                              });
-                                                            });
-                                                          },
-                                                          icon: const Icon(
-                                                              Icons.favorite,
-                                                              color:
-                                                                  Colors.grey)),
+                                                                });
+                                                              },
+                                                              icon: const Icon(
+                                                                  Icons
+                                                                      .favorite,
+                                                                  color: Colors
+                                                                      .grey)),
                                                     ],
                                                   ),
                                                   const SizedBox(
@@ -252,8 +253,8 @@ class _DoctorListState extends State<DoctorList> {
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                            
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
                                                     children: [
                                                       Text(snapshot
                                                           .data!
@@ -267,20 +268,28 @@ class _DoctorListState extends State<DoctorList> {
                                                         ],
                                                       ),
                                                       SizedBox(
-                                                        width: MediaQuery.of(context).size.width/1.9,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            1.9,
                                                         child: Text(
                                                           snapshot
                                                               .data!
                                                               .data[index]
                                                               .organisation
                                                               .toString(),
-                                                         // maxLines: 5,
+                                                          // maxLines: 5,
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                         ),
                                                       ),
                                                       SizedBox(
-                                                        width: MediaQuery.of(context).size.width/1.9,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width /
+                                                            1.9,
                                                         child: Text(
                                                           snapshot
                                                               .data!
