@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_geocoder/geocoder.dart';
+//import 'package:flutter_geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 import 'package:marquee/marquee.dart';
@@ -140,7 +140,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
         // Refresh the UI
       });
 
-      getLocation();
+     // getLocation();
     }
   } else {
     print('GPS Service is not enabled, turn on GPS location');
@@ -151,38 +151,38 @@ class _DashboardPatientState extends State<DashboardPatient> {
   });
 }
 
-getLocation() async {
-  Position position = await Geolocator.getCurrentPosition();
-  print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
-  lat =position.latitude.toString();
-  long= position.longitude.toString();
+// getLocation() async {
+//   Position position = await Geolocator.getCurrentPosition();
+//   print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
+//   lat =position.latitude.toString();
+//   long= position.longitude.toString();
 
-  final coordinates =  Coordinates(position.latitude, position.longitude);
-  List<Address> addresses =
-      await Geocoder.local.findAddressesFromCoordinates(coordinates);
+//   final coordinates =  Coordinates(position.latitude, position.longitude);
+//   List<Address> addresses =
+//       await Geocoder.local.findAddressesFromCoordinates(coordinates);
 
-  if (addresses != null && addresses.isNotEmpty) {
-    Address first = addresses.first;
-    locationName = first.addressLine;
-    localityName = first.locality!;
-   // String? locality = first.featureName;
-    print('Location Name: $locationName');
-    // print('1Location Name: ${first.addressLine}');
-    // print('2Location Name: ${first.adminArea}');
-    // print('3Location Name: ${first.countryName}');
-    // print('4Location Name: ${first.featureName}');
-    // print('5Location Name: ${first.locality}');
-    // print('6Location Name: ${first.subAdminArea}');
-    // print('7Location Name: ${first.subLocality}');
-    // print('8Location Name: ${first.postalCode}');
-    // print('9Location Name: ${first.countryCode}');
+//   if (addresses != null && addresses.isNotEmpty) {
+//     Address first = addresses.first;
+//     locationName = first.addressLine;
+//     localityName = first.locality!;
+//    // String? locality = first.featureName;
+//     print('Location Name: $locationName');
+//     // print('1Location Name: ${first.addressLine}');
+//     // print('2Location Name: ${first.adminArea}');
+//     // print('3Location Name: ${first.countryName}');
+//     // print('4Location Name: ${first.featureName}');
+//     // print('5Location Name: ${first.locality}');
+//     // print('6Location Name: ${first.subAdminArea}');
+//     // print('7Location Name: ${first.subLocality}');
+//     // print('8Location Name: ${first.postalCode}');
+//     // print('9Location Name: ${first.countryCode}');
     
 
-    setState(() {
-      // Update your UI or save the location name
-    });
-  }
-}
+//     setState(() {
+//       // Update your UI or save the location name
+//     });
+//   }
+// }
   //   checkGps() async {
   //   servicestatus = await Geolocator.isLocationServiceEnabled();
   //   if (servicestatus) {
@@ -361,7 +361,7 @@ getLocation() async {
                       children: [
                         InkWell(
                             onTap: (() {
-                              checkGps();
+                             // checkGps();
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>MapView()));
                              // print(object)
                               // showDialog(
@@ -387,9 +387,9 @@ getLocation() async {
                                   AssetImage(locs),
                                   color: Colors.blueAccent,
                                 ),
-                                 SizedBox(
-                           // width: MediaQuery.of(context).size.width /4,
-                            child: Text(localityName,overflow: TextOverflow.ellipsis,))
+                          //        SizedBox(
+                          //  // width: MediaQuery.of(context).size.width /4,
+                          //   child: Text(localityName,overflow: TextOverflow.ellipsis,))
                               ],
                             )),
                           
