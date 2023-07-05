@@ -110,14 +110,16 @@ class _MyAppointmentState extends State<MyAppointment> {
                     if (snapshot.hasData) {
                       return snapshot.data!.previousData.isEmpty &&
                               snapshot.data!.upcommingData.isEmpty
-                          ? const Center(
-                              child: Text(
-                                "No appointments",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.black),
+                          ? Expanded(
+                            child: const Center(
+                                child: Text(
+                                  "No appointments",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.black),
+                                ),
                               ),
-                            )
+                          )
                           : snapshot.data!.previousData.isNotEmpty &&
                                   snapshot.data!.upcommingData.isNotEmpty
                               ? Expanded(

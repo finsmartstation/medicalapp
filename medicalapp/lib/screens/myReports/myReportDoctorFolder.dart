@@ -27,7 +27,33 @@ class _MyReportDoctorsFolderState extends State<MyReportDoctorsFolder> {
           widget.userId, widget.access_token, widget.family_member_id),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return Scaffold(
+          if(snapshot.data!.data.length==0){
+            return Scaffold(
+              backgroundColor: Colors.white,
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              leading: IconButton(
+                  onPressed: (() {
+                    Navigator.pop(context);
+                  }),
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.black,
+                  )),
+              elevation: 0,
+              title: const Text(
+                "My Reports",
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+              ),
+            ),
+            body:Center(
+              child: Text('No report found'),
+            ) ,
+            );
+          }
+          else {
+            return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
               backgroundColor: Colors.white,
@@ -104,6 +130,7 @@ class _MyReportDoctorsFolderState extends State<MyReportDoctorsFolder> {
               ),
             ),
           );
+          }
         } else {
           return const Center(
             child: CircularProgressIndicator(),

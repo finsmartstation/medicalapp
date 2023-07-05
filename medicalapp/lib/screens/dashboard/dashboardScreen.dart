@@ -6,6 +6,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 import 'package:marquee/marquee.dart';
 import 'package:medicalapp/screens/dashboard/nearbyHospital.dart';
+import 'package:medicalapp/screens/mapScreen/mapView.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../utility/constants.dart';
@@ -361,23 +362,24 @@ getLocation() async {
                         InkWell(
                             onTap: (() {
                               checkGps();
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>MapView()));
                              // print(object)
-                              showDialog(
-                              context: context,
-                              builder: (context) {
-                                return  AlertDialog(
-                                    title: Text("Location"),
-                                    shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                                    content: Text(locationName!),
-                                    actions: [
-                                      ElevatedButton(onPressed:(){
-                                        Navigator.pop(context);
-                                      }, child: Text('Ok'))
-                                    ],
-                                );
-                               },
-                              );
+                              // showDialog(
+                              // context: context,
+                              // builder: (context) {
+                              //   return  AlertDialog(
+                              //       title: Text("Location"),
+                              //       shape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.all(Radius.circular(20))),
+                              //       content: Text(locationName!),
+                              //       actions: [
+                              //         ElevatedButton(onPressed:(){
+                              //           Navigator.pop(context);
+                              //         }, child: Text('Ok'))
+                              //       ],
+                              //   );
+                              //  },
+                              // );
                             }),
                             child: Column(
                               children: [
@@ -650,7 +652,9 @@ getLocation() async {
                       ListTile(
                         leading: const Icon(Icons.local_hospital_rounded),
                         title: const Text("Nearby Hospital"),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>NearbyHospitalList(lat:lat,long: lat,)));
+                        },
                       ),
                       Row(
                         children: [
@@ -2119,6 +2123,10 @@ getLocation() async {
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             DoctorList(
+                                                              family_member_id: snapshot
+                                                                              .data!
+                                                                              .patientDetails
+                                                                              .familyMemberId,
                                                               splInputSearch: snapshot
                                                                   .data!
                                                                   .specializationList[

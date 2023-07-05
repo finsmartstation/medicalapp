@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -605,6 +606,10 @@ class _EditProfileState extends State<EditProfile> {
                                 focusNode: heightFocusNode,
                                 keyboardType: TextInputType.number,
                                 controller: heightController,
+                                 inputFormatters: [
+                                        // LengthLimitingTextInputFormatter(2),
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ],
                                 decoration: const InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
@@ -628,6 +633,10 @@ class _EditProfileState extends State<EditProfile> {
                               focusNode: weightFocusNode,
                               keyboardType: TextInputType.number,
                               controller: weightController,
+                               inputFormatters: [
+                                        // LengthLimitingTextInputFormatter(2),
+                                        FilteringTextInputFormatter.digitsOnly,
+                                      ],
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(

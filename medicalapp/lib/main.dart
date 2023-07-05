@@ -66,6 +66,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         ),
-        home: const MapView());
+        home: const SplashScreen());
   }
 }

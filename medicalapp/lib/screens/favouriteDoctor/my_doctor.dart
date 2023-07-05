@@ -163,15 +163,21 @@ class _MyDoctorState extends State<MyDoctor> {
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                            Text(snapshot
-                                                .data!.familyDoctor.organisation
-                                                .toString()),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width/1.7,
+                                              child: Text(snapshot
+                                                  .data!.familyDoctor.organisation
+                                                  .toString(),overflow: TextOverflow.ellipsis,),
+                                            ),
                                             const SizedBox(
                                               height: 10,
                                             ),
-                                            Text(snapshot
-                                                .data!.familyDoctor.specialization
-                                                .toString())
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width/1.7,
+                                              child: Text(snapshot
+                                                  .data!.familyDoctor.specialization
+                                                  .toString(),overflow: TextOverflow.ellipsis,),
+                                            )
                                           ],
                                         ),
                                       ),
@@ -283,19 +289,27 @@ class _MyDoctorState extends State<MyDoctor> {
                                                     const SizedBox(
                                                       height: 10,
                                                     ),
-                                                    Text(snapshot
-                                                        .data!
-                                                        .recentDoctor[index]
-                                                        .organisation
-                                                        .toString()),
+                                                    SizedBox(
+                                                      width: MediaQuery.of(context).size.width/1.7,
+                                                      child: Text(snapshot
+                                                          .data!
+                                                          .recentDoctor[index]
+                                                          .organisation
+                                                          .toString(),
+                                                          overflow: TextOverflow.ellipsis,),
+                                                    ),
                                                     const SizedBox(
                                                       height: 10,
                                                     ),
-                                                    Text(snapshot
-                                                        .data!
-                                                        .recentDoctor[index]
-                                                        .specialization
-                                                        .toString())
+                                                    SizedBox(
+                                                      width: MediaQuery.of(context).size.width/1.7,
+                                                      child: Text(snapshot
+                                                          .data!
+                                                          .recentDoctor[index]
+                                                          .specialization
+                                                          .toString(),
+                                                          overflow: TextOverflow.ellipsis,),
+                                                    )
                                                   ],
                                                 ),
                                               ),
@@ -399,19 +413,27 @@ class _MyDoctorState extends State<MyDoctor> {
                                                     const SizedBox(
                                                       height: 10,
                                                     ),
-                                                    Text(snapshot
-                                                        .data!
-                                                        .favouriteDoctor[index]
-                                                        .organisation
-                                                        .toString()),
+                                                    SizedBox(
+                                                      width: MediaQuery.of(context).size.width/1.7,
+                                                      child: Text(snapshot
+                                                          .data!
+                                                          .favouriteDoctor[index]
+                                                          .organisation
+                                                          .toString(),
+                                                          overflow: TextOverflow.ellipsis,),
+                                                    ),
                                                     const SizedBox(
                                                       height: 10,
                                                     ),
-                                                    Text(snapshot
-                                                        .data!
-                                                        .favouriteDoctor[index]
-                                                        .specialization
-                                                        .toString())
+                                                    SizedBox(
+                                                      width: MediaQuery.of(context).size.width/1.7,
+                                                      child: Text(snapshot
+                                                          .data!
+                                                          .favouriteDoctor[index]
+                                                          .specialization
+                                                          .toString(),
+                                                          overflow: TextOverflow.ellipsis,),
+                                                    )
                                                   ],
                                                 ),
                                               ),

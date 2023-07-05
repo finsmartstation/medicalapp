@@ -183,14 +183,14 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                                 height: 10,
                                               ),
                                               SizedBox(
-                                                width: 200,
+                                                width: MediaQuery.of(context).size.width/1.8,
                                                 child: Text(
                                                   snapshot
                                                       .data!
                                                       .data
                                                       .doctors[index]
                                                       .organisation,
-                                                  maxLines: 5,
+                                                  //maxLines: 5,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                 ),
@@ -199,14 +199,14 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                                 height: 10,
                                               ),
                                               SizedBox(
-                                                width: 200,
+                                                width: MediaQuery.of(context).size.width/1.8,
                                                 child: Text(
                                                   snapshot
                                                       .data!
                                                       .data
                                                       .doctors[index]
                                                       .specialization,
-                                                  maxLines: 5,
+                                                  //maxLines: 5,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                 ),

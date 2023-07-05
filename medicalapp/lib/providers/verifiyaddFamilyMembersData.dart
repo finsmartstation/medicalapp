@@ -47,7 +47,7 @@ class VerifyAddFamilyMembersData with ChangeNotifier {
   }
 
   void hight() {
-    verifyHight = "Required Hight";
+    verifyHight = "Required Height";
     notifyListeners();
   }
 
