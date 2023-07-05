@@ -17,18 +17,18 @@ class _MapViewState extends State<MapView> {
   }
 
   static const LatLng _center = const LatLng(45.521563, -122.677433);
-   LatLng? _pickedLocation; // Stores the picked location's latitude and longitude
+  LatLng? _pickedLocation;
   GoogleMapController? _mapController;
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text('Map Example'),
       ),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
-          target: LatLng(8.5603347, 76.8802452), // Set the initial map center
-          zoom: 13.0, // Set the initial zoom level
+          target: LatLng(8.5603347, 76.8802452),
+          zoom: 13.0,
         ),
         onMapCreated: (controller) {
           _mapController = controller;
@@ -55,7 +55,8 @@ class _MapViewState extends State<MapView> {
     //   ),
     // );
   }
-   void _handleTap(LatLng latLng) {
+
+  void _handleTap(LatLng latLng) {
     setState(() {
       _pickedLocation = latLng;
     });

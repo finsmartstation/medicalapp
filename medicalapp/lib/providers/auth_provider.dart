@@ -16,4 +16,11 @@ class AuthProvider with ChangeNotifier {
     _access_token = aToken;
     notifyListeners();
   }
+
+  void clearData() {
+    _u_id = '';
+    _otp = '';
+    _access_token = '';
+    notifyListeners();
+  }
 }

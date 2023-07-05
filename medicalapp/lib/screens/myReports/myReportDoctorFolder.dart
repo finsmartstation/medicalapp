@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../utility/constants.dart';
+import '../../providers/auth_provider.dart';
 import 'myReportsApiServices.dart';
 import 'myReportsDateListing.dart';
 
 class MyReportDoctorsFolder extends StatefulWidget {
-  String? userId;
-  String? access_token;
+ 
   String? family_member_id;
 
   MyReportDoctorsFolder(
       {Key? key,
-      required this.userId,
-      required this.access_token,
+     
       required this.family_member_id})
       : super(key: key);
 
@@ -24,7 +24,7 @@ class _MyReportDoctorsFolderState extends State<MyReportDoctorsFolder> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: consulted_doctors_list(
-          widget.userId, widget.access_token, widget.family_member_id),
+         context.watch<AuthProvider>().u_id,context.watch<AuthProvider>().access_token, widget.family_member_id),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if(snapshot.data!.data.length==0){
@@ -89,11 +89,11 @@ class _MyReportDoctorsFolderState extends State<MyReportDoctorsFolder> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MyReportDateFolders(
-                                    access_token: widget.access_token,
+                                    
                                     doctorId:
                                         snapshot.data!.data[index].doctorId,
                                     family_member_id: widget.family_member_id,
-                                    userId: widget.userId,
+                                   
                                   )));
                     },
                     child: Column(

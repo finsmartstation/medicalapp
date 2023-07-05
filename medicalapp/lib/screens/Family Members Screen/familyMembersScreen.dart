@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../providers/auth_provider.dart';
 import '../dashboard/dashboardScreen.dart';
 import 'addNewFamilyMember.dart';
 import 'familyMembersApiServices.dart';
@@ -13,23 +15,7 @@ class FamilyMembersScreen extends StatefulWidget {
 }
 
 class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
-  String user_id = "";
-  String access_token = "";
-  getSherPref() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      user_id = prefs.getString('user_id').toString();
-      access_token = prefs.getString('access_token').toString();
-    });
-  }
-
-  @override
-  void initState() {
-    getSherPref();
-    // TODO: implement initState
-    super.initState();
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,12 +36,11 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
         ),
       ),
       body: FutureBuilder(
-          future: get_family_members(user_id, access_token),
+          future: get_family_members(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token),
           builder: (context, snapshot) {
             print(snapshot);
             if (snapshot.hasData) {
-              print(user_id);
-              print(access_token);
+             
               print(snapshot.data!.data);
               return ListView.builder(
                 itemCount: snapshot.data!.data.length,
@@ -144,8 +129,8 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
                                                   child: const Text("OK"),
                                                   onPressed: () {
                                                     delete_family_member(
-                                                            user_id,
-                                                            access_token,
+                                                           context.watch<AuthProvider>().u_id,
+                                                            context.watch<AuthProvider>().access_token,
                                                             snapshot.data!
                                                                 .data[index].id
                                                                 .toString())

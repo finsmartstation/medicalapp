@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../providers/auth_provider.dart';
 import '../../providers/verifiyaddFamilyMembersData.dart';
 import '../../service/api_services.dart';
 import '../../service/patient_api.dart';
@@ -33,8 +34,6 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
   FocusNode weightFocusNode = FocusNode();
   String bloodGroup = "";
   String gender = "";
-  String user_id = "";
-  String access_token = "";
   String profilePath = "";
   String ApiformattedDate = "";
   var items = [
@@ -48,7 +47,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
     'B+',
     'AB+',
   ];
-   static Future<CroppedFile?> cropImage(File? imageFile) async {
+  static Future<CroppedFile?> cropImage(File? imageFile) async {
     print('FILE===========> ${imageFile!.path}');
     var croppedFile = await ImageCropper().cropImage(
       sourcePath: imageFile.path,
@@ -65,24 +64,6 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
     );
 
     return croppedFile;
-  }
-
-  getSherPref() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      user_id = prefs.getString('user_id').toString();
-      access_token = prefs.getString('access_token').toString();
-    });
-  }
-
-  @override
-  void initState() {
-    getSherPref();
-    print("____________________________________");
-    print(user_id);
-    print(access_token);
-    // TODO: implement initState
-    super.initState();
   }
 
   final ImagePicker _picker = ImagePicker();
@@ -207,18 +188,16 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                               children: [
                                                 Column(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Container(
                                                       decoration: const BoxDecoration(
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .all(Radius
+                                                              BorderRadius.all(
+                                                                  Radius
                                                                       .circular(
                                                                           30)),
-                                                          color:
-                                                              Colors.white),
+                                                          color: Colors.white),
                                                       child: IconButton(
                                                         onPressed: () async {
                                                           print(profilePath);
@@ -228,62 +207,66 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                                           XFile? pickedFile =
                                                               await _picker
                                                                   .pickImage(
-                                                            source:
-                                                                ImageSource
-                                                                    .camera,
+                                                            source: ImageSource
+                                                                .camera,
                                                             maxWidth: 1800,
                                                             maxHeight: 1800,
                                                           );
                                                           if (pickedFile !=
                                                               null) {
-                                                                cropImage(File(
-                                                                pickedFile
-                                                                    .path))
-                                                            .then(
-                                                          (value) {
-                                                            setState(() {
-                                                              _setImageFileListFromFile(
-                                                                  XFile(value!
-                                                                      .path));
+                                                            cropImage(File(
+                                                                    pickedFile
+                                                                        .path))
+                                                                .then((value) {
+                                                              setState(() {
+                                                                _setImageFileListFromFile(
+                                                                    XFile(value!
+                                                                        .path));
 
-                                                              ApiService()
-                                                                  .file_upload(
-                                                                      user_id,
-                                                                      access_token,
+                                                                ApiService()
+                                                                    .file_upload(
+                                                                        context
+                                                                            .watch<
+                                                                                AuthProvider>()
+                                                                            .u_id,
+                                                                        context
+                                                                            .watch<
+                                                                                AuthProvider>()
+                                                                            .access_token,
+                                                                        value
+                                                                            .path)
+                                                                    .then(
+                                                                  (value) {
+                                                                    if (value
+                                                                            .statusCode ==
+                                                                        200) {
                                                                       value
-                                                                          .path)
-                                                                  .then(
-                                                                (value) {
-                                                                  if (value
-                                                                          .statusCode ==
-                                                                      200) {
-                                                                    value
-                                                                        .stream
-                                                                        .transform(utf8
-                                                                            .decoder)
-                                                                        .listen(
-                                                                            (event) {
-                                                                      var path =
-                                                                          jsonDecode(event);
-                                                                      setState(
-                                                                          () {
-                                                                        profilePath =
-                                                                            path['file_path'];
+                                                                          .stream
+                                                                          .transform(utf8
+                                                                              .decoder)
+                                                                          .listen(
+                                                                              (event) {
+                                                                        var path =
+                                                                            jsonDecode(event);
+                                                                        setState(
+                                                                            () {
+                                                                          profilePath =
+                                                                              path['file_path'];
+                                                                        });
+
+                                                                        print(
+                                                                            profilePath);
                                                                       });
+                                                                    }
+                                                                  },
+                                                                );
+                                                                // print(
+                                                                //     pickedFile.path);
 
-                                                                      print(
-                                                                          profilePath);
-                                                                    });
-                                                                  }
-                                                                },
-                                                              );
-                                                              // print(
-                                                              //     pickedFile.path);
-
-                                                              print(
-                                                                  "---------------------------");
+                                                                print(
+                                                                    "---------------------------");
+                                                              });
                                                             });
-                                                          });
                                                           }
                                                         },
                                                         icon: const Icon(Icons
@@ -325,60 +308,63 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                                           );
                                                           if (pickedFile !=
                                                               null) {
-                                                             cropImage(File(
-                                                                  pickedFile
-                                                                      .path))
-                                                              .then(
-                                                            (value) {    
-                                                            setState(() {
-                                                              _setImageFileListFromFile(
-                                                                  XFile(value!
+                                                            cropImage(File(
+                                                                    pickedFile
+                                                                        .path))
+                                                                .then((value) {
+                                                              setState(() {
+                                                                _setImageFileListFromFile(
+                                                                    XFile(value!
                                                                         .path));
-                                                              print(user_id);
-                                                              print(
-                                                                  access_token);
 
-                                                              ApiService()
-                                                                  .file_upload(
-                                                                      user_id,
-                                                                      access_token,
+                                                                ApiService()
+                                                                    .file_upload(
+                                                                        context
+                                                                            .watch<
+                                                                                AuthProvider>()
+                                                                            .u_id,
+                                                                        context
+                                                                            .watch<
+                                                                                AuthProvider>()
+                                                                            .access_token,
+                                                                        value
+                                                                            .path
+                                                                            .toString())
+                                                                    .then(
+                                                                  (value) {
+                                                                    if (value
+                                                                            .statusCode ==
+                                                                        200) {
                                                                       value
-                                                                          .path
-                                                                          .toString())
-                                                                  .then(
-                                                                (value) {
-                                                                  if (value
-                                                                          .statusCode ==
-                                                                      200) {
-                                                                    value.stream
-                                                                        .transform(utf8
-                                                                            .decoder)
-                                                                        .listen(
-                                                                            (event) {
-                                                                      var path =
-                                                                          jsonDecode(
-                                                                              event);
-                                                                      setState(
-                                                                          () {
-                                                                        profilePath =
-                                                                            path['file_path'];
+                                                                          .stream
+                                                                          .transform(utf8
+                                                                              .decoder)
+                                                                          .listen(
+                                                                              (event) {
+                                                                        var path =
+                                                                            jsonDecode(event);
+                                                                        setState(
+                                                                            () {
+                                                                          profilePath =
+                                                                              path['file_path'];
+                                                                        });
+                                                                        print(
+                                                                            path);
                                                                       });
-                                                                      print(
-                                                                          path);
-                                                                    });
-                                                                  }
-                                                                },
-                                                              );
-                                                              print(pickedFile
-                                                                  .path);
+                                                                    }
+                                                                  },
+                                                                );
+                                                                print(pickedFile
+                                                                    .path);
 
-                                                              print(
-                                                                  "---------------------------");
-                                                            });
+                                                                print(
+                                                                    "---------------------------");
+                                                              });
                                                             });
                                                           }
                                                         },
-                                                        icon: const Icon(Icons.image),
+                                                        icon: const Icon(
+                                                            Icons.image),
                                                         color: Colors.blue,
                                                       ),
                                                     ),
@@ -547,15 +533,14 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                     focusNode: heightFocusNode,
                                     keyboardType: TextInputType.number,
                                     controller: heightController,
-                                     inputFormatters: [
-                                        // LengthLimitingTextInputFormatter(2),
-                                        FilteringTextInputFormatter.digitsOnly,
-                                      ],
+                                    inputFormatters: [
+                                      // LengthLimitingTextInputFormatter(2),
+                                      FilteringTextInputFormatter.digitsOnly,
+                                    ],
                                     decoration: const InputDecoration(
                                         border: OutlineInputBorder(
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(20))),
-                                                
                                         hintText: "Height")),
                               ),
                               Text(
@@ -572,10 +557,10 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                     focusNode: weightFocusNode,
                                     keyboardType: TextInputType.number,
                                     controller: weightController,
-                                     inputFormatters: [
-                                        // LengthLimitingTextInputFormatter(2),
-                                        FilteringTextInputFormatter.digitsOnly,
-                                      ],
+                                    inputFormatters: [
+                                      // LengthLimitingTextInputFormatter(2),
+                                      FilteringTextInputFormatter.digitsOnly,
+                                    ],
                                     decoration: const InputDecoration(
                                         border: OutlineInputBorder(
                                             borderRadius: BorderRadius.all(
@@ -715,8 +700,8 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                             print("object");
                             PatientApi()
                                 .add_family_members(
-                                    user_id.toString(),
-                                    access_token.toString(),
+                                    context.watch<AuthProvider>().u_id,
+                                    context.watch<AuthProvider>().access_token,
                                     gender.toString(),
                                     nameController.text,
                                     relationController.text,

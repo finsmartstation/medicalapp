@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../providers/auth_provider.dart';
 import '../doctorList/doctorProfileDetails.dart';
 import 'dashboardApiService.dart';
 
@@ -17,30 +19,13 @@ class DashboardSearch extends StatefulWidget {
 }
 
 class _DashboardSearchState extends State<DashboardSearch> {
-  String user_id = "";
-  String access_token = "";
   String search = "";
   FocusNode searchInputFocus = FocusNode();
-
-  getSherPref() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      user_id = prefs.getString('user_id').toString();
-      access_token = prefs.getString('access_token').toString();
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getSherPref();
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: dashboard_search(user_id, access_token, search),
+      future: dashboard_search(context.watch<AuthProvider>().u_id,
+          context.watch<AuthProvider>().access_token, search),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return GestureDetector(
@@ -172,18 +157,18 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                               ),
                                               Row(
                                                 children: [
-                                                  Text("Exp:${snapshot
-                                                          .data!
-                                                          .data
-                                                          .doctors[index]
-                                                          .experience}"),
+                                                  Text(
+                                                      "Exp:${snapshot.data!.data.doctors[index].experience}"),
                                                 ],
                                               ),
                                               const SizedBox(
                                                 height: 10,
                                               ),
                                               SizedBox(
-                                                width: MediaQuery.of(context).size.width/1.8,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    1.8,
                                                 child: Text(
                                                   snapshot
                                                       .data!
@@ -199,7 +184,10 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                                 height: 10,
                                               ),
                                               SizedBox(
-                                                width: MediaQuery.of(context).size.width/1.8,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    1.8,
                                                 child: Text(
                                                   snapshot
                                                       .data!

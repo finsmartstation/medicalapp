@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:medicalapp/utility/constants.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../providers/auth_provider.dart';
 import 'doctorListApiServices.dart';
 import 'doctorProfileDetails.dart';
 
@@ -18,20 +20,11 @@ class DoctorList extends StatefulWidget {
 }
 
 class _DoctorListState extends State<DoctorList> {
-  String? access_token;
-  String? user_id;
   String searchkey = "";
   TextEditingController searchInput = TextEditingController();
   FocusNode searchInputFocus = FocusNode();
 
   getUserData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      access_token = prefs.getString('access_token');
-      user_id = prefs.getString('user_id');
-      print(access_token);
-      print(user_id);
-    });
     setState(() {
       if (widget.splInputSearch!.isNotEmpty) {
         searchkey = widget.splInputSearch.toString();
@@ -71,7 +64,7 @@ class _DoctorListState extends State<DoctorList> {
               ),
               FutureBuilder(
                 future: listDoctor(
-                    user_id, access_token, searchkey, widget.family_member_id),
+                    context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token, searchkey, widget.family_member_id),
                 builder: ((context, snapshot) {
                   if (snapshot.hasData) {
                     print('length');
@@ -163,14 +156,11 @@ class _DoctorListState extends State<DoctorList> {
                                                                     .data!
                                                                     .data[index]
                                                                     .favouriteDoctorStatus);
-                                                                print(
-                                                                    "userid---$user_id");
-                                                                print(
-                                                                    "accesstoken---$access_token");
+                                                               
                                                                 setState(() {
                                                                   removeFavoriteDoctor(
-                                                                          user_id,
-                                                                          access_token,
+                                                                          context.watch<AuthProvider>().u_id,
+                                                                          context.watch<AuthProvider>().access_token,
                                                                           widget
                                                                               .family_member_id,
                                                                           snapshot
@@ -205,16 +195,11 @@ class _DoctorListState extends State<DoctorList> {
                                                                     .data!
                                                                     .data[index]
                                                                     .favouriteDoctorStatus);
-                                                                print(
-                                                                    "userid---$user_id");
-                                                                print(
-                                                                    "accesstoken---$access_token");
+                                                               
                                                                 setState(() {
                                                                   addFavoriteDoctor(
-                                                                          user_id
-                                                                              .toString(),
-                                                                          access_token
-                                                                              .toString(),
+                                                                         context.watch<AuthProvider>().u_id,
+                                                                         context.watch<AuthProvider>().access_token,
                                                                           widget
                                                                               .family_member_id,
                                                                           snapshot
@@ -407,8 +392,8 @@ class _DoctorListState extends State<DoctorList> {
                                           onPressed: () {
                                             setState(() {
                                               addFamilyDoctor(
-                                                      user_id.toString(),
-                                                      access_token.toString(),
+                                                     context.watch<AuthProvider>().u_id,
+                                                     context.watch<AuthProvider>().access_token,
                                                       snapshot.data!.data[index]
                                                           .doctorId
                                                           .toString())

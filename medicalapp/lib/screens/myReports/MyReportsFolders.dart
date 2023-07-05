@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/auth_provider.dart';
 import '../../utility/constants.dart';
 
 class MyReportFolders extends StatefulWidget {
-  String? userId;
-  String? access_token;
   String? family_member_id;
   String? doctorId;
   String? dateTime;
   MyReportFolders({
     Key? key,
-    required this.userId,
-    required this.access_token,
     required this.family_member_id,
     required this.doctorId,
     required this.dateTime,
@@ -29,6 +27,7 @@ class _MyReportFoldersState extends State<MyReportFolders> {
   ];
   @override
   Widget build(BuildContext context) {
+    context.watch<AuthProvider>().u_id;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

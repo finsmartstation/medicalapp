@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final patientAppoinmentDetails = patientAppoinmentDetailsFromJson(jsonString);
 
 import 'dart:convert';
 

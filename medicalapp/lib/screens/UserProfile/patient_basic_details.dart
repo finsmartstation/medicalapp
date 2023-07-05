@@ -55,8 +55,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
   String locality = '';
   String feature_name = '';
   String admin_area = '';
-  String? access_token;
-  String? uid;
+ 
   var imgUrl;
 
   String? profilePic;
@@ -86,18 +85,9 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
     print(prefs.getString('profilePicture'));
   }
 
-  getProfile() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    access_token = prefs.getString('accessToken');
-    uid = prefs.getString('userId');
-    print(uid);
-    print(access_token);
-  }
-
   @override
   void initState() {
-    getProfile();
+  
     checkGps();
     super.initState();
   }

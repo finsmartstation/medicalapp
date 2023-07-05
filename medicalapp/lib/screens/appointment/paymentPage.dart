@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../../providers/auth_provider.dart';
 import '../dashboard/dashboardScreen.dart';
 import 'appointmentApiServices.dart';
 
@@ -18,7 +19,7 @@ class PaymentScreen extends StatefulWidget {
   String? bookingDate;
   String? bookingTime;
   PaymentScreen(
-      {super.key, 
+      {super.key,
       required this.visit_type,
       required this.family_member_id,
       required this.doctorId,
@@ -37,26 +38,26 @@ class PaymentScreen extends StatefulWidget {
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  String? access_token;
-  String? user_id;
+  // String? access_token;
+  // String? user_id;
 
-  getProfileData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      access_token = prefs.getString('access_token');
-      user_id = prefs.getString('user_id');
-    });
-  }
+  // getProfileData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     access_token = prefs.getString('access_token');
+  //     user_id = prefs.getString('user_id');
+  //   });
+  // }
 
-  @override
-  void initState() {
-    getProfileData();
-    print(access_token);
-    print(user_id);
+  // @override
+  // void initState() {
+  //   getProfileData();
+  //   print(access_token);
+  //   print(user_id);
 
-    // TODO: implement initState
-    super.initState();
-  }
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -224,8 +225,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ),
                       onPressed: (() {
                         slot_booking(
-                                user_id,
-                                access_token,
+                                context.watch<AuthProvider>().u_id,
+                                context.watch<AuthProvider>().access_token,
                                 widget.doctorId,
                                 widget.family_member_id,
                                 widget.book_slot_id,
@@ -241,22 +242,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                       widget.family_member_id.toString(),
                                 ),
                                 "Success");
-      
-                            // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            //   content: Text(
-                            //     "Slot booked",
-                            //     style: TextStyle(color: Colors.white),
-                            //   ),
-                            //   backgroundColor: Colors.blue[800],
-                            //   elevation: 10,
-                            // ));
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => DashboardPatient(
-                            //               family_member_id:
-                            //                   widget.family_member_id.toString(),
-                            //             )));
+
                             print(value.body);
                           }
                         });

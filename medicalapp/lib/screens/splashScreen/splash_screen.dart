@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/auth_provider.dart';
 import '../../utility/constants.dart';
 import '../dashboard/dashboardScreen.dart';
 import '../startScreen/get_started.dart';
@@ -18,7 +20,11 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return String
     setState(() {
-      isLogin = prefs.getString('isLogin')!;
+      isLogin = prefs.getString('isLogin') ?? '';
+      context.read<AuthProvider>().getDetails(
+          prefs.getString('user_id').toString(),
+          '',
+          prefs.getString('access_token').toString());
 
       // print(prefs.getBool("isLogin"));
     });

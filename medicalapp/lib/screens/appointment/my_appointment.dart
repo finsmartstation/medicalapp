@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../providers/auth_provider.dart';
 import '../UserProfile/NewUserProfile.dart';
 import '../doctorList/doctorProfileDetails.dart';
 import '../doctorList/doctor_list.dart';
@@ -44,27 +46,7 @@ class _MyAppointmentState extends State<MyAppointment> {
     );
   }
 
-  String? access_token;
-  String? user_id;
   String filterButtonIndex = "0";
-  getUserData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      access_token = prefs.getString('access_token');
-      user_id = prefs.getString('user_id');
-      print("userid==$user_id");
-      print("accessToken==$access_token");
-    });
-  }
-
-  @override
-  void initState() {
-    setState(() {
-      getUserData();
-    });
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,13 +87,15 @@ class _MyAppointmentState extends State<MyAppointment> {
             children: [
               FutureBuilder(
                   future: patientBookSlotHistory(
-                      user_id, access_token, widget.family_member_id),
+                      context.watch<AuthProvider>().u_id,
+                      context.watch<AuthProvider>().u_id,
+                      widget.family_member_id),
                   builder: ((context, snapshot) {
                     if (snapshot.hasData) {
                       return snapshot.data!.previousData.isEmpty &&
                               snapshot.data!.upcommingData.isEmpty
                           ? Expanded(
-                            child: const Center(
+                              child: const Center(
                                 child: Text(
                                   "No appointments",
                                   style: TextStyle(
@@ -119,7 +103,7 @@ class _MyAppointmentState extends State<MyAppointment> {
                                       color: Colors.black),
                                 ),
                               ),
-                          )
+                            )
                           : snapshot.data!.previousData.isNotEmpty &&
                                   snapshot.data!.upcommingData.isNotEmpty
                               ? Expanded(
@@ -196,7 +180,8 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                   builder:
                                                                       (context) =>
                                                                           AppointmentReport(
-                                                                            familyMemberId: widget.family_member_id,
+                                                                            familyMemberId:
+                                                                                widget.family_member_id,
                                                                             slot_id:
                                                                                 snapshot.data!.upcommingData[index].id,
                                                                             userName:
@@ -335,7 +320,8 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                                   builder:
                                                                       (context) =>
                                                                           AppointmentReport(
-                                                                            familyMemberId: widget.family_member_id,
+                                                                            familyMemberId:
+                                                                                widget.family_member_id,
                                                                             slot_id:
                                                                                 snapshot.data!.previousData[index].id,
                                                                             userName:
@@ -491,7 +477,9 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                       MaterialPageRoute(
                                                           builder: (context) =>
                                                               AppointmentReport(
-                                                                familyMemberId: widget.family_member_id,
+                                                                familyMemberId:
+                                                                    widget
+                                                                        .family_member_id,
                                                                 slot_id: snapshot
                                                                     .data!
                                                                     .upcommingData[
@@ -648,7 +636,9 @@ class _MyAppointmentState extends State<MyAppointment> {
                                                       MaterialPageRoute(
                                                           builder: (context) =>
                                                               AppointmentReport(
-                                                                familyMemberId: widget.family_member_id,
+                                                                familyMemberId:
+                                                                    widget
+                                                                        .family_member_id,
                                                                 slot_id: snapshot
                                                                     .data!
                                                                     .previousData[

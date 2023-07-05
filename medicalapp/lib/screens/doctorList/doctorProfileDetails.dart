@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../providers/auth_provider.dart';
 import '../appointment/bookingAppoiment.dart';
 import 'doctorListApiServices.dart';
 
@@ -17,27 +19,6 @@ class DoctorProfileDetails extends StatefulWidget {
 }
 
 class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
-  String? access_token;
-  String? user_id;
-
-  getProfileData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      access_token = prefs.getString('access_token');
-      user_id = prefs.getString('user_id');
-    });
-  }
-
-  @override
-  void initState() {
-    getProfileData();
-    print(access_token);
-    print(user_id);
-
-    // TODO: implement initState
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -47,7 +28,10 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
       },
       child: FutureBuilder(
         future: doctor_profile_details(
-            user_id, access_token, widget.doctorId, widget.family_member_id),
+            context.watch<AuthProvider>().u_id,
+            context.watch<AuthProvider>().access_token,
+            widget.doctorId,
+            widget.family_member_id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             print(snapshot.data!.data.slotAvailableStatus);
@@ -106,7 +90,8 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                             onPressed: () {
                                               Navigator.pop(context, "refresh");
                                             },
-                                            icon: const Icon(Icons.arrow_back_ios),
+                                            icon: const Icon(
+                                                Icons.arrow_back_ios),
                                             color: Colors.black,
                                           ),
                                         ),
@@ -128,13 +113,17 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                                   onPressed: () {
                                                     print(snapshot.data!.data
                                                         .favouriteDoctorStatus);
-                                                    print("userid---$user_id");
-                                                    print(
-                                                        "accesstoken---$access_token");
+
                                                     setState(() {
                                                       removeFavoriteDoctor(
-                                                              user_id,
-                                                              access_token,
+                                                              context
+                                                                  .watch<
+                                                                      AuthProvider>()
+                                                                  .u_id,
+                                                              context
+                                                                  .watch<
+                                                                      AuthProvider>()
+                                                                  .access_token,
                                                               widget
                                                                   .family_member_id,
                                                               widget.doctorId)
@@ -160,15 +149,17 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                                   onPressed: () {
                                                     print(snapshot.data!.data
                                                         .favouriteDoctorStatus);
-                                                    print("userid---$user_id");
-                                                    print(
-                                                        "accesstoken---$access_token");
+
                                                     setState(() {
                                                       addFavoriteDoctor(
-                                                              user_id
-                                                                  .toString(),
-                                                              access_token
-                                                                  .toString(),
+                                                              context
+                                                                  .watch<
+                                                                      AuthProvider>()
+                                                                  .u_id,
+                                                              context
+                                                                  .watch<
+                                                                      AuthProvider>()
+                                                                  .access_token,
                                                               widget
                                                                   .family_member_id,
                                                               widget.doctorId)
@@ -185,7 +176,8 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                                       });
                                                     });
                                                   },
-                                                  icon: const Icon(Icons.favorite,
+                                                  icon: const Icon(
+                                                      Icons.favorite,
                                                       color: Colors.grey,
                                                       size: 25)),
                                         ),
@@ -312,7 +304,8 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                   width: 5,
                                 ),
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width/1.2,
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.2,
                                   child: Text(
                                     snapshot.data!.data.specialization,
                                     style: TextStyle(
@@ -353,7 +346,11 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                             child: FloatingActionButton.extended(
                               onPressed: () {
                                 addFamilyDoctor(
-                                        user_id, access_token, widget.doctorId)
+                                        context.watch<AuthProvider>().u_id,
+                                        context
+                                            .watch<AuthProvider>()
+                                            .access_token,
+                                        widget.doctorId)
                                     .then((value) {
                                   if (value.statusCode == 200) {
                                     setState(() {
@@ -375,7 +372,11 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                             child: FloatingActionButton.extended(
                               backgroundColor: Colors.red,
                               onPressed: () {
-                                delete_family_doctor(user_id, access_token)
+                                delete_family_doctor(
+                                        context.watch<AuthProvider>().u_id,
+                                        context
+                                            .watch<AuthProvider>()
+                                            .access_token)
                                     .then((value) {
                                   if (value.statusCode == 200) {
                                     setState(() {
@@ -393,7 +394,7 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                         right: 0,
                         child: snapshot.data!.data.slotAvailableStatus == "true"
                             ? FloatingActionButton.extended(
-                              heroTag: "tag1",
+                                heroTag: "tag1",
                                 onPressed: () {
                                   Navigator.push(
                                       context,
@@ -411,14 +412,12 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                                     .data!.data.specialization,
                                                 organization: snapshot
                                                     .data!.data.organisation,
-                                                  user_id:user_id,
-                                                  accessToken : access_token
                                               )));
                                 },
                                 label: const Text('Book appointment'),
                               )
                             : FloatingActionButton.extended(
-                               heroTag: "tag2",
+                                heroTag: "tag2",
                                 onPressed: () {},
                                 label: const Text('Appointment Not Available'),
                               )),

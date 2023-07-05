@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -55,4 +57,14 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (_) => GetpetientDetails()),
   ChangeNotifierProvider(create: (_) => VerifyNewUserProfileData()),
   ChangeNotifierProvider(create: (_) => VerifyAddFamilyMembersData()),
+];
+List<NotificationChannel> notificationList = [
+  NotificationChannel(
+      channelKey: 'downloaded_pdf',
+      channelName: 'Downloaded PDFs',
+      channelDescription: 'PDFs downloaded from the app',
+      defaultColor: Colors.tealAccent,
+      ledColor: Colors.tealAccent,
+      playSound: true,
+      enableVibration: true),
 ];

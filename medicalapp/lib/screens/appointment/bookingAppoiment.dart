@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medicalapp/screens/appointment/paymentPage.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/auth_provider.dart';
 import 'appointmentApiServices.dart';
 
 class BookingAppoiment extends StatefulWidget {
@@ -11,8 +13,6 @@ class BookingAppoiment extends StatefulWidget {
   String? drName;
   String? drSpl;
   String? organization;
-  String? user_id;
-  String? accessToken;
   BookingAppoiment(
       {super.key,
       required this.family_member_id,
@@ -21,8 +21,7 @@ class BookingAppoiment extends StatefulWidget {
       required this.drName,
       required this.drSpl,
       required this.organization,
-      required this.user_id,
-      required this.accessToken});
+     });
 
   @override
   State<BookingAppoiment> createState() => _BookingAppoimentState();
@@ -41,26 +40,6 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
   String selectedDate = "";
   String bookingTime = "";
   String visit_type = "";
-  // String? access_token;
-  // String? user_id;
-
-  // getProfileData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     access_token = prefs.getString('access_token');
-  //     user_id = prefs.getString('user_id');
-  //   });
-  // }
-
-  @override
-  void initState() {
-    // getProfileData();
-    // print(access_token);
-    // print(user_id);
-
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +49,10 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
       },
       child: FutureBuilder(
         future: doctor_available_slot_details(
-            widget.user_id, widget.accessToken, widget.doctorId, date_id),
+            context.watch<AuthProvider>().u_id,
+            context.watch<AuthProvider>().access_token,
+            widget.doctorId,
+            date_id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (selectedDate == "") {
@@ -547,11 +529,10 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                                 visit_typeId: visit_typeId,
                                               )));
                                 }),
-                                child: const Text("Set Appointment")))
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                )
+                                child: const Text("Set Appointment")))),
+                    SizedBox(
+                      height: 10,
+                    )
                   ],
                 ),
               ),

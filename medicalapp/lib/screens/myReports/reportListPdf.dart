@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ReportListPdf extends StatefulWidget {
-  String? userId;
-  String? access_token;
+ 
   String? family_member_id;
   String? doctorId;
   String? dateTime;
   String? type;
   ReportListPdf({
     Key? key,
-    required this.userId,
-    required this.access_token,
+   
     required this.family_member_id,
     required this.doctorId,
     required this.dateTime,

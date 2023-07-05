@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../providers/auth_provider.dart';
 import '../service/patient_api.dart';
 
 class NearbyHospital extends StatefulWidget {
@@ -16,8 +18,7 @@ class _NearbyHospitalState extends State<NearbyHospital> {
   String? email;
   String? profilePic;
   String? PhoneNum;
-  String? uid;
-  String? aToken;
+ 
   String? lat;
   String? long;
   Future ProfileData() async {
@@ -27,14 +28,12 @@ class _NearbyHospitalState extends State<NearbyHospital> {
       email = prefs.getString("email").toString();
       profilePic = prefs.getString("profilePicture").toString();
       PhoneNum = prefs.getString("phoneNum").toString();
-      aToken = prefs.getString('accessToken');
-      uid = prefs.getString('userId');
+    
     });
     print(prefs.getString("userName").toString());
     print(prefs.getString("email").toString());
     print("------------------");
-    print(uid);
-    print(aToken);
+   
   }
 
   var data;
@@ -73,7 +72,7 @@ class _NearbyHospitalState extends State<NearbyHospital> {
       body: Column(
         children: [
           FutureBuilder(
-            future: PatientApi().listHospital(uid, aToken),
+            future: PatientApi().listHospital(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token),
             builder: ((context, snapshot) {
               if (snapshot.hasData) {
                 dynamic data = snapshot.data as Map;

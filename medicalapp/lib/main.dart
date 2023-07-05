@@ -16,19 +16,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 Future<void> main() async {
-  AwesomeNotifications().initialize(
-    null,
-    [
-      NotificationChannel(
-          channelKey: 'downloaded_pdf',
-          channelName: 'Downloaded PDFs',
-          channelDescription: 'PDFs downloaded from the app',
-          defaultColor: Colors.tealAccent,
-          ledColor: Colors.tealAccent,
-          playSound: true,
-          enableVibration: true),
-    ],
-  );
+  AwesomeNotifications().initialize(null, notificationList);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
@@ -62,7 +50,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: appName,
         theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
           useMaterial3: true,
+          pageTransitionsTheme: const PageTransitionsTheme(builders: {
+            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+            TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+          }),
           primarySwatch: Colors.blue,
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         ),

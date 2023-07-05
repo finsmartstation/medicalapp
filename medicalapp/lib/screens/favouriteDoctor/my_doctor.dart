@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../providers/auth_provider.dart';
 import '../doctorList/doctorProfileDetails.dart';
 import '../doctorList/doctor_list.dart';
 import 'familyDoctorAndFavouritelistApiServices.dart';
@@ -16,34 +18,12 @@ class MyDoctor extends StatefulWidget {
 }
 
 class _MyDoctorState extends State<MyDoctor> {
-  String? access_token;
-  String? user_id;
-
-  getUserData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      access_token = prefs.getString('access_token');
-      user_id = prefs.getString('user_id');
-      print(access_token);
-      print(user_id);
-      print(widget.family_member_id);
-    });
-  }
-
-  @override
-  void initState() {
-    setState(() {
-      getUserData();
-    });
-    // TODO: implement initState
-    super.initState();
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: listFamilyAndFavoriteDoctors(
-          user_id, access_token, widget.family_member_id),
+          context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token, widget.family_member_id),
       builder: (context, snapshot) {
         print(snapshot.hasData);
         if (snapshot.hasData) {

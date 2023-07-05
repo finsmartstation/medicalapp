@@ -7,9 +7,11 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:medicalapp/screens/UserProfile/profileApiServices.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../service/api_services.dart';
+import '../../providers/auth_provider.dart';
 import '../../utility/constants.dart';
 import '../dashboard/dashboardScreen.dart';
 
@@ -63,8 +65,6 @@ class _EditProfileState extends State<EditProfile> {
   String bloodGroup = "";
   String ApiformattedDate = "";
   String gender = "";
-  String user_id = "";
-  String access_token = "";
 
   bool nameStatus = false;
   bool emailStatus = false;
@@ -103,11 +103,9 @@ class _EditProfileState extends State<EditProfile> {
     return croppedFile;
   }
 
-  getSherPref() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  getdata() async {
     setState(() {
-      user_id = prefs.getString('user_id').toString();
-      access_token = prefs.getString('access_token').toString();
+  
       nameController.text = widget.name;
       emailController.text = widget.email;
       relationController.text = widget.relation;
@@ -124,12 +122,10 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   void initState() {
-    getSherPref();
+    getdata();
 
     print("____________________________________");
     print(ApiformattedDate);
-    print(user_id);
-    print(access_token);
     // TODO: implement initState
     super.initState();
   }
@@ -290,8 +286,8 @@ class _EditProfileState extends State<EditProfile> {
 
                                                               ApiService()
                                                                   .file_upload(
-                                                                      user_id,
-                                                                      access_token,
+                                                                      context.watch<AuthProvider>().u_id,
+                                                                      context.watch<AuthProvider>().access_token,
                                                                       value
                                                                           .path)
                                                                   .then(
@@ -376,14 +372,12 @@ class _EditProfileState extends State<EditProfile> {
                                                               _setImageFileListFromFile(
                                                                   XFile(value!
                                                                       .path));
-                                                              print(user_id);
-                                                              print(
-                                                                  access_token);
+                                                             
 
                                                               ApiService()
                                                                   .file_upload(
-                                                                      user_id,
-                                                                      access_token,
+                                                                      context.watch<AuthProvider>().u_id,
+                                                                      context.watch<AuthProvider>().access_token,
                                                                       value.path
                                                                           .toString())
                                                                   .then(
@@ -737,8 +731,8 @@ class _EditProfileState extends State<EditProfile> {
                           heightStatus == false &&
                           weightStatus == false) {
                         edit_patient_details(
-                                user_id,
-                                access_token,
+                                context.watch<AuthProvider>().u_id,
+                                context.watch<AuthProvider>().access_token,
                                 widget.familyMemberId,
                                 gender,
                                 emailController.text,

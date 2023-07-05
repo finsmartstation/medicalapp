@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
+import '../../providers/auth_provider.dart';
 import '../../providers/reportdataVerify.dart';
 import '../../service/api_services.dart';
 import 'myCaseHistoryApiService.dart';
@@ -23,25 +24,6 @@ class MyReports extends StatefulWidget {
 class _MyReportsState extends State<MyReports> {
   void timepicker() {}
   TextEditingController reportCondroller = TextEditingController();
-  String? access_token;
-  String? user_id;
-
-  getProfileData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      access_token = prefs.getString('access_token');
-      user_id = prefs.getString('user_id');
-    });
-  }
-
-  @override
-  void initState() {
-    getProfileData();
-
-    // TODO: implement initState
-    super.initState();
-  }
-
   bool showDialogbool = false;
 
   String _dateee = "Not set";
@@ -109,7 +91,7 @@ class _MyReportsState extends State<MyReports> {
               children: [
                 FutureBuilder(
                     future: list_case_history(
-                        user_id, access_token, widget.family_member_id),
+                        context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token, widget.family_member_id),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         print(snapshot.data);
@@ -199,8 +181,8 @@ class _MyReportsState extends State<MyReports> {
                                                           child: const Text("OK"),
                                                           onPressed: () {
                                                             delete_medical_history(
-                                                                    user_id,
-                                                                    access_token,
+                                                                    context.watch<AuthProvider>().u_id,
+                                                                    context.watch<AuthProvider>().access_token,
                                                                     snapshot
                                                                         .data!
                                                                         .data[
@@ -450,7 +432,7 @@ class _MyReportsState extends State<MyReports> {
                                         }
 
                                         ApiService()
-                                            .file_upload(user_id, access_token,
+                                            .file_upload(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token,
                                                 result.files.single.path)
                                             .then(
                                           (value) {
@@ -539,8 +521,8 @@ class _MyReportsState extends State<MyReports> {
                                                 documentbool == true &&
                                                 filebool == true) {
                                               add_case_history(
-                                                      user_id,
-                                                      access_token,
+                                                      context.watch<AuthProvider>().u_id,
+                                                      context.watch<AuthProvider>().access_token,
                                                       reportCondroller.text,
                                                       reportPDF,
                                                       widget.family_member_id,

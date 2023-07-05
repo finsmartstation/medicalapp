@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/auth_provider.dart';
 import '../../utility/constants.dart';
 import 'MyReportsFolders.dart';
 import 'myReportsApiServices.dart';
 
 class MyReportDateFolders extends StatefulWidget {
-  String? userId;
-  String? access_token;
+ 
   String? family_member_id;
   String? doctorId;
   MyReportDateFolders(
       {Key? key,
-      required this.userId,
-      required this.access_token,
+     
       required this.family_member_id,
       required this.doctorId})
       : super(key: key);
@@ -27,7 +27,7 @@ class _MyReportDateFoldersState extends State<MyReportDateFolders> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       //initialData: 'Loading data...',
-      future: consulted_doctors_date_list(widget.userId, widget.access_token,
+      future: consulted_doctors_date_list(context.watch<AuthProvider>().u_id,context.watch<AuthProvider>().access_token,
           widget.family_member_id, widget.doctorId),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -62,13 +62,13 @@ class _MyReportDateFoldersState extends State<MyReportDateFolders> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => MyReportFolders(
-                                    access_token: widget.access_token,
+                                   
                                     dateTime: snapshot
                                         .data!.data[index].addedDatetime
                                         .toString(),
                                     doctorId: widget.doctorId,
                                     family_member_id: widget.family_member_id,
-                                    userId: widget.userId,
+                                    
                                   )));
                     },
                     child: Column(

@@ -10,6 +10,7 @@ import 'package:medicalapp/screens/UserProfile/profileApiServices.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../providers/auth_provider.dart';
 import '../../providers/patient_provider.dart';
 import '../../providers/verifiProfileEdit.dart';
 import '../../service/api_services.dart';
@@ -25,8 +26,7 @@ class NewUserProfile extends StatefulWidget {
 
 class _NewUserProfileState extends State<NewUserProfile> {
   //String dropdownvalue = 'A-';
-  String? access_token;
-  String? user_id;
+ 
   FocusNode nameFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
   FocusNode dobFocusNode = FocusNode();
@@ -71,19 +71,12 @@ class _NewUserProfileState extends State<NewUserProfile> {
     return croppedFile;
   }
 
-  getProfileData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      access_token = prefs.getString('access_token');
-      user_id = prefs.getString('user_id');
-    });
-  }
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getProfileData();
     final myProvider =
         Provider.of<PatientDetailsProvider>(context, listen: false)
             .getSharePref();
@@ -251,8 +244,8 @@ class _NewUserProfileState extends State<NewUserProfile> {
 
                                                                   ApiService()
                                                                       .file_upload(
-                                                                          user_id,
-                                                                          access_token,
+                                                                          context.watch<AuthProvider>().u_id,
+                                                                         context.watch<AuthProvider>().access_token,
                                                                           value.path)
                                                                       .then(
                                                                     (value) {
@@ -336,8 +329,8 @@ class _NewUserProfileState extends State<NewUserProfile> {
 
                                                                 ApiService()
                                                                     .file_upload(
-                                                                        user_id,
-                                                                        access_token,
+                                                                        context.watch<AuthProvider>().u_id,
+                                                                        context.watch<AuthProvider>().access_token,
                                                                         value.path)
                                                                     .then(
                                                                   (value) {
@@ -686,8 +679,8 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                   weightbool == true &&
                                   bloodbool == true) {
                                 fill_patient_profile(
-                                        user_id,
-                                        access_token,
+                                        context.watch<AuthProvider>().u_id,
+                                        context.watch<AuthProvider>().access_token,
                                         patientDetailProvider.gender,
                                         patientDetailProvider
                                             .emailCondroller.text,

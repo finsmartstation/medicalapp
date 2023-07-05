@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../providers/auth_provider.dart';
 import 'sosApiServices.dart';
 
 class EmergencyServicesContact extends StatefulWidget {
@@ -17,22 +19,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
   TextEditingController nameController = TextEditingController();
   String number = "";
   TextEditingController relationController = TextEditingController();
-  String user_id = "";
-  String access_token = "";
-  getSherPref() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      user_id = prefs.getString('user_id').toString();
-      access_token = prefs.getString('access_token').toString();
-    });
-  }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getSherPref();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +42,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
         elevation: 0,
       ),
       body: FutureBuilder(
-        future: list_emergency_contact(user_id, access_token),
+        future: list_emergency_contact(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Container(
@@ -162,8 +149,8 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                               child: const Text("OK"),
                                                               onPressed: () {
                                                                 delete_emergency_contact(
-                                                                        user_id,
-                                                                        access_token,
+                                                                        context.watch<AuthProvider>().u_id,
+                                                                        context.watch<AuthProvider>().access_token,
                                                                         snapshot
                                                                             .data!
                                                                             .data[
@@ -326,11 +313,10 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                   ),
                                 ),
                                 onPressed: (() {
-                                  print(user_id);
-                                  print(access_token);
+                                
                                   add_emergency_contact(
-                                          user_id,
-                                          access_token,
+                                          context.watch<AuthProvider>().u_id,
+                                          context.watch<AuthProvider>().access_token,
                                           nameController.text,
                                           number,
                                           relationController.text)

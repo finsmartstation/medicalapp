@@ -7,8 +7,10 @@ import 'package:location/location.dart';
 import 'package:marquee/marquee.dart';
 import 'package:medicalapp/screens/dashboard/nearbyHospital.dart';
 import 'package:medicalapp/screens/mapScreen/mapView.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../providers/auth_provider.dart';
 import '../../utility/constants.dart';
 import '../Family Members Screen/familyMembersScreen.dart';
 import '../UserProfile/NewUserProfile.dart';
@@ -39,8 +41,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   bool dropDownButton = false;
   String loginStatus = "0";
-  String? access_token;
-  String? user_id;
+  // String? access_token;
+  // String? user_id;
   String family_member_id = "";
   final PageController _StickerController = PageController(initialPage: 0);
 
@@ -95,9 +97,9 @@ class _DashboardPatientState extends State<DashboardPatient> {
   getProfileData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      access_token = prefs.getString('access_token');
-      user_id = prefs.getString('user_id');
-      dashboardData(user_id, access_token, family_member_id).then((value) {
+      // access_token = prefs.getString('access_token');
+      // user_id = prefs.getString('user_id');
+      dashboardData(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token, family_member_id).then((value) {
         if (value.statuscode == 200) {
           if (value.patientDetails.loginStatus == "0") {
             _showDialog();
@@ -262,7 +264,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
         }
       },
       child: FutureBuilder(
-        future: dashboardData(user_id, access_token, family_member_id),
+        future: dashboardData(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token, family_member_id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             family_member_id = snapshot.data!.patientDetails.familyMemberId;
@@ -1097,15 +1099,13 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                               builder: (BuildContext
                                                                       context) =>
                                                                   MyReportDoctorsFolder(
-                                                                      access_token:
-                                                                          access_token,
+                                                                      
                                                                       family_member_id:
                                                                           snapshot
                                                                               .data!
                                                                               .patientDetails
                                                                               .familyMemberId,
-                                                                      userId:
-                                                                          user_id),
+                                                                     ),
                                                             ));
                                                       },
                                                       child: const Text(
@@ -1134,15 +1134,12 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                               builder: (BuildContext
                                                                       context) =>
                                                                   MyReportDoctorsFolder(
-                                                                      access_token:
-                                                                          access_token,
                                                                       family_member_id:
                                                                           snapshot
                                                                               .data!
                                                                               .patientDetails
                                                                               .familyMemberId,
-                                                                      userId:
-                                                                          user_id),
+                                                                     ),
                                                             ));
                                                       },
                                                       child: const Text(
@@ -1171,15 +1168,13 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                               builder: (BuildContext
                                                                       context) =>
                                                                   MyReportDoctorsFolder(
-                                                                      access_token:
-                                                                          access_token,
+                                                                     
                                                                       family_member_id:
                                                                           snapshot
                                                                               .data!
                                                                               .patientDetails
                                                                               .familyMemberId,
-                                                                      userId:
-                                                                          user_id),
+                                                                     ),
                                                             ));
                                                       },
                                                       child: const Text(
@@ -1208,15 +1203,13 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                               builder: (BuildContext
                                                                       context) =>
                                                                   MyReportDoctorsFolder(
-                                                                      access_token:
-                                                                          access_token,
+                                                                    
                                                                       family_member_id:
                                                                           snapshot
                                                                               .data!
                                                                               .patientDetails
                                                                               .familyMemberId,
-                                                                      userId:
-                                                                          user_id),
+                                                                     ),
                                                             ));
                                                       },
                                                       child: const Text(
