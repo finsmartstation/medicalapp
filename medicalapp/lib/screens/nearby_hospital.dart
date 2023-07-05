@@ -18,7 +18,7 @@ class _NearbyHospitalState extends State<NearbyHospital> {
   String? email;
   String? profilePic;
   String? PhoneNum;
- 
+
   String? lat;
   String? long;
   Future ProfileData() async {
@@ -28,12 +28,10 @@ class _NearbyHospitalState extends State<NearbyHospital> {
       email = prefs.getString("email").toString();
       profilePic = prefs.getString("profilePicture").toString();
       PhoneNum = prefs.getString("phoneNum").toString();
-    
     });
     print(prefs.getString("userName").toString());
     print(prefs.getString("email").toString());
     print("------------------");
-   
   }
 
   var data;
@@ -72,7 +70,9 @@ class _NearbyHospitalState extends State<NearbyHospital> {
       body: Column(
         children: [
           FutureBuilder(
-            future: PatientApi().listHospital(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token),
+            future: PatientApi().listHospital(
+                context.watch<AuthProvider>().u_id,
+                context.watch<AuthProvider>().access_token),
             builder: ((context, snapshot) {
               if (snapshot.hasData) {
                 dynamic data = snapshot.data as Map;
@@ -94,8 +94,8 @@ class _NearbyHospitalState extends State<NearbyHospital> {
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.blue),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(20))),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20))),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Row(
@@ -129,8 +129,8 @@ class _NearbyHospitalState extends State<NearbyHospital> {
                                     Container(
                                       width: 5,
                                       height: 100,
-                                      decoration:
-                                          const BoxDecoration(color: Colors.blue),
+                                      decoration: const BoxDecoration(
+                                          color: Colors.blue),
                                       child: Column(),
                                     ),
                                     const SizedBox(

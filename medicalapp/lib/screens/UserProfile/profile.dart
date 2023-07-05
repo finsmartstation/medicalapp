@@ -191,18 +191,14 @@ class _ProfilePatientState extends State<ProfilePatient> {
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
-                  child: AvatarGlow(
-                    endRadius: 300.0,
-                    glowColor: Colors.blue,
-                    child: CircleAvatar(
-                      radius: 65,
-                      child: ClipOval(
-                        child: Image(
-                          image: CachedNetworkImageProvider(widget.profile),
-                          fit: BoxFit.cover,
-                          width: 140,
-                          height: 140,
-                        ),
+                  child: CircleAvatar(
+                    radius: 65,
+                    child: ClipOval(
+                      child: Image(
+                        image: CachedNetworkImageProvider(widget.profile),
+                        fit: BoxFit.cover,
+                        width: 140,
+                        height: 140,
                       ),
                     ),
                   ),
