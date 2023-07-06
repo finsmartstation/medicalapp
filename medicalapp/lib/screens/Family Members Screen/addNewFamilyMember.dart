@@ -36,6 +36,8 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
   String gender = "";
   String profilePath = "";
   String ApiformattedDate = "";
+  String userId = '';
+  String aToken = '';
   var items = [
     '',
     'A-',
@@ -75,6 +77,8 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
 
   @override
   Widget build(BuildContext context) {
+    userId = context.watch<AuthProvider>().u_id;
+    aToken = context.watch<AuthProvider>().access_token;
     return Consumer<VerifyAddFamilyMembersData>(
       builder: (context, verifyAddFamilyMembersData, child) {
         return GestureDetector(
@@ -225,14 +229,8 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
 
                                                                 ApiService()
                                                                     .file_upload(
-                                                                        context
-                                                                            .watch<
-                                                                                AuthProvider>()
-                                                                            .u_id,
-                                                                        context
-                                                                            .watch<
-                                                                                AuthProvider>()
-                                                                            .access_token,
+                                                                        userId,
+                                                                        aToken,
                                                                         value
                                                                             .path)
                                                                     .then(
@@ -319,14 +317,8 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
 
                                                                 ApiService()
                                                                     .file_upload(
-                                                                        context
-                                                                            .watch<
-                                                                                AuthProvider>()
-                                                                            .u_id,
-                                                                        context
-                                                                            .watch<
-                                                                                AuthProvider>()
-                                                                            .access_token,
+                                                                        userId,
+                                                                        aToken,
                                                                         value
                                                                             .path
                                                                             .toString())
@@ -700,8 +692,8 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                             print("object");
                             PatientApi()
                                 .add_family_members(
-                                    context.watch<AuthProvider>().u_id,
-                                    context.watch<AuthProvider>().access_token,
+                                    userId,
+                                    aToken,
                                     gender.toString(),
                                     nameController.text,
                                     relationController.text,

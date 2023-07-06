@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 import 'package:marquee/marquee.dart';
-import 'package:medicalapp/screens/dashboard/nearbyHospital.dart';
+import 'package:medicalapp/screens/nearbyHospitals/nearbyHospital.dart';
 import 'package:medicalapp/screens/mapScreen/mapView.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../helper/notification/handileNotification.dart';
 import '../../providers/auth_provider.dart';
 import '../../utility/constants.dart';
 import '../Family Members Screen/familyMembersScreen.dart';
@@ -37,12 +38,11 @@ class DashboardPatient extends StatefulWidget {
   State<DashboardPatient> createState() => _DashboardPatientState();
 }
 
-class _DashboardPatientState extends State<DashboardPatient> {
+class _DashboardPatientState extends State<DashboardPatient>
+    with Notifications {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   bool dropDownButton = false;
   String loginStatus = "0";
-  // String? access_token;
-  // String? user_id;
   String family_member_id = "";
   final PageController _StickerController = PageController(initialPage: 0);
 
@@ -64,7 +64,6 @@ class _DashboardPatientState extends State<DashboardPatient> {
                   duration: Duration(seconds: 2),
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snack);
-
                 return false;
               } else {
                 return exit(0);
@@ -97,9 +96,9 @@ class _DashboardPatientState extends State<DashboardPatient> {
   getProfileData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      // access_token = prefs.getString('access_token');
-      // user_id = prefs.getString('user_id');
-      dashboardData(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token, family_member_id).then((value) {
+      dashboardData(context.read<AuthProvider>().u_id,
+              context.read<AuthProvider>().access_token, family_member_id)
+          .then((value) {
         if (value.statuscode == 200) {
           if (value.patientDetails.loginStatus == "0") {
             _showDialog();
@@ -108,6 +107,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
       });
     });
   }
+
   //Location location = Location();
   final bool _serviceEnabled = false;
   PermissionStatus? _permissionGranted;
@@ -117,41 +117,41 @@ class _DashboardPatientState extends State<DashboardPatient> {
   bool servicestatus = false;
   bool hasPermission = false;
   String? locationName;
-  String localityName ='';
+  String localityName = '';
   late LocationPermission permission;
   checkGps() async {
-  bool serviceStatus = await Geolocator.isLocationServiceEnabled();
-  if (serviceStatus) {
-    LocationPermission permission = await Geolocator.checkPermission();
+    bool serviceStatus = await Geolocator.isLocationServiceEnabled();
+    if (serviceStatus) {
+      LocationPermission permission = await Geolocator.checkPermission();
 
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        print('Location permissions are denied');
-      } else if (permission == LocationPermission.deniedForever) {
-        print('Location permissions are permanently denied');
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          print('Location permissions are denied');
+        } else if (permission == LocationPermission.deniedForever) {
+          print('Location permissions are permanently denied');
+        } else {
+          hasPermission = true;
+        }
       } else {
         hasPermission = true;
       }
+
+      if (hasPermission) {
+        setState(() {
+          // Refresh the UI
+        });
+
+        // getLocation();
+      }
     } else {
-      hasPermission = true;
+      print('GPS Service is not enabled, turn on GPS location');
     }
 
-    if (hasPermission) {
-      setState(() {
-        // Refresh the UI
-      });
-
-     // getLocation();
-    }
-  } else {
-    print('GPS Service is not enabled, turn on GPS location');
+    setState(() {
+      // Refresh the UI
+    });
   }
-
-  setState(() {
-    // Refresh the UI
-  });
-}
 
 // getLocation() async {
 //   Position position = await Geolocator.getCurrentPosition();
@@ -178,7 +178,6 @@ class _DashboardPatientState extends State<DashboardPatient> {
 //     // print('7Location Name: ${first.subLocality}');
 //     // print('8Location Name: ${first.postalCode}');
 //     // print('9Location Name: ${first.countryCode}');
-    
 
 //     setState(() {
 //       // Update your UI or save the location name
@@ -234,13 +233,13 @@ class _DashboardPatientState extends State<DashboardPatient> {
 
   @override
   void initState() {
+    // TODO: implement initState
+    super.initState();
     family_member_id = widget.family_member_id.toString();
     checkGps();
     setState(() {});
     getProfileData();
-
-    // TODO: implement initState
-    super.initState();
+    interactedNotificationMessage();
   }
 
   @override
@@ -264,7 +263,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
         }
       },
       child: FutureBuilder(
-        future: dashboardData(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token, family_member_id),
+        future: dashboardData(context.watch<AuthProvider>().u_id,
+            context.watch<AuthProvider>().access_token, family_member_id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             family_member_id = snapshot.data!.patientDetails.familyMemberId;
@@ -363,9 +363,12 @@ class _DashboardPatientState extends State<DashboardPatient> {
                       children: [
                         InkWell(
                             onTap: (() {
-                             // checkGps();
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>MapView()));
-                             // print(object)
+                              // checkGps();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MapView()));
+                              // print(object)
                               // showDialog(
                               // context: context,
                               // builder: (context) {
@@ -389,13 +392,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                   AssetImage(locs),
                                   color: Colors.blueAccent,
                                 ),
-                          //        SizedBox(
-                          //  // width: MediaQuery.of(context).size.width /4,
-                          //   child: Text(localityName,overflow: TextOverflow.ellipsis,))
                               ],
                             )),
-                          
-                            
                       ],
                     )
                   ],
@@ -463,7 +461,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const FamilyMembersScreen()));
+                                  builder: (context) =>
+                                      const FamilyMembersScreen()));
                         }),
                       ),
                       if (snapshot.data!.patientDetails.relation == "self")
@@ -655,23 +654,21 @@ class _DashboardPatientState extends State<DashboardPatient> {
                         leading: const Icon(Icons.local_hospital_rounded),
                         title: const Text("Nearby Hospital"),
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>NearbyHospitalList(lat:lat,long: lat,)));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NearbyHospitalList(
+                                        lat: lat,
+                                        long: lat,
+                                      )));
                         },
-                      ),
-                      Row(
-                        children: [
-                          const Flexible(
-                            child: SizedBox(
-                              height: 200,
-                            ),
-                          ),
-                        ],
                       ),
                       const Divider(),
                       ListTile(
                         leading: const Icon(Icons.logout),
                         title: const Text('Log out'),
                         onTap: () async {
+                          context.read<AuthProvider>().clearData();
                           SharedPreferences prefs =
                               await SharedPreferences.getInstance();
                           prefs.clear();
@@ -712,9 +709,11 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 15),
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
                                         child: Padding(
-                                          padding: const EdgeInsets.only(left: 15),
+                                          padding:
+                                              const EdgeInsets.only(left: 15),
                                           child: Text.rich(
                                             TextSpan(
                                               text: snapshot.data!
@@ -722,8 +721,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                               style: const TextStyle(
                                                   color: Colors.white),
                                             ),
-                                            style:
-                                                const TextStyle(color: Colors.white),
+                                            style: const TextStyle(
+                                                color: Colors.white),
                                             softWrap: false,
                                             overflow: TextOverflow.ellipsis,
                                           ),
@@ -742,8 +741,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5),
                                         child: Text(
-                                            "Blood Group: ${snapshot.data!.patientDetails
-                                                    .bloodGroup}",
+                                            "Blood Group: ${snapshot.data!.patientDetails.bloodGroup}",
                                             style: const TextStyle(
                                                 color: Colors.white)),
                                       ),
@@ -760,8 +758,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                       Padding(
                                         padding: const EdgeInsets.only(left: 5),
                                         child: Text(
-                                            "Height: ${snapshot.data!.patientDetails
-                                                    .height}",
+                                            "Height: ${snapshot.data!.patientDetails.height}",
                                             style: const TextStyle(
                                                 color: Colors.white)),
                                       ),
@@ -779,10 +776,9 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                         padding: const EdgeInsets.only(
                                             left: 5, right: 5),
                                         child: Text(
-                                            "Weight: ${snapshot.data!.patientDetails
-                                                    .weight}",
-                                            style:
-                                                const TextStyle(color: Colors.white)),
+                                            "Weight: ${snapshot.data!.patientDetails.weight}",
+                                            style: const TextStyle(
+                                                color: Colors.white)),
                                       )
                                     ],
                                   ),
@@ -886,8 +882,10 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                 },
                                                 child: ClipOval(
                                                     child: CachedNetworkImage(
-                                                  imageUrl: snapshot.data!
-                                                      .patientDetails.profilePic,
+                                                  imageUrl: snapshot
+                                                      .data!
+                                                      .patientDetails
+                                                      .profilePic,
                                                   height: 100,
                                                   width: 100,
                                                   fit: BoxFit.cover,
@@ -909,7 +907,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                       ? const SizedBox()
                                                       : Padding(
                                                           padding:
-                                                              const EdgeInsets.only(
+                                                              const EdgeInsets
+                                                                      .only(
                                                                   right: 18),
                                                           child: IconButton(
                                                               onPressed: (() {
@@ -922,7 +921,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                 Icons
                                                                     .arrow_drop_down,
                                                                 size: 50,
-                                                                color: Colors.white,
+                                                                color: Colors
+                                                                    .white,
                                                               )),
                                                         )
                                             ]),
@@ -1099,13 +1099,12 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                               builder: (BuildContext
                                                                       context) =>
                                                                   MyReportDoctorsFolder(
-                                                                      
-                                                                      family_member_id:
-                                                                          snapshot
-                                                                              .data!
-                                                                              .patientDetails
-                                                                              .familyMemberId,
-                                                                     ),
+                                                                family_member_id:
+                                                                    snapshot
+                                                                        .data!
+                                                                        .patientDetails
+                                                                        .familyMemberId,
+                                                              ),
                                                             ));
                                                       },
                                                       child: const Text(
@@ -1134,12 +1133,12 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                               builder: (BuildContext
                                                                       context) =>
                                                                   MyReportDoctorsFolder(
-                                                                      family_member_id:
-                                                                          snapshot
-                                                                              .data!
-                                                                              .patientDetails
-                                                                              .familyMemberId,
-                                                                     ),
+                                                                family_member_id:
+                                                                    snapshot
+                                                                        .data!
+                                                                        .patientDetails
+                                                                        .familyMemberId,
+                                                              ),
                                                             ));
                                                       },
                                                       child: const Text(
@@ -1168,13 +1167,12 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                               builder: (BuildContext
                                                                       context) =>
                                                                   MyReportDoctorsFolder(
-                                                                     
-                                                                      family_member_id:
-                                                                          snapshot
-                                                                              .data!
-                                                                              .patientDetails
-                                                                              .familyMemberId,
-                                                                     ),
+                                                                family_member_id:
+                                                                    snapshot
+                                                                        .data!
+                                                                        .patientDetails
+                                                                        .familyMemberId,
+                                                              ),
                                                             ));
                                                       },
                                                       child: const Text(
@@ -1203,13 +1201,12 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                               builder: (BuildContext
                                                                       context) =>
                                                                   MyReportDoctorsFolder(
-                                                                    
-                                                                      family_member_id:
-                                                                          snapshot
-                                                                              .data!
-                                                                              .patientDetails
-                                                                              .familyMemberId,
-                                                                     ),
+                                                                family_member_id:
+                                                                    snapshot
+                                                                        .data!
+                                                                        .patientDetails
+                                                                        .familyMemberId,
+                                                              ),
                                                             ));
                                                       },
                                                       child: const Text(
@@ -1239,18 +1236,18 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                         Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
-                                                                builder: (context) =>
-                                                                    MyAppointment(
-                                                                      family_member_id:
-                                                                          snapshot
+                                                                builder:
+                                                                    (context) =>
+                                                                        MyAppointment(
+                                                                          family_member_id: snapshot
                                                                               .data!
                                                                               .patientDetails
                                                                               .familyMemberId,
-                                                                      userName: snapshot
-                                                                          .data!
-                                                                          .patientDetails
-                                                                          .username,
-                                                                    )));
+                                                                          userName: snapshot
+                                                                              .data!
+                                                                              .patientDetails
+                                                                              .username,
+                                                                        )));
                                                       },
                                                       child: const Text(
                                                         "My Appointment",
@@ -1275,18 +1272,18 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                         Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
-                                                                builder: (context) =>
-                                                                    MyAppointment(
-                                                                      family_member_id:
-                                                                          snapshot
+                                                                builder:
+                                                                    (context) =>
+                                                                        MyAppointment(
+                                                                          family_member_id: snapshot
                                                                               .data!
                                                                               .patientDetails
                                                                               .familyMemberId,
-                                                                      userName: snapshot
-                                                                          .data!
-                                                                          .patientDetails
-                                                                          .username,
-                                                                    )));
+                                                                          userName: snapshot
+                                                                              .data!
+                                                                              .patientDetails
+                                                                              .username,
+                                                                        )));
                                                       },
                                                       child: const Text(
                                                         "Her Appointment",
@@ -1311,18 +1308,18 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                         Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
-                                                                builder: (context) =>
-                                                                    MyAppointment(
-                                                                      family_member_id:
-                                                                          snapshot
+                                                                builder:
+                                                                    (context) =>
+                                                                        MyAppointment(
+                                                                          family_member_id: snapshot
                                                                               .data!
                                                                               .patientDetails
                                                                               .familyMemberId,
-                                                                      userName: snapshot
-                                                                          .data!
-                                                                          .patientDetails
-                                                                          .username,
-                                                                    )));
+                                                                          userName: snapshot
+                                                                              .data!
+                                                                              .patientDetails
+                                                                              .username,
+                                                                        )));
                                                       },
                                                       child: const Text(
                                                         "Appointment",
@@ -1347,18 +1344,18 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                         Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
-                                                                builder: (context) =>
-                                                                    MyAppointment(
-                                                                      family_member_id:
-                                                                          snapshot
+                                                                builder:
+                                                                    (context) =>
+                                                                        MyAppointment(
+                                                                          family_member_id: snapshot
                                                                               .data!
                                                                               .patientDetails
                                                                               .familyMemberId,
-                                                                      userName: snapshot
-                                                                          .data!
-                                                                          .patientDetails
-                                                                          .username,
-                                                                    )));
+                                                                          userName: snapshot
+                                                                              .data!
+                                                                              .patientDetails
+                                                                              .username,
+                                                                        )));
                                                       },
                                                       child: const Text(
                                                         "His Appointment",
@@ -1402,15 +1399,14 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         AppointmentReport(
-                                                          familyMemberId:  snapshot
-                                                                              .data!
-                                                                              .patientDetails
-                                                                              .familyMemberId,
-                                                          slot_id: snapshot
+                                                          familyMemberId: snapshot
                                                               .data!
-                                                              .slotStickers[
-                                                                  index]
-                                                              ['slot_id'],
+                                                              .patientDetails
+                                                              .familyMemberId,
+                                                          slot_id: snapshot
+                                                                  .data!
+                                                                  .slotStickers[
+                                                              index]['slot_id'],
                                                           userName: snapshot
                                                               .data!
                                                               .patientDetails
@@ -1430,8 +1426,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                               ),
                                               child: Image(
                                                   image: NetworkImage(snapshot
-                                                      .data!
-                                                      .slotStickers[index]
+                                                          .data!
+                                                          .slotStickers[index]
                                                       ['stickers'])),
                                             ),
                                           ),
@@ -1473,7 +1469,14 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                           width: 80,
                                           child: IconButton(
                                               onPressed: (() {
-                                                Navigator.push(context, MaterialPageRoute(builder: (context)=>NearbyHospitalList(lat:lat,long: lat,)));
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            NearbyHospitalList(
+                                                              lat: lat,
+                                                              long: lat,
+                                                            )));
                                               }),
                                               icon: ImageIcon(
                                                 AssetImage(
@@ -1499,7 +1502,6 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                   endIndent: 10,
                                 ),
                                 Flexible(
-                                  
                                   child: Row(
                                     children: [
                                       Flexible(
@@ -1520,7 +1522,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                   Flexible(
                                                     child: Column(
                                                       mainAxisAlignment:
-                                                          MainAxisAlignment.center,
+                                                          MainAxisAlignment
+                                                              .center,
                                                       children: [
                                                         const SizedBox(
                                                           height: 15,
@@ -1545,7 +1548,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                 child: SizedBox(
                                                                     height: 40,
                                                                     width: 110,
-                                                                    child: Marquee(
+                                                                    child:
+                                                                        Marquee(
                                                                       text: snapshot
                                                                           .data!
                                                                           .nearByHospital[
@@ -1557,11 +1561,10 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                           10.0,
                                                                       pauseAfterRound:
                                                                           const Duration(
-                                                                              seconds:
-                                                                                  1),
+                                                                              seconds: 1),
                                                                       style: const TextStyle(
-                                                                          color: Colors
-                                                                              .white),
+                                                                          color:
+                                                                              Colors.white),
                                                                     )))
                                                       ],
                                                     ),
@@ -1624,9 +1627,10 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                             pauseAfterRound:
                                                                 const Duration(
                                                                     seconds: 1),
-                                                            style: const TextStyle(
-                                                                color: Colors
-                                                                    .white),
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .white),
                                                           ))
                                                 ],
                                               ),
@@ -1683,9 +1687,10 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                           pauseAfterRound:
                                                               const Duration(
                                                                   seconds: 1),
-                                                          style: const TextStyle(
-                                                              color:
-                                                                  Colors.white),
+                                                          style:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .white),
                                                         ))
                                               ],
                                             ),
@@ -1708,14 +1713,16 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                 Flexible(
                                                   child: Column(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       const SizedBox(
                                                         height: 15,
                                                       ),
                                                       snapshot
                                                                   .data!
-                                                                  .nearByHospital[3]
+                                                                  .nearByHospital[
+                                                                      3]
                                                                   .hospitalName
                                                                   .length <
                                                               13
@@ -1735,7 +1742,8 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                               child: SizedBox(
                                                                   height: 40,
                                                                   width: 110,
-                                                                  child: Marquee(
+                                                                  child:
+                                                                      Marquee(
                                                                     text: snapshot
                                                                         .data!
                                                                         .nearByHospital[
@@ -2117,9 +2125,9 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                         builder: (context) =>
                                                             DoctorList(
                                                               family_member_id: snapshot
-                                                                              .data!
-                                                                              .patientDetails
-                                                                              .familyMemberId,
+                                                                  .data!
+                                                                  .patientDetails
+                                                                  .familyMemberId,
                                                               splInputSearch: snapshot
                                                                   .data!
                                                                   .specializationList[
@@ -2303,15 +2311,7 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                           .familyMemberName
                                                                           .length >
                                                                       13
-                                                                  ? "${snapshot
-                                                                          .data!
-                                                                          .patientDetails
-                                                                          .familyMemberIds[
-                                                                              index]
-                                                                          .familyMemberName
-                                                                          .substring(
-                                                                              0,
-                                                                              13)}..."
+                                                                  ? "${snapshot.data!.patientDetails.familyMemberIds[index].familyMemberName.substring(0, 13)}..."
                                                                   : snapshot
                                                                       .data!
                                                                       .patientDetails
@@ -2322,9 +2322,10 @@ class _DashboardPatientState extends State<DashboardPatient> {
                                                                   color: Colors
                                                                       .black),
                                                             ),
-                                                            style: const TextStyle(
-                                                                color: Colors
-                                                                    .black),
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .black),
                                                             softWrap: false,
                                                             overflow:
                                                                 TextOverflow
@@ -2411,11 +2412,11 @@ class _DashboardPatientState extends State<DashboardPatient> {
                         direction: ShimmerDirection.ltr,
                         baseColor: Colors.grey.shade400,
                         highlightColor: Colors.grey.shade100,
-                        child: Container( 
+                        child: Container(
                           height: 50,
                           color: Colors.white,
                         )),
-                   const SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(

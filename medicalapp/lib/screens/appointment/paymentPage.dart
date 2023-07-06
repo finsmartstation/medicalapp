@@ -225,8 +225,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ),
                       onPressed: (() {
                         slot_booking(
-                                context.watch<AuthProvider>().u_id,
-                                context.watch<AuthProvider>().access_token,
+                                context.read<AuthProvider>().u_id,
+                                context.read<AuthProvider>().access_token,
                                 widget.doctorId,
                                 widget.family_member_id,
                                 widget.book_slot_id,

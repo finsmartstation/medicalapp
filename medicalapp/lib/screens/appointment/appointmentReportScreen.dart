@@ -324,55 +324,55 @@ class _AppointmentReportState extends State<AppointmentReport> {
                         ]),
                   ),
                 ),
-                floatingActionButton: snapshot.data!.data.call_status == "5"
+                floatingActionButton: snapshot.data!.data.call_status == "0"
                     ? const SizedBox()
-                    : snapshot.data!.data.call_status == "1 "
+                    : snapshot.data!.data.call_status == "1"
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              SizedBox(
-                                width: 120,
-                                child: FloatingActionButton(
-                                  backgroundColor: Colors.blue.shade700,
-                                  onPressed: () {
-                                    setState(() {
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) => AppointmentPdf(
-                                      //               filePath: snapshot
-                                      //                   .data!.data.reportPath
-                                      //                   .toString(),
-                                      //             )));
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) => AudioCall(
-                                      //               roomID: snapshot
-                                      //                   .data!.data.slotId,
-                                      //               userName: widget.userName
-                                      //                   .toString(),
-                                      //             )));
-                                    });
-                                  },
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0))),
-                                  child: Row(children: const [
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Icon(Icons.call),
-                                    Text(
-                                      "Audio Call",
-                                      style: TextStyle(color: Colors.white),
-                                    )
-                                  ]),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
+                              // SizedBox(
+                              //   width: 120,
+                              //   child: FloatingActionButton(
+                              //     backgroundColor: Colors.blue.shade700,
+                              //     onPressed: () {
+                              //       setState(() {
+                              //         // Navigator.push(
+                              //         //     context,
+                              //         //     MaterialPageRoute(
+                              //         //         builder: (context) => AppointmentPdf(
+                              //         //               filePath: snapshot
+                              //         //                   .data!.data.reportPath
+                              //         //                   .toString(),
+                              //         //             )));
+                              //         // Navigator.push(
+                              //         //     context,
+                              //         //     MaterialPageRoute(
+                              //         //         builder: (context) => AudioCall(
+                              //         //               roomID: snapshot
+                              //         //                   .data!.data.slotId,
+                              //         //               userName: widget.userName
+                              //         //                   .toString(),
+                              //         //             )));
+                              //       });
+                              //     },
+                              //     shape: const RoundedRectangleBorder(
+                              //         borderRadius: BorderRadius.all(
+                              //             Radius.circular(16.0))),
+                              //     child: Row(children: const [
+                              //       SizedBox(
+                              //         width: 5,
+                              //       ),
+                              //       Icon(Icons.call),
+                              //       Text(
+                              //         "Audio Call",
+                              //         style: TextStyle(color: Colors.white),
+                              //       )
+                              //     ]),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   height: 20,
+                              // ),
                               SizedBox(
                                 width: 120,
                                 child: FloatingActionButton(

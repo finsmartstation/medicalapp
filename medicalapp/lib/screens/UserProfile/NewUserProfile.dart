@@ -26,7 +26,7 @@ class NewUserProfile extends StatefulWidget {
 
 class _NewUserProfileState extends State<NewUserProfile> {
   //String dropdownvalue = 'A-';
- 
+
   FocusNode nameFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
   FocusNode dobFocusNode = FocusNode();
@@ -44,6 +44,8 @@ class _NewUserProfileState extends State<NewUserProfile> {
     'AB+',
   ];
   String ApiformattedDate = "";
+  String userId = '';
+  String aToken = '';
 
   final ImagePicker _picker = ImagePicker();
   List<XFile>? _imageFileList;
@@ -71,8 +73,6 @@ class _NewUserProfileState extends State<NewUserProfile> {
     return croppedFile;
   }
 
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -84,6 +84,8 @@ class _NewUserProfileState extends State<NewUserProfile> {
 
   @override
   Widget build(BuildContext context) {
+    userId = context.watch<AuthProvider>().u_id;
+    aToken = context.watch<AuthProvider>().access_token;
     return WillPopScope(
       onWillPop: () async {
         Navigator.pop(context, "a");
@@ -208,20 +210,19 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                                     children: [
                                                       Container(
                                                         decoration: const BoxDecoration(
-                                                            borderRadius: BorderRadius
-                                                                .all(Radius
-                                                                    .circular(
-                                                                        30)),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            30)),
                                                             color:
                                                                 Colors.white),
                                                         child: IconButton(
-                                                          onPressed:
-                                                              () async {
+                                                          onPressed: () async {
                                                             Navigator.pop(
                                                                 context);
                                                             setState(() {});
-                                                            XFile?
-                                                                pickedFile =
+                                                            XFile? pickedFile =
                                                                 await _picker
                                                                     .pickImage(
                                                               source:
@@ -244,12 +245,14 @@ class _NewUserProfileState extends State<NewUserProfile> {
 
                                                                   ApiService()
                                                                       .file_upload(
-                                                                          context.watch<AuthProvider>().u_id,
-                                                                         context.watch<AuthProvider>().access_token,
-                                                                          value.path)
+                                                                          userId,
+                                                                          aToken,
+                                                                          value
+                                                                              .path)
                                                                       .then(
                                                                     (value) {
-                                                                      if (value.statusCode ==
+                                                                      if (value
+                                                                              .statusCode ==
                                                                           200) {
                                                                         value
                                                                             .stream
@@ -261,8 +264,10 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                                                               path['file_path'];
                                                                           patientDetailProvider.saveFilePath(baseUrl +
                                                                               patientDetailProvider.Profile_path.toString());
-                                                                          print("-----------fghjk----------------");
-                                                                          print(patientDetailProvider.Profile_path);
+                                                                          print(
+                                                                              "-----------fghjk----------------");
+                                                                          print(
+                                                                              patientDetailProvider.Profile_path);
                                                                         });
                                                                       }
                                                                     },
@@ -289,85 +294,85 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                                   ),
                                                   Column(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
-                                                  Container(
-                                                    decoration: const BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .all(Radius
-                                                                    .circular(
-                                                                        30)),
-                                                        color:
-                                                            Colors.white),
-                                                    child: IconButton(
-                                                      onPressed: () async {
-                                                        Navigator.pop(
-                                                            context);
-                                                        setState(() {});
-                                                        XFile? pickedFile =
-                                                            await _picker
-                                                                .pickImage(
-                                                          source:
-                                                              ImageSource
-                                                                  .gallery,
-                                                          maxWidth: 1800,
-                                                          maxHeight: 1800,
-                                                        );
-                                                        if (pickedFile !=
-                                                            null) {
-                                                          cropImage(File(
-                                                                  pickedFile
-                                                                      .path))
-                                                              .then(
-                                                            (value) {
-                                                              setState(() {
-                                                                _setImageFileListFromFile(
-                                                                    XFile(value!
-                                                                        .path));
+                                                      Container(
+                                                        decoration: const BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            30)),
+                                                            color:
+                                                                Colors.white),
+                                                        child: IconButton(
+                                                          onPressed: () async {
+                                                            Navigator.pop(
+                                                                context);
+                                                            setState(() {});
+                                                            XFile? pickedFile =
+                                                                await _picker
+                                                                    .pickImage(
+                                                              source:
+                                                                  ImageSource
+                                                                      .gallery,
+                                                              maxWidth: 1800,
+                                                              maxHeight: 1800,
+                                                            );
+                                                            if (pickedFile !=
+                                                                null) {
+                                                              cropImage(File(
+                                                                      pickedFile
+                                                                          .path))
+                                                                  .then(
+                                                                (value) {
+                                                                  setState(() {
+                                                                    _setImageFileListFromFile(
+                                                                        XFile(value!
+                                                                            .path));
 
-                                                                ApiService()
-                                                                    .file_upload(
-                                                                        context.watch<AuthProvider>().u_id,
-                                                                        context.watch<AuthProvider>().access_token,
-                                                                        value.path)
-                                                                    .then(
-                                                                  (value) {
-                                                                    if (value.statusCode ==
-                                                                        200) {
-                                                                      value
-                                                                          .stream
-                                                                          .transform(utf8.decoder)
-                                                                          .listen((event) {
-                                                                        var path =
-                                                                            jsonDecode(event);
-                                                                        patientDetailProvider.Profile_path =
-                                                                            path['file_path'];
-                                                                        patientDetailProvider.saveFilePath(baseUrl +
-                                                                            patientDetailProvider.Profile_path.toString());
-                                                                        print("---------------------------");
-                                                                        print(patientDetailProvider);
-                                                                      });
-                                                                    }
-                                                                  },
-                                                                );
-                                                                print(value
-                                                                    .path);
+                                                                    ApiService()
+                                                                        .file_upload(
+                                                                            userId,
+                                                                            aToken,
+                                                                            value.path)
+                                                                        .then(
+                                                                      (value) {
+                                                                        if (value.statusCode ==
+                                                                            200) {
+                                                                          value
+                                                                              .stream
+                                                                              .transform(utf8.decoder)
+                                                                              .listen((event) {
+                                                                            var path =
+                                                                                jsonDecode(event);
+                                                                            patientDetailProvider.Profile_path =
+                                                                                path['file_path'];
+                                                                            patientDetailProvider.saveFilePath(baseUrl +
+                                                                                patientDetailProvider.Profile_path.toString());
+                                                                            print("---------------------------");
+                                                                            print(patientDetailProvider);
+                                                                          });
+                                                                        }
+                                                                      },
+                                                                    );
+                                                                    print(value
+                                                                        .path);
 
-                                                                print(
-                                                                    "---------------------------");
-                                                              });
-                                                            },
-                                                          );
-                                                        }
-                                                      },
-                                                      icon: const Icon(
-                                                          Icons.image),
-                                                      color: Colors.blue,
-                                                    ),
-                                                  ),
-                                                  const Text('Gallery')
+                                                                    print(
+                                                                        "---------------------------");
+                                                                  });
+                                                                },
+                                                              );
+                                                            }
+                                                          },
+                                                          icon: const Icon(
+                                                              Icons.image),
+                                                          color: Colors.blue,
+                                                        ),
+                                                      ),
+                                                      const Text('Gallery')
                                                     ],
                                                   )
                                                 ],
@@ -679,8 +684,8 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                   weightbool == true &&
                                   bloodbool == true) {
                                 fill_patient_profile(
-                                        context.watch<AuthProvider>().u_id,
-                                        context.watch<AuthProvider>().access_token,
+                                       userId,
+                                       aToken,
                                         patientDetailProvider.gender,
                                         patientDetailProvider
                                             .emailCondroller.text,

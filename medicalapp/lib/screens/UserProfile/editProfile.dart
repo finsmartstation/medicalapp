@@ -65,7 +65,8 @@ class _EditProfileState extends State<EditProfile> {
   String bloodGroup = "";
   String ApiformattedDate = "";
   String gender = "";
-
+  String aToken = '';
+  String userId = '';
   bool nameStatus = false;
   bool emailStatus = false;
   bool heightStatus = false;
@@ -105,7 +106,6 @@ class _EditProfileState extends State<EditProfile> {
 
   getdata() async {
     setState(() {
-  
       nameController.text = widget.name;
       emailController.text = widget.email;
       relationController.text = widget.relation;
@@ -139,6 +139,8 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    userId = context.watch<AuthProvider>().u_id;
+    aToken = context.watch<AuthProvider>().access_token;
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -253,12 +255,11 @@ class _EditProfileState extends State<EditProfile> {
                                                   decoration:
                                                       const BoxDecoration(
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .all(Radius
+                                                              BorderRadius.all(
+                                                                  Radius
                                                                       .circular(
                                                                           30)),
-                                                          color:
-                                                              Colors.white),
+                                                          color: Colors.white),
                                                   child: IconButton(
                                                     onPressed: () async {
                                                       print(profilePath);
@@ -267,13 +268,12 @@ class _EditProfileState extends State<EditProfile> {
                                                       XFile? pickedFile =
                                                           await _picker
                                                               .pickImage(
-                                                        source: ImageSource
-                                                            .camera,
+                                                        source:
+                                                            ImageSource.camera,
                                                         maxWidth: 1800,
                                                         maxHeight: 1800,
                                                       );
-                                                      if (pickedFile !=
-                                                          null) {
+                                                      if (pickedFile != null) {
                                                         cropImage(File(
                                                                 pickedFile
                                                                     .path))
@@ -286,8 +286,8 @@ class _EditProfileState extends State<EditProfile> {
 
                                                               ApiService()
                                                                   .file_upload(
-                                                                      context.watch<AuthProvider>().u_id,
-                                                                      context.watch<AuthProvider>().access_token,
+                                                                      userId,
+                                                                      aToken,
                                                                       value
                                                                           .path)
                                                                   .then(
@@ -295,20 +295,21 @@ class _EditProfileState extends State<EditProfile> {
                                                                   if (value
                                                                           .statusCode ==
                                                                       200) {
-                                                                    value
-                                                                        .stream
+                                                                    value.stream
                                                                         .transform(utf8
                                                                             .decoder)
                                                                         .listen(
                                                                             (event) {
                                                                       var path =
-                                                                          jsonDecode(event);
+                                                                          jsonDecode(
+                                                                              event);
                                                                       setState(
                                                                           () {
                                                                         paths =
                                                                             path['file_path'];
                                                                         profilePath =
-                                                                            baseUrl + path['file_path'];
+                                                                            baseUrl +
+                                                                                path['file_path'];
 
                                                                         print(
                                                                             profilePath);
@@ -372,12 +373,11 @@ class _EditProfileState extends State<EditProfile> {
                                                               _setImageFileListFromFile(
                                                                   XFile(value!
                                                                       .path));
-                                                             
 
                                                               ApiService()
                                                                   .file_upload(
-                                                                      context.watch<AuthProvider>().u_id,
-                                                                      context.watch<AuthProvider>().access_token,
+                                                                      userId,
+                                                                      aToken,
                                                                       value.path
                                                                           .toString())
                                                                   .then(
@@ -600,10 +600,10 @@ class _EditProfileState extends State<EditProfile> {
                                 focusNode: heightFocusNode,
                                 keyboardType: TextInputType.number,
                                 controller: heightController,
-                                 inputFormatters: [
-                                        // LengthLimitingTextInputFormatter(2),
-                                        FilteringTextInputFormatter.digitsOnly,
-                                      ],
+                                inputFormatters: [
+                                  // LengthLimitingTextInputFormatter(2),
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
                                 decoration: const InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
@@ -627,10 +627,10 @@ class _EditProfileState extends State<EditProfile> {
                               focusNode: weightFocusNode,
                               keyboardType: TextInputType.number,
                               controller: weightController,
-                               inputFormatters: [
-                                        // LengthLimitingTextInputFormatter(2),
-                                        FilteringTextInputFormatter.digitsOnly,
-                                      ],
+                              inputFormatters: [
+                                // LengthLimitingTextInputFormatter(2),
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
                               decoration: const InputDecoration(
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
@@ -731,8 +731,8 @@ class _EditProfileState extends State<EditProfile> {
                           heightStatus == false &&
                           weightStatus == false) {
                         edit_patient_details(
-                                context.watch<AuthProvider>().u_id,
-                                context.watch<AuthProvider>().access_token,
+                                userId,
+                                aToken,
                                 widget.familyMemberId,
                                 gender,
                                 emailController.text,
@@ -745,12 +745,10 @@ class _EditProfileState extends State<EditProfile> {
                                 paths)
                             .then((value) {
                           if (value.statusCode == 200) {
-                             ScaffoldMessenger.of(context)
-                              .showSnackBar( SnackBar(
-                                duration: Duration(seconds:3),
-                            content:
-                                Text("Profile updated"),
-                          ));
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              duration: Duration(seconds: 3),
+                              content: Text("Profile updated"),
+                            ));
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

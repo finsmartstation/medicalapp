@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return String
     setState(() {
-      isLogin = prefs.getString('isLogin') ?? '';
+      isLogin = prefs.getString('isLogin') ?? '0';
       context.read<AuthProvider>().getDetails(
           prefs.getString('user_id').toString(),
           '',
@@ -77,11 +77,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   )),
         );
       }
-      //   Navigator.of(context).pushReplacement(
-      //   MaterialPageRoute(
-      //     builder: (context) => isLogin ==true? Dashboard():GetStarted()
-      //   ),
-      // );
+      
     });
   }
 

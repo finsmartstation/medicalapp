@@ -88,7 +88,7 @@ class _MyAppointmentState extends State<MyAppointment> {
               FutureBuilder(
                   future: patientBookSlotHistory(
                       context.watch<AuthProvider>().u_id,
-                      context.watch<AuthProvider>().u_id,
+                      context.watch<AuthProvider>().access_token,
                       widget.family_member_id),
                   builder: ((context, snapshot) {
                     if (snapshot.hasData) {

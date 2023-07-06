@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:medicalapp/screens/dashboard/nearbyHospitalModel.dart';
+import 'package:medicalapp/screens/nearbyHospitals/nearbyHospitalModel.dart';
 
 import '../providers/auth_provider.dart';
 import '../utility/constants.dart';

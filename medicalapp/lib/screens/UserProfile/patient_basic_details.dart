@@ -56,6 +56,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
   String feature_name = '';
   String admin_area = '';
  
+
   var imgUrl;
 
   String? profilePic;
@@ -87,7 +88,6 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
 
   @override
   void initState() {
-  
     checkGps();
     super.initState();
   }
@@ -259,12 +259,11 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                                   decoration:
                                                       const BoxDecoration(
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .all(Radius
+                                                              BorderRadius.all(
+                                                                  Radius
                                                                       .circular(
                                                                           30)),
-                                                          color:
-                                                              Colors.white),
+                                                          color: Colors.white),
                                                   child: IconButton(
                                                     onPressed: () {
                                                       Navigator.pop(context);
@@ -290,20 +289,19 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                                   decoration:
                                                       const BoxDecoration(
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .all(Radius
+                                                              BorderRadius.all(
+                                                                  Radius
                                                                       .circular(
                                                                           30)),
-                                                          color:
-                                                              Colors.white),
+                                                          color: Colors.white),
                                                   child: IconButton(
                                                     onPressed: () {
                                                       Navigator.pop(context);
-                                                      _ImageButton(ImageSource
-                                                          .gallery);
+                                                      _ImageButton(
+                                                          ImageSource.gallery);
                                                     },
-                                                    icon: const Icon(
-                                                        Icons.image),
+                                                    icon:
+                                                        const Icon(Icons.image),
                                                     color: Colors.blue,
                                                   ),
                                                 ),

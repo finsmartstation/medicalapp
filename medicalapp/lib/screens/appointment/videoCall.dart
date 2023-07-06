@@ -13,9 +13,12 @@ class VideoConferencePage extends StatelessWidget {
       required this.conferenceID,
       required this.user_name})
       : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    List<ZegoMenuBarButtonName> buttons = const [
+      ZegoMenuBarButtonName.showMemberListButton,
+      ZegoMenuBarButtonName.switchCameraButton,
+    ];
     final String localUserID = math.Random().nextInt(10000).toString();
     return SafeArea(
       child: ZegoUIKitPrebuiltVideoConference(
@@ -29,9 +32,13 @@ class VideoConferencePage extends StatelessWidget {
             audioVideoViewConfig: ZegoPrebuiltAudioVideoViewConfig(
               showAvatarInAudioMode: true,
               useVideoViewAspectFill: true,
+              showCameraStateOnView: true,
+              showMicrophoneStateOnView: true,
+              showSoundWavesInAudioMode: true,
+              showUserNameOnView: true,
               isVideoMirror: false,
             ),
-            
+            topMenuBarConfig: ZegoTopMenuBarConfig(buttons: buttons),
             bottomMenuBarConfig: ZegoBottomMenuBarConfig(
               hideAutomatically: false,
               hideByClick: true,
