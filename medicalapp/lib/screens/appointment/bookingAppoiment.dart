@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:medicalapp/helper/helper.dart';
 import 'package:medicalapp/screens/appointment/paymentPage.dart';
 import 'package:provider/provider.dart';
 
@@ -13,15 +16,15 @@ class BookingAppoiment extends StatefulWidget {
   String? drName;
   String? drSpl;
   String? organization;
-  BookingAppoiment(
-      {super.key,
-      required this.family_member_id,
-      required this.doctorId,
-      required this.consultingfee,
-      required this.drName,
-      required this.drSpl,
-      required this.organization,
-     });
+  BookingAppoiment({
+    super.key,
+    required this.family_member_id,
+    required this.doctorId,
+    required this.consultingfee,
+    required this.drName,
+    required this.drSpl,
+    required this.organization,
+  });
 
   @override
   State<BookingAppoiment> createState() => _BookingAppoimentState();
@@ -323,7 +326,10 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                     //     .data!.data.slots[index].appoinmentType
                                     //     .toString();
                                     // print(visit_type);
-                                    print(timeButtonIndex);
+                                    log(snapshot
+                                        .data!.data.slots[index].slotTime);
+
+                                    log(timeButtonIndex.toString());
                                   }
                                 });
                               },
@@ -331,7 +337,10 @@ class _BookingAppoimentState extends State<BookingAppoiment> {
                                   child: Text(
                                 // DateFormat('hh:mm a').format(
                                 //     snapshot.data!.data.slots[index].slotTime),
-                                snapshot.data!.data.slots[index].slotTime,
+                                Helpers.formatTime(
+                                  snapshot.data!.data.slots[index].slotTime,
+                                ),
+
                                 style: TextStyle(
                                     color: index == timeButtonIndex
                                         ? Colors.white

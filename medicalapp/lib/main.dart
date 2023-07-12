@@ -8,7 +8,6 @@ import 'firebase_options.dart';
 import 'package:medicalapp/screens/splashScreen/splash_screen.dart';
 import 'package:medicalapp/utility/constants.dart';
 import 'package:provider/provider.dart';
-
 import 'helper/notification/handileNotification.dart';
 import 'screens/mapScreen/mapView.dart';
 
