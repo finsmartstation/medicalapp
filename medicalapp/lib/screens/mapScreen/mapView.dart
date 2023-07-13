@@ -1,8 +1,48 @@
 import 'dart:async';
-
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+
+import '../../utility/constants.dart';
+
+// class CustomMapNotifier extends ChangeNotifier {
+//   List<Marker> markers = [];
+//   bool markerPress = false;
+//   Future addMarkers({required LatLng latLng}) async {
+//     MarkerId markerId = MarkerId(latLng.toString());
+//     Marker marker = Marker(
+//       position: latLng,
+//       markerId: markerId,
+//       draggable: false,
+//       icon: BitmapDescriptor.defaultMarker,
+//       infoWindow: InfoWindow(
+//         title: 'Marker Title',
+//         snippet: 'Marker Snippet',
+//         onTap: () {
+//           log('InfoWindow');
+//         },
+//       ),
+//       onTap: () {
+//         markerPress = true;
+//         log(latLng.toString());
+//       },
+//     );
+//     markers.add(marker);
+//     notifyListeners();
+//   }
+
+//   void closeBottomSheet() {
+//     markerPress = false;
+//     notifyListeners();
+//   }
+
+//   void clearMarker() {
+//     markers = [];
+//     notifyListeners();
+//   }
+// }
 
 class MapView extends StatefulWidget {
   const MapView({super.key});
@@ -12,54 +52,113 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
-  void _onMapCreated(GoogleMapController controller) {
-    Completer<GoogleMapController> _controller = Completer();
+  // CustomMapNotifier customMapNotifier({required bool renderUI}) =>
+  //     Provider.of<CustomMapNotifier>(context, listen: renderUI);
+  @override
+  void dispose() {
+    _mapController.dispose();
+    super.dispose();
   }
 
   static const LatLng _center = const LatLng(45.521563, -122.677433);
-  LatLng? _pickedLocation;
-  GoogleMapController? _mapController;
+  late GoogleMapController _mapController;
+  final Completer<GoogleMapController> _completer = Completer();
+  List<Marker> markers = [];
+  bool markerPress = false;
+
+  String mapTheme = '';
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Map Example'),
-      ),
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(8.5603347, 76.8802452),
-          zoom: 13.0,
-        ),
-        onMapCreated: (controller) {
-          _mapController = controller;
-        },
-        onTap: _handleTap, // Register the onTap function to handle map taps
-        markers: Set<Marker>.from([
-          if (_pickedLocation != null)
-            Marker(
-              markerId: MarkerId('picked_location'),
-              position: _pickedLocation!,
-            ),
-        ]),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _getCurrentLocation,
-        child: Icon(Icons.my_location),
-      ),
-    );
-    // return GoogleMap(
-    //   onMapCreated: _onMapCreated,
-    //   initialCameraPosition: CameraPosition(
-    //     target: _center,
-    //     zoom: 11.0,
-    //   ),
-    // );
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    DefaultAssetBundle.of(context).loadString(mapStyle).then((value) {
+      mapTheme = value;
+    });
   }
 
-  void _handleTap(LatLng latLng) {
-    setState(() {
-      _pickedLocation = latLng;
-    });
+  @override
+  Widget build(BuildContext context) {
+    log(markers.toString());
+    Future addMarkers({required LatLng latLng}) async {
+      MarkerId markerId = MarkerId(latLng.toString());
+      Marker marker = Marker(
+        position: latLng,
+        markerId: markerId,
+        draggable: false,
+        icon: BitmapDescriptor.defaultMarker,
+        infoWindow: InfoWindow(
+          title: 'Marker Title',
+          snippet: 'Marker Snippet',
+          onTap: () {
+            log('InfoWindow');
+          },
+        ),
+        onTap: () {
+          setState(() {
+            markerPress = true;
+            log(latLng.toString());
+          });
+        },
+      );
+      setState(() {
+        markers.add(marker);
+      });
+    }
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        leading: BackButton(),
+        backgroundColor: Colors.transparent,
+      ),
+      body: GestureDetector(
+        onTap: () => setState(() {
+          markerPress = false;
+        }),
+        child: GoogleMap(
+          markers: Set.from(markers),
+          initialCameraPosition: CameraPosition(
+            target: LatLng(8.5603347, 76.8802452),
+            zoom: 12.0,
+          ),
+          onTap: (latLng) {
+            setState(() {
+              markerPress = false;
+            });
+            log(latLng.toString());
+
+            addMarkers(latLng: latLng);
+          },
+          zoomControlsEnabled: false,
+          mapType: MapType.normal,
+          onMapCreated: (controller) {
+            controller.setMapStyle(mapTheme);
+            _completer.complete(controller);
+            _mapController = controller;
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _getCurrentLocation();
+        },
+        child: Icon(Icons.my_location),
+      ),
+      bottomSheet: markerPress ? _buildBottomSheet() : SizedBox(),
+    );
+  }
+
+  Widget _buildBottomSheet() {
+    return Container(
+      height: 200,
+      color: Colors.grey[300],
+      child: Center(
+        child: Text(
+          'This is a persistent bottom sheet',
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    );
   }
 
   void _getCurrentLocation() async {
@@ -68,10 +167,5 @@ class _MapViewState extends State<MapView> {
     );
 
     final latLng = LatLng(position.latitude, position.longitude);
-
-    setState(() {
-      _pickedLocation = latLng;
-      _mapController?.animateCamera(CameraUpdate.newLatLngZoom(latLng, 13.0));
-    });
   }
 }

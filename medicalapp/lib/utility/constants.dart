@@ -13,6 +13,7 @@ import '../providers/phone_provider.dart';
 import '../providers/reportdataVerify.dart';
 import '../providers/verifiProfileEdit.dart';
 import '../providers/verifiyaddFamilyMembersData.dart';
+import '../screens/mapScreen/mapView.dart';
 
 //App Config
 
@@ -30,6 +31,7 @@ String baseUrl = "https://creativeapplab.in/med_app/medical_app/";
 // Assets
 
 String appLogo = 'assets/images/logo.png';
+String mapStyle = 'assets/mapStyle/mapstyle.json';
 String hospital_icon = 'assets/images/hospital_icon.png';
 String doctor = 'assets/images/doctor.png';
 String pharmacy = 'assets/images/drugstore.png';
