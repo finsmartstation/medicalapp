@@ -27,10 +27,12 @@ FontWeight subTextWeight = FontWeight.w500;
 // String baseUrl = "https://finsmartstation.com/medicalApp/medical_app/";
 // String baseUrl = "https://18f1-202-88-237-221.in.ngrok.io/medical_app/";
 String baseUrl = "https://creativeapplab.in/med_app/medical_app/";
+String googlePlacesApi = 'AIzaSyCOprl8JDNVehUKkClAZvCwdj9EvYk9Joc';
 
 // Assets
-
 String appLogo = 'assets/images/logo.png';
+String location_pin = 'assets/images/location_pin.svg';
+String location = 'assets/images/location.svg';
 String mapStyle = 'assets/mapStyle/mapstyle.json';
 String hospital_icon = 'assets/images/hospital_icon.png';
 String doctor = 'assets/images/doctor.png';

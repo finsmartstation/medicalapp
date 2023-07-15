@@ -6,4 +6,8 @@ class Helpers {
     String formattedTime = DateFormat('h:mm a').format(parsedTime);
     return formattedTime;
   }
+
+  static double convertIntoDouble(String stringdouble) {
+    return double.parse(stringdouble);
+  }
 }

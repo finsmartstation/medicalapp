@@ -504,7 +504,7 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                               gender,
                                               emailController.text,
                                               nameController.text,
-                                              profilePic)
+                                              profilePic,long,lat)
                                           .then(
                                         (value) {
                                           if (value.statusCode == 200) {

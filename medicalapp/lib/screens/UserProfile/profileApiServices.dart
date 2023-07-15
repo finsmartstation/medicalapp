@@ -62,7 +62,7 @@ Future<http.Response> edit_patient_details(
 
 //fill_patient_basic_profile
 Future<http.Response> patient_profile_details(
-    userId, accessToken, gender, email, name,profilePicPath) async {
+    userId, accessToken, gender, email, name,profilePicPath,longitude,latitude) async {
   String url = '${baseUrl}patient_profile_details';
   var obj = {
     "user_id": userId,
@@ -70,7 +70,9 @@ Future<http.Response> patient_profile_details(
     "gender": gender,
     "email": email,
     "name": name,
-    "profile_pic": profilePicPath
+    "profile_pic": profilePicPath,
+    "longitude":longitude,
+    "latitude":latitude
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   print(obj);
