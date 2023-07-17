@@ -17,6 +17,7 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
+
   void clearData() {
     _u_id = '';
     _otp = '';

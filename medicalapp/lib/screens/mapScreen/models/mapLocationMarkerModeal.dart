@@ -45,11 +45,15 @@ class UserLocationList {
 class Datum {
   final String userId;
   final String organistaionName;
-  final Type type;
+  final String longitude;
+  final String latitude;
+  final String type;
 
   Datum({
     required this.userId,
     required this.organistaionName,
+    required this.longitude,
+    required this.latitude,
     required this.type,
   });
 
@@ -60,29 +64,16 @@ class Datum {
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         userId: json["user_id"],
         organistaionName: json["organistaion_name"],
-        type: typeValues.map[json["type"]]!,
+        longitude: json["longitude"],
+        latitude: json["latitude"],
+        type: json["type"].toString(),
       );
 
   Map<String, dynamic> toJson() => {
         "user_id": userId,
         "organistaion_name": organistaionName,
-        "type": typeValues.reverse[type],
+        "longitude": longitude,
+        "latitude": latitude,
+        "type": type,
       };
-}
-
-enum Type { HOSPITAL, LAB, PHARMACY }
-
-final typeValues = EnumValues(
-    {"Hospital": Type.HOSPITAL, "Lab": Type.LAB, "Pharmacy": Type.PHARMACY});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../utility/constants.dart';
+import '../../utility/constants.dart';
 
 class LocationListTile extends StatelessWidget {
   const LocationListTile({

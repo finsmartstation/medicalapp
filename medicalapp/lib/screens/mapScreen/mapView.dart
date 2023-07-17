@@ -6,13 +6,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../helper/helper.dart';
 import '../../providers/auth_provider.dart';
 import '../../utility/constants.dart';
 import 'package:http/http.dart' as http;
 import 'models/autocomplate_prediction.dart';
-import 'models/location_list_tile.dart';
+import 'location_list_tile.dart';
 import 'models/mapLocationMarkerModeal.dart';
+import 'models/organization_detailsModeal.dart';
 import 'models/place_auto_complate_response.dart';
 
 class MapView extends StatefulWidget {
@@ -40,6 +42,7 @@ class _MapViewState extends State<MapView> {
   String currentLongitude = '';
   bool _isExpanded = false;
   String currentLatitude = '';
+  String markerIdOnTap = '';
   List<AutocompletePrediction> placePredications = [];
   @override
   void initState() {
@@ -87,15 +90,36 @@ class _MapViewState extends State<MapView> {
                   currentLongitude),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  currentLatitude = snapshot.data!.latitude;
+                  currentLongitude = snapshot.data!.longitude;
                   for (var i = 0; i < snapshot.data!.data.length; i++) {
-                    //LatLng latlng = LatLng(snapshot.data!.data[i].);
-                    // addMarkers(
-                    //   context: context,
-                    //   latLng: latLng,
-                    // );
+                    addMarkers(
+                      context: context,
+                      latLng: LatLng(
+                          Helpers.convertIntoDouble(
+                              snapshot.data!.data[i].latitude),
+                          Helpers.convertIntoDouble(
+                              snapshot.data!.data[i].longitude)),
+                      markerIds: snapshot.data!.data[i].userId,
+                      markerName: snapshot.data!.data[i].organistaionName,
+                    );
                   }
                   return GoogleMap(
                     markers: Set.from(markers),
+                    myLocationButtonEnabled: true,
+                    circles: {
+                      Circle(
+                        circleId: CircleId('1'),
+                        center: LatLng(
+                            Helpers.convertIntoDouble(currentLatitude),
+                            Helpers.convertIntoDouble(currentLongitude)),
+                        fillColor: Colors.blue.withOpacity(0.3),
+                        strokeColor: Colors.blue.withOpacity(0.5),
+                        strokeWidth: 2,
+                        consumeTapEvents: false,
+                        radius: 4000,
+                      )
+                    },
                     initialCameraPosition: CameraPosition(
                       target: LatLng(
                           Helpers.convertIntoDouble(snapshot.data!.latitude),
@@ -120,74 +144,7 @@ class _MapViewState extends State<MapView> {
                 }
               },
             ),
-            Positioned(
-                top: 65,
-                child: _isExpanded
-                    ? Padding(
-                        padding: const EdgeInsets.only(left: 72),
-                        child: Container(
-                          width: 320.0,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20.0),
-                                bottomRight: Radius.circular(20.0),
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10)),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Divider(
-                                height: 4,
-                                thickness: 4,
-                                color: Color(0xFFF8F8F8),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: ElevatedButton.icon(
-                                  onPressed: updateAndFetchLocation,
-                                  icon: SvgPicture.asset(
-                                    location,
-                                    height: 16,
-                                  ),
-                                  label: const Text("Use my Current Location"),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xFFEEEEEE),
-                                    foregroundColor: Color(0xFF0D0D0E),
-                                    elevation: 0,
-                                    fixedSize: const Size(double.infinity, 40),
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const Divider(
-                                height: 4,
-                                thickness: 4,
-                                color: Color(0xFFF8F8F8),
-                              ),
-                              ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: placePredications.length,
-                                itemBuilder: (context, index) =>
-                                    LocationListTile(
-                                  press: () {
-                                    setState(() {
-                                      _isExpanded = false;
-                                    });
-                                  },
-                                  location:
-                                      placePredications[index].description!,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    : const SizedBox())
+            locationList()
           ],
         ),
       ),
@@ -196,6 +153,85 @@ class _MapViewState extends State<MapView> {
         child: Icon(Icons.my_location),
       ),
     );
+  }
+
+  Positioned locationList() {
+    return Positioned(
+        top: 65,
+        child: _isExpanded
+            ? Padding(
+                padding: const EdgeInsets.only(left: 72),
+                child: Container(
+                  width: 320.0,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20.0),
+                        bottomRight: Radius.circular(20.0),
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10)),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Divider(
+                        height: 4,
+                        thickness: 4,
+                        color: Color(0xFFF8F8F8),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: ElevatedButton.icon(
+                          onPressed: updateAndFetchLocation,
+                          icon: SvgPicture.asset(
+                            location,
+                            height: 16,
+                          ),
+                          label: const Text("Use my Current Location"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFFEEEEEE),
+                            foregroundColor: Color(0xFF0D0D0E),
+                            elevation: 0,
+                            fixedSize: const Size(double.infinity, 40),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        height: 4,
+                        thickness: 4,
+                        color: Color(0xFFF8F8F8),
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: placePredications.length,
+                        itemBuilder: (context, index) => LocationListTile(
+                          press: () {
+                            getPlaceLatLng(placePredications[index].placeId!)
+                                .then((value) {
+                              setState(() {
+                                currentLatitude = value.latitude.toString();
+                                currentLongitude = value.longitude.toString();
+                                _isExpanded = false;
+                              });
+
+                              _mapController
+                                  .animateCamera(CameraUpdate.newLatLng(
+                                LatLng(value.latitude, value.longitude),
+                              ));
+                            });
+                          },
+                          location: placePredications[index].description!,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            : const SizedBox());
   }
 
   GestureDetector searchBar() {
@@ -253,17 +289,14 @@ class _MapViewState extends State<MapView> {
       if (result.predictions != null) {
         setState(() {
           placePredications = result.predictions!;
-          log(placePredications[0].description.toString());
         });
       }
-
       return response.body;
     } else {
       throw Exception('Failed to load Data');
     }
   }
 
-  //LatLng a = LatLng(latitude, longitude);
   Future<void> addMarkers({
     required BuildContext context,
     required LatLng latLng,
@@ -278,15 +311,20 @@ class _MapViewState extends State<MapView> {
       icon: BitmapDescriptor.defaultMarker,
       infoWindow: InfoWindow(
         title: markerName,
-        onTap: () {},
+        onTap: () {
+          markerIdOnTap = markerId.value;
+
+          _showAnimatedBottomSheet(context);
+        },
       ),
       onTap: () {
+        _mapController.animateCamera(CameraUpdate.newLatLng(latLng));
+        markerIdOnTap = markerId.value;
+
         _showAnimatedBottomSheet(context);
       },
     );
-    setState(() {
-      markers.add(marker);
-    });
+    markers.add(marker);
   }
 
   updateAndFetchLocation() {
@@ -301,11 +339,35 @@ class _MapViewState extends State<MapView> {
             currentLatitude,
             currentLongitude);
         _mapController.animateCamera(CameraUpdate.newLatLng(
-          LatLng(Helpers.convertIntoDouble(currentLongitude),
-              Helpers.convertIntoDouble(currentLatitude)),
+          LatLng(
+            Helpers.convertIntoDouble(currentLatitude),
+            Helpers.convertIntoDouble(currentLongitude),
+          ),
         ));
       });
     });
+  }
+
+  Future<LatLng> getPlaceLatLng(String placeId) async {
+    String url =
+        'https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&key=$googlePlacesApi';
+
+    var response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      log(response.body);
+
+      if (data['status'] == 'OK') {
+        var result = data['result'];
+        double latitude = result['geometry']['location']['lat'];
+        double longitude = result['geometry']['location']['lng'];
+
+        return LatLng(latitude, longitude);
+      }
+    }
+
+    return LatLng(0.0, 0.0); // Default location if fetching details fails
   }
 
   Future<String> update_user_location(String user_id, String access_token,
@@ -321,6 +383,24 @@ class _MapViewState extends State<MapView> {
     if (response.statusCode == 200) {
       log(response.body);
       return response.body;
+    } else {
+      throw Exception('Failed to load Data');
+    }
+  }
+
+  Future<OrganizationDetails> organization_details(
+      String user_id, String access_token, String organization_id) async {
+    String url = '${baseUrl}organization_details';
+    var obj = {
+      "user_id": user_id,
+      "access_token": access_token,
+      "organization_id": organization_id,
+    };
+    log(obj.toString());
+    var response = await http.post(Uri.parse(url), body: obj);
+    if (response.statusCode == 200) {
+      log(response.body);
+      return OrganizationDetails.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load Data');
     }
@@ -357,6 +437,9 @@ class _MapViewState extends State<MapView> {
   Future<void> _showAnimatedBottomSheet(BuildContext context) async {
     showModalBottomSheet<void>(
       context: context,
+      enableDrag: true,
+      isScrollControlled: true,
+      useSafeArea: true,
       builder: _buildBottomSheetContent,
     );
   }
@@ -364,56 +447,109 @@ class _MapViewState extends State<MapView> {
   Widget _buildBottomSheetContent(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: Offset(0, -1),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: 48,
-              alignment: Alignment.center,
-              child: Text(
-                'This is a beautiful animated bottom sheet',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Divider(
-              height: 1,
-              color: Colors.grey[400],
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-              child: Text(
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Close'),
-            ),
-            SizedBox(height: 16),
-          ],
-        ),
-      ),
+      child: FutureBuilder<OrganizationDetails>(
+          future: organization_details(auth(renderUI: false).u_id,
+              auth(renderUI: false).access_token, markerIdOnTap),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16.0),
+                    topRight: Radius.circular(16.0),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: Offset(0, -1),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          snapshot.data!.data.hospitalName,
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          snapshot.data!.data.address,
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      height: 1,
+                      color: Colors.grey[400],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  _launchUrl(
+                                      'tel:${snapshot.data!.data.countryCode + snapshot.data!.data.mobile}');
+                                },
+                                icon: Icon(
+                                  Icons.call,
+                                  size: 35,
+                                  color: Colors.blue,
+                                )),
+                            IconButton(
+                                onPressed: () {
+                                  log(snapshot.data!.data.website + 'gh');
+                                  _launchUrl(snapshot.data!.data.website);
+                                },
+                                icon: Icon(
+                                  Icons.screen_share_outlined,
+                                  size: 35,
+                                  color: Colors.blue,
+                                ))
+                          ]),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                      child: Text(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                  ],
+                ),
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator.adaptive(),
+              );
+            }
+          }),
     );
+  }
+
+  Future<void> _launchUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url),
+        mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
+    }
   }
 
   Future<LatLng> _getCurrentLocation() async {
