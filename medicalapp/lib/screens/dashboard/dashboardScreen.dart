@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +95,6 @@ class _DashboardPatientState extends State<DashboardPatient>
   }
 
   getProfileData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       dashboardData(context.read<AuthProvider>().u_id,
               context.read<AuthProvider>().access_token, family_member_id)
@@ -127,9 +127,9 @@ class _DashboardPatientState extends State<DashboardPatient>
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          print('Location permissions are denied');
+          log('Location permissions are denied');
         } else if (permission == LocationPermission.deniedForever) {
-          print('Location permissions are permanently denied');
+          log('Location permissions are permanently denied');
         } else {
           hasPermission = true;
         }
@@ -145,7 +145,7 @@ class _DashboardPatientState extends State<DashboardPatient>
         // getLocation();
       }
     } else {
-      print('GPS Service is not enabled, turn on GPS location');
+      log('GPS Service is not enabled, turn on GPS location');
     }
 
     setState(() {
@@ -155,7 +155,7 @@ class _DashboardPatientState extends State<DashboardPatient>
 
 // getLocation() async {
 //   Position position = await Geolocator.getCurrentPosition();
-//   print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
+//   log('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
 //   lat =position.latitude.toString();
 //   long= position.longitude.toString();
 
@@ -168,16 +168,16 @@ class _DashboardPatientState extends State<DashboardPatient>
 //     locationName = first.addressLine;
 //     localityName = first.locality!;
 //    // String? locality = first.featureName;
-//     print('Location Name: $locationName');
-//     // print('1Location Name: ${first.addressLine}');
-//     // print('2Location Name: ${first.adminArea}');
-//     // print('3Location Name: ${first.countryName}');
-//     // print('4Location Name: ${first.featureName}');
-//     // print('5Location Name: ${first.locality}');
-//     // print('6Location Name: ${first.subAdminArea}');
-//     // print('7Location Name: ${first.subLocality}');
-//     // print('8Location Name: ${first.postalCode}');
-//     // print('9Location Name: ${first.countryCode}');
+//     log('Location Name: $locationName');
+//     // log('1Location Name: ${first.addressLine}');
+//     // log('2Location Name: ${first.adminArea}');
+//     // log('3Location Name: ${first.countryName}');
+//     // log('4Location Name: ${first.featureName}');
+//     // log('5Location Name: ${first.locality}');
+//     // log('6Location Name: ${first.subAdminArea}');
+//     // log('7Location Name: ${first.subLocality}');
+//     // log('8Location Name: ${first.postalCode}');
+//     // log('9Location Name: ${first.countryCode}');
 
 //     setState(() {
 //       // Update your UI or save the location name
@@ -192,9 +192,9 @@ class _DashboardPatientState extends State<DashboardPatient>
   //     if (permission == LocationPermission.denied) {
   //       permission = await Geolocator.requestPermission();
   //       if (permission == LocationPermission.denied) {
-  //         print('Location permissions are denied');
+  //         log('Location permissions are denied');
   //       } else if (permission == LocationPermission.deniedForever) {
-  //         print("'Location permissions are permanently denied");
+  //         log("'Location permissions are permanently denied");
   //       } else {
   //         haspermission = true;
   //       }
@@ -210,7 +210,7 @@ class _DashboardPatientState extends State<DashboardPatient>
   //       getLocation();
   //     }
   //   } else {
-  //     print("GPS Service is not enabled, turn on GPS location");
+  //     log("GPS Service is not enabled, turn on GPS location");
   //   }
 
   //   setState(() {
@@ -220,8 +220,8 @@ class _DashboardPatientState extends State<DashboardPatient>
 
   // getLocation() async {
   //   position = await Geolocator.getCurrentPosition();
-  //   print(position.longitude); //Output: 80.24599079
-  //   print(position.latitude); //Output: 29.6593457
+  //   log(position.longitude); //Output: 80.24599079
+  //   log(position.latitude); //Output: 29.6593457
 
   //   long = position.longitude.toString();
   //   lat = position.latitude.toString();
@@ -237,7 +237,6 @@ class _DashboardPatientState extends State<DashboardPatient>
     super.initState();
     family_member_id = widget.family_member_id.toString();
     checkGps();
-    setState(() {});
     getProfileData();
     interactedNotificationMessage();
   }
@@ -268,12 +267,14 @@ class _DashboardPatientState extends State<DashboardPatient>
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             family_member_id = snapshot.data!.patientDetails.familyMemberId;
-            print(family_member_id);
+            log(family_member_id);
             return GestureDetector(
               onTap: () {
-                setState(() {
-                  dropDownButton = false;
-                });
+                if (dropDownButton) {
+                  setState(() {
+                    dropDownButton = false;
+                  });
+                }
               },
               child: Scaffold(
                 backgroundColor: Colors.grey.shade300,
@@ -368,7 +369,7 @@ class _DashboardPatientState extends State<DashboardPatient>
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MapView()));
-                              // print(object)
+                              // log(object)
                               // showDialog(
                               // context: context,
                               // builder: (context) {
@@ -912,10 +913,13 @@ class _DashboardPatientState extends State<DashboardPatient>
                                                                   right: 18),
                                                           child: IconButton(
                                                               onPressed: (() {
-                                                                setState(() {
-                                                                  dropDownButton =
-                                                                      true;
-                                                                });
+                                                                if (dropDownButton ==
+                                                                    false) {
+                                                                  setState(() {
+                                                                    dropDownButton =
+                                                                        true;
+                                                                  });
+                                                                }
                                                               }),
                                                               icon: const Icon(
                                                                 Icons
@@ -2221,9 +2225,11 @@ class _DashboardPatientState extends State<DashboardPatient>
                             top: 240,
                             child: GestureDetector(
                               onTap: () {
-                                setState(() {
-                                  dropDownButton = false;
-                                });
+                                if (dropDownButton) {
+                                  setState(() {
+                                    dropDownButton = false;
+                                  });
+                                }
                               },
                               child: SizedBox(
                                 height: 500,
@@ -2236,17 +2242,18 @@ class _DashboardPatientState extends State<DashboardPatient>
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: () {
-                                          setState(() {
-                                            if (index == index) {
+                                          if (index == index) {
+                                            setState(() {
                                               family_member_id = snapshot
                                                   .data!
                                                   .patientDetails
                                                   .familyMemberIds[index]
                                                   .familyMemberId;
                                               dropDownButton = false;
-                                              print(family_member_id);
-                                            }
-                                          });
+                                            });
+
+                                            log(family_member_id);
+                                          }
                                         },
                                         child: Padding(
                                           padding:

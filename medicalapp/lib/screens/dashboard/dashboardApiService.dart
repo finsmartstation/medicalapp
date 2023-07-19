@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
-
 import '../../utility/constants.dart';
 import 'dashboardModeal.dart';
 
@@ -13,19 +13,16 @@ Future<DashboardGetModel> dashboardData(
     "access_token": accessToken,
     "family_member_id": familyMemberId,
   };
-  print(obj);
+  log(obj.toString());
   var respons = await http.post(
     Uri.parse(url),
     body: jsonEncode(obj),
   );
 
-  print(respons);
-
-  print(respons.body);
+  log(respons.body);
   if (respons.statusCode == 200) {
-    print(respons.body);
+    log(respons.body);
     final data = DashboardGetModel.fromJson(jsonDecode(respons.body));
-    print(data.patientDetails);
     return data;
   } else {
     throw Exception('Failed to load users');
@@ -45,11 +42,9 @@ Future<DashboardSearch> dashboard_search(userId, accessToken, search) async {
     body: jsonEncode(obj),
   );
 
-  print(respons);
-
-  print(respons.body);
+  log(respons.body);
   if (respons.statusCode == 200) {
-    print(respons.body);
+    log(respons.body);
     final data = DashboardSearch.fromJson(jsonDecode(respons.body));
     return data;
   } else {

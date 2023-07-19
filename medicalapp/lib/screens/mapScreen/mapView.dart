@@ -117,14 +117,14 @@ class _MapViewState extends State<MapView> {
                         strokeColor: Colors.blue.withOpacity(0.5),
                         strokeWidth: 2,
                         consumeTapEvents: false,
-                        radius: 4000,
+                        radius: 300,
                       )
                     },
                     initialCameraPosition: CameraPosition(
                       target: LatLng(
                           Helpers.convertIntoDouble(snapshot.data!.latitude),
                           Helpers.convertIntoDouble(snapshot.data!.longitude)),
-                      zoom: 12.0,
+                      zoom: 15.0,
                     ),
                     onTap: (latLng) {
                       log(latLng.toString());
@@ -476,7 +476,7 @@ class _MapViewState extends State<MapView> {
                       child: Container(
                         alignment: Alignment.center,
                         child: Text(
-                          snapshot.data!.data.hospitalName,
+                          snapshot.data!.data.organizationName,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
@@ -498,6 +498,35 @@ class _MapViewState extends State<MapView> {
                       color: Colors.grey[400],
                     ),
                     Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        height: 300,
+                        width: double.infinity,
+                        child: PageView.builder(
+                          itemCount: snapshot.data!.data.gallery.length,
+                          itemBuilder: (context, index) {
+                            return Image.network(
+                              snapshot.data!.data.gallery[index].filepath,
+                              fit: BoxFit.fill,
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                } else {
+                                  return Center(
+                                    child: CircularProgressIndicator.adaptive(),
+                                  );
+                                }
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -505,7 +534,7 @@ class _MapViewState extends State<MapView> {
                             IconButton(
                                 onPressed: () {
                                   _launchUrl(
-                                      'tel:${snapshot.data!.data.countryCode + snapshot.data!.data.mobile}');
+                                      'tel:${snapshot.data!.data.emergencyContact}');
                                 },
                                 icon: Icon(
                                   Icons.call,
@@ -524,12 +553,28 @@ class _MapViewState extends State<MapView> {
                                 ))
                           ]),
                     ),
+                    SizedBox(height: 16),
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                      child: Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                        style: TextStyle(fontSize: 16),
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            color: Colors.blue,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Text(
+                              snapshot.data!.data.address,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 5,
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(height: 16),
