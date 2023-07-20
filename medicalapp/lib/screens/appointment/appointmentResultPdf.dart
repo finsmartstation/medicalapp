@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:path_provider/path_provider.dart';
@@ -10,7 +9,7 @@ import 'package:permission_handler/permission_handler.dart';
 class AppointmentPdf extends StatefulWidget {
   final String filePath;
   const AppointmentPdf({Key? key, required this.filePath}) : super(key: key);
-  
+
   @override
   State<AppointmentPdf> createState() => _AppointmentPdfState();
 }
@@ -44,10 +43,10 @@ class _AppointmentPdfState extends State<AppointmentPdf> {
     }
     if (status.isGranted) {
       print("granted");
-       await downloadFile(url, filename, context);
-       showNotification(notifiationName, 'Download complete');
-        // Handle permission denied case
-        return;
+      await downloadFile(url, filename, context);
+      showNotification(notifiationName, 'Download complete');
+      // Handle permission denied case
+      return;
     }
   }
 
@@ -65,14 +64,14 @@ class _AppointmentPdfState extends State<AppointmentPdf> {
   }
 
   Future<void> showNotification(String title, String body) async {
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-        id: 66,
-        channelKey: 'downloaded_pdf',
-        title: title,
-        body: body,
-      ),
-    );
+    // await AwesomeNotifications().createNotification(
+    //   content: NotificationContent(
+    //     id: 66,
+    //     channelKey: 'downloaded_pdf',
+    //     title: title,
+    //     body: body,
+    //   ),
+    // );
   }
   @override
   Widget build(BuildContext context) {
@@ -83,12 +82,12 @@ class _AppointmentPdfState extends State<AppointmentPdf> {
         actions: [
           IconButton(
               onPressed: (() async {
-                 checkPermissionAndDownloadFile(widget.filePath, widget.filePath, context)
-                                          .then((value) {
-                                            
-                                              //showNotification(notifiationName, 'Download complete');
-                                          });
-               // downloadFile(widget.filePath);
+                checkPermissionAndDownloadFile(
+                        widget.filePath, widget.filePath, context)
+                    .then((value) {
+                  //showNotification(notifiationName, 'Download complete');
+                });
+                // downloadFile(widget.filePath);
               }),
               icon: const Icon(
                 Icons.download,

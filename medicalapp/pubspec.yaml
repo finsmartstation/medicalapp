@@ -58,10 +58,11 @@ dependencies:
   firebase_core: ^2.14.0
   firebase_messaging: ^14.6.3
   firebase_analytics: ^10.4.3
-  awesome_notifications: ^0.7.4+1
+  #awesome_notifications: ^0.7.4+1
   google_maps_flutter: ^2.3.0
   flutter_svg: ^2.0.5
   url_launcher: ^6.1.11
+  flutter_local_notifications: ^15.1.0+1
 
 
 dev_dependencies:

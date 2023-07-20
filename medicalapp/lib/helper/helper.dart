@@ -10,4 +10,8 @@ class Helpers {
   static double convertIntoDouble(String stringdouble) {
     return double.parse(stringdouble);
   }
+
+  static int convertIntoInt(String stringdouble) {
+    return int.parse(stringdouble);
+  }
 }

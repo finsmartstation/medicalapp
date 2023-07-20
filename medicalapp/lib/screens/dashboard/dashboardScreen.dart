@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 //import 'package:flutter_geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
@@ -258,7 +259,8 @@ class _DashboardPatientState extends State<DashboardPatient>
 
           return false;
         } else {
-          return exit(0);
+          SystemNavigator.pop();
+          return false;
         }
       },
       child: FutureBuilder(
@@ -282,9 +284,9 @@ class _DashboardPatientState extends State<DashboardPatient>
                   backgroundColor: Colors.grey.shade300,
                   leading: Center(
                     child: IconButton(
-                        onPressed: (() {
+                        onPressed: () {
                           _scaffoldkey.currentState?.openDrawer();
-                        }),
+                        },
                         icon: const Icon(
                           Icons.menu_sharp,
                           color: Colors.black,
@@ -395,6 +397,9 @@ class _DashboardPatientState extends State<DashboardPatient>
                                 ),
                               ],
                             )),
+                        SizedBox(
+                          width: 10,
+                        )
                       ],
                     )
                   ],
@@ -458,27 +463,23 @@ class _DashboardPatientState extends State<DashboardPatient>
                       ListTile(
                         leading: const Icon(Icons.family_restroom_rounded),
                         title: const Text("Family Members"),
-                        onTap: (() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const FamilyMembersScreen()));
-                        }),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const FamilyMembersScreen())),
                       ),
                       if (snapshot.data!.patientDetails.relation == "self")
                         ListTile(
                           leading: const Icon(Icons.medical_services_outlined),
                           title: const Text("My Doctors"),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyDoctor(
-                                          family_member_id: snapshot.data!
-                                              .patientDetails.familyMemberId,
-                                        )));
-                          },
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyDoctor(
+                                        family_member_id: snapshot.data!
+                                            .patientDetails.familyMemberId,
+                                      ))),
                         ),
                       if (snapshot.data!.patientDetails.gender == "female" &&
                           snapshot.data!.patientDetails.relation != "self")

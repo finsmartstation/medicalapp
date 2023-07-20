@@ -43,6 +43,7 @@ class _MapViewState extends State<MapView> {
   bool _isExpanded = false;
   String currentLatitude = '';
   String markerIdOnTap = '';
+  double targetZoom = 15.0;
   List<AutocompletePrediction> placePredications = [];
   @override
   void initState() {
@@ -124,7 +125,7 @@ class _MapViewState extends State<MapView> {
                       target: LatLng(
                           Helpers.convertIntoDouble(snapshot.data!.latitude),
                           Helpers.convertIntoDouble(snapshot.data!.longitude)),
-                      zoom: 15.0,
+                      zoom: targetZoom,
                     ),
                     onTap: (latLng) {
                       log(latLng.toString());
@@ -218,10 +219,12 @@ class _MapViewState extends State<MapView> {
                                 _isExpanded = false;
                               });
 
-                              _mapController
-                                  .animateCamera(CameraUpdate.newLatLng(
-                                LatLng(value.latitude, value.longitude),
-                              ));
+                              _mapController.animateCamera(
+                                CameraUpdate.newLatLngZoom(
+                                  LatLng(value.latitude, value.longitude),
+                                  targetZoom,
+                                ),
+                              );
                             });
                           },
                           location: placePredications[index].description!,
@@ -313,14 +316,14 @@ class _MapViewState extends State<MapView> {
         title: markerName,
         onTap: () {
           markerIdOnTap = markerId.value;
-
           _showAnimatedBottomSheet(context);
         },
       ),
       onTap: () {
-        _mapController.animateCamera(CameraUpdate.newLatLng(latLng));
+        _mapController.animateCamera(
+          CameraUpdate.newLatLngZoom(latLng, targetZoom),
+        );
         markerIdOnTap = markerId.value;
-
         _showAnimatedBottomSheet(context);
       },
     );
@@ -338,11 +341,12 @@ class _MapViewState extends State<MapView> {
             auth(renderUI: false).access_token,
             currentLatitude,
             currentLongitude);
-        _mapController.animateCamera(CameraUpdate.newLatLng(
+        _mapController.animateCamera(CameraUpdate.newLatLngZoom(
           LatLng(
             Helpers.convertIntoDouble(currentLatitude),
             Helpers.convertIntoDouble(currentLongitude),
           ),
+          targetZoom,
         ));
       });
     });
@@ -367,7 +371,7 @@ class _MapViewState extends State<MapView> {
       }
     }
 
-    return LatLng(0.0, 0.0); // Default location if fetching details fails
+    return LatLng(0.0, 0.0);
   }
 
   Future<String> update_user_location(String user_id, String access_token,

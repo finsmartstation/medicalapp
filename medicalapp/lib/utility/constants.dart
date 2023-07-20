@@ -1,7 +1,8 @@
 import 'dart:ui';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
+//import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -32,6 +33,7 @@ String googlePlacesApi = 'AIzaSyCOprl8JDNVehUKkClAZvCwdj9EvYk9Joc';
 // Assets
 String appLogo = 'assets/images/logo.png';
 String location_pin = 'assets/images/location_pin.svg';
+String hospital_icon_map = 'assets/images/hospital-svgrepo-com.svg';
 String location = 'assets/images/location.svg';
 String mapStyle = 'assets/mapStyle/mapstyle.json';
 String hospital_icon = 'assets/images/hospital_icon.png';
@@ -52,6 +54,8 @@ String lab_technician = 'assets/images/lab_technician.png';
 String success = 'assets/images/success.png';
 String folder = 'assets/images/folder_bg.png';
 Color backgroundColor = const Color(0xFFE6E6E6);
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (_) => PhoneProvider()),
   ChangeNotifierProvider(create: (_) => AuthProvider()),
@@ -62,13 +66,5 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (_) => VerifyNewUserProfileData()),
   ChangeNotifierProvider(create: (_) => VerifyAddFamilyMembersData()),
 ];
-List<NotificationChannel> notificationList = [
-  NotificationChannel(
-      channelKey: 'downloaded_pdf',
-      channelName: 'Downloaded PDFs',
-      channelDescription: 'PDFs downloaded from the app',
-      defaultColor: Colors.tealAccent,
-      ledColor: Colors.tealAccent,
-      playSound: true,
-      enableVibration: true),
-];
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
