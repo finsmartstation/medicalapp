@@ -11,6 +11,7 @@ import 'package:medicalapp/screens/splashScreen/splash_screen.dart';
 import 'package:medicalapp/utility/constants.dart';
 import 'package:provider/provider.dart';
 import 'helper/notification/handileNotification.dart';
+import 'screens/appointment/chat/Chat.dart';
 import 'screens/mapScreen/mapView.dart';
 
 Future<void> main() async {
@@ -24,7 +25,7 @@ Future<void> main() async {
   final InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
 
-  await flutterLocalNotificationsPlugin.initialize(  
+  await flutterLocalNotificationsPlugin.initialize(
     initializationSettings,
     onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
   );

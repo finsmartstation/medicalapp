@@ -63,6 +63,7 @@ dependencies:
   flutter_svg: ^2.0.5
   url_launcher: ^6.1.11
   flutter_local_notifications: ^15.1.0+1
+  cloud_firestore: ^4.8.3
 
 
 dev_dependencies:

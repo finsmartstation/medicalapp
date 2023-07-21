@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Helpers {
@@ -13,5 +14,12 @@ class Helpers {
 
   static int convertIntoInt(String stringdouble) {
     return int.parse(stringdouble);
+  }
+
+  static navigateTo(BuildContext context, Widget destination) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
+    );
   }
 }

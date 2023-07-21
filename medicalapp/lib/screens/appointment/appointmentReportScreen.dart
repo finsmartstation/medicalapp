@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:medicalapp/helper/helper.dart';
 import 'package:medicalapp/screens/appointment/videoCall.dart';
 import 'package:medicalapp/screens/doctorList/doctorProfileDetails.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import '../../providers/auth_provider.dart';
 import 'appointmentApiServices.dart';
 import 'appointmentResultPdf.dart';
 import 'audioCall.dart';
+import 'chat/Chat.dart';
 
 class AppointmentReport extends StatefulWidget {
   String? userName;
@@ -54,11 +56,17 @@ class _AppointmentReportState extends State<AppointmentReport> {
                   actions: [
                     IconButton(
                         onPressed: (() {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content:
-                                Text("Complete Appointment for Start Chat"),
-                          ));
+                          Helpers.navigateTo(
+                              context,
+                              Chat(
+                                doctorName: snapshot.data!.data.doctorName,
+                                roomID: widget.slot_id.toString(),
+                              ));
+                          // ScaffoldMessenger.of(context)
+                          //     .showSnackBar(const SnackBar(
+                          //   content:
+                          //       Text("Complete Appointment for Start Chat"),
+                          // ));
                         }),
                         icon: const Icon(
                           Icons.chat_rounded,
