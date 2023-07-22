@@ -1,5 +1,4 @@
 import 'dart:developer';
-//import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +11,6 @@ import 'package:medicalapp/utility/constants.dart';
 import 'package:provider/provider.dart';
 import 'helper/notification/handileNotification.dart';
 import 'screens/appointment/chat/Chat.dart';
-import 'screens/mapScreen/mapView.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,6 +68,9 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         ),
-        home: const SplashScreen());
+        home: Chat(
+          doctorName: 'rishad',
+          roomID: '42882',
+        ));
   }
 }

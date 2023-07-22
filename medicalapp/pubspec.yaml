@@ -64,6 +64,7 @@ dependencies:
   url_launcher: ^6.1.11
   flutter_local_notifications: ^15.1.0+1
   cloud_firestore: ^4.8.3
+  firebase_storage: ^11.2.5
 
 
 dev_dependencies:
