@@ -61,6 +61,7 @@ class _AppointmentReportState extends State<AppointmentReport> {
                               Chat(
                                 doctorName: snapshot.data!.data.doctorName,
                                 roomID: widget.slot_id.toString(),
+                                profilePic: snapshot.data!.data.profilePic,
                               ));
                           // ScaffoldMessenger.of(context)
                           //     .showSnackBar(const SnackBar(
@@ -332,9 +333,9 @@ class _AppointmentReportState extends State<AppointmentReport> {
                         ]),
                   ),
                 ),
-                floatingActionButton: snapshot.data!.data.call_status == "0"
+                floatingActionButton: snapshot.data!.data.callStatus == "0"
                     ? const SizedBox()
-                    : snapshot.data!.data.call_status == "1"
+                    : snapshot.data!.data.callStatus == "1"
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

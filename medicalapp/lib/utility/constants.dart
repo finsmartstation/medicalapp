@@ -53,6 +53,7 @@ String assistant = 'assets/images/assistant.png';
 String lab_technician = 'assets/images/lab_technician.png';
 String success = 'assets/images/success.png';
 String folder = 'assets/images/folder_bg.png';
+String pdfIcon = 'assets/images/pdf-svgrepo-com.svg';
 Color backgroundColor = const Color(0xFFE6E6E6);
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

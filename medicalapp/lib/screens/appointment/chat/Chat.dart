@@ -5,15 +5,24 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../../../providers/auth_provider.dart';
 import 'package:path/path.dart' as path;
 
+import '../../../utility/constants.dart';
+
 class Chat extends StatefulWidget {
-  String roomID;
+  final String roomID;
+  final String profilePic;
   final String doctorName;
-  Chat({Key? key, required this.doctorName, required this.roomID})
+  Chat(
+      {Key? key,
+      required this.doctorName,
+      required this.roomID,
+      required this.profilePic})
       : super(key: key);
 
   @override
@@ -44,59 +53,7 @@ class _ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(
-          color: Colors.white,
-          onPressed: () {
-            if (selectedIndex.isEmpty) {
-              Navigator.pop(context);
-            } else {
-              setState(() {
-                selectedIndex = [];
-                selectMessage = [];
-              });
-            }
-          },
-        ),
-        backgroundColor: Colors.black,
-        title: Row(
-          children: [
-            CircleAvatar(
-                // backgroundImage: NetworkImage(''),
-                ),
-            SizedBox(width: 8),
-            Text(
-              widget.doctorName,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 22,
-                color: Colors.white,
-                fontFamily: "Roboto",
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          selectedIndex.isNotEmpty
-              ? IconButton(
-                  onPressed: () {
-                    _copyToClipboard(context);
-                    print(selectedIndex.toString());
-                  },
-                  icon: Icon(Icons.copy))
-              : SizedBox(),
-          // IconButton(
-          //   icon: Icon(Icons.videocam),
-          //   onPressed: () {
-          //   },
-          // ),
-          // IconButton(
-          //   icon: Icon(Icons.phone),
-          //   onPressed: () {
-          //   },
-          // ),
-        ],
-      ),
+      appBar: appBar(context),
       body: Column(
         children: [
           StreamBuilder<QuerySnapshot>(
@@ -104,7 +61,9 @@ class _ChatState extends State<Chat> {
                 .collection('chatList')
                 .doc(widget.roomID)
                 .collection("messages")
-                .orderBy('time')
+                .orderBy(
+                  'time',
+                )
                 .snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasData) {
@@ -126,7 +85,17 @@ class _ChatState extends State<Chat> {
                         if (!snapshot.data!.docs[index]['status']) {
                           return SizedBox();
                         } else {
-                          return chatMessages(snapshot, index);
+                          if (snapshot.data!.docs[index]['type'] == "text") {
+                            return chatMessages(snapshot, index);
+                          } else if (snapshot.data!.docs[index]['type'] ==
+                              'image') {
+                            return imageSection(snapshot, index, context);
+                          } else if (snapshot.data!.docs[index]['type'] ==
+                              'pdf') {
+                            return pdfSection(snapshot, index, context);
+                          } else {
+                            return SizedBox();
+                          }
                         }
                       },
                     ),
@@ -141,28 +110,101 @@ class _ChatState extends State<Chat> {
               }
             },
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            color: Colors.black,
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: 'Type a message',
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: InputBorder.none,
-                    ),
-                  ),
+          messagingFiled(),
+        ],
+      ),
+    );
+  }
+
+  AppBar appBar(BuildContext context) {
+    return AppBar(
+      leading: BackButton(
+        color: Colors.white,
+        onPressed: () {
+          if (selectedIndex.isEmpty) {
+            Navigator.pop(context);
+          } else {
+            setState(() {
+              selectedIndex = [];
+              selectMessage = [];
+            });
+          }
+        },
+      ),
+      backgroundColor: Colors.blue,
+      title: Row(
+        children: [
+          CircleAvatar(
+            backgroundImage: NetworkImage(widget.profilePic),
+          ),
+          SizedBox(width: 8),
+          Text(
+            widget.doctorName,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 22,
+              color: Colors.white,
+              fontFamily: "Roboto",
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        selectedIndex.isNotEmpty
+            ? IconButton(
+                onPressed: () {
+                  _copyToClipboard(context);
+                  print(selectedIndex.toString());
+                },
+                icon: Icon(Icons.copy))
+            : SizedBox(),
+        // IconButton(
+        //   icon: Icon(Icons.videocam),
+        //   onPressed: () {
+        //   },
+        // ),
+        // IconButton(
+        //   icon: Icon(Icons.phone),
+        //   onPressed: () {
+        //   },
+        // ),
+      ],
+    );
+  }
+
+  Padding messagingFiled() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+            color: Colors.blue, borderRadius: BorderRadius.circular(20)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+              child: TextField(
+                controller: _messageController,
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Type your message here...',
+                  hintStyle: TextStyle(color: Colors.white),
+                  border: InputBorder.none,
                 ),
+              ),
+            ),
+            Row(
+              children: [
                 IconButton(
-                    icon: Icon(Icons.attach_file, color: Colors.white),
-                    onPressed: _selectFile),
-                IconButton(
-                    icon: Icon(Icons.camera_alt, color: Colors.white),
-                    onPressed: _selectImage),
+                    onPressed: _selectImage,
+                    icon: Icon(
+                      Icons.image,
+                      color: Colors.white,
+                    )),
+                GestureDetector(
+                  onTap: _selectFile,
+                  child: Icon(Icons.attach_file, color: Colors.white),
+                ),
                 isUploading
                     ? CircularProgressIndicator.adaptive(
                         backgroundColor: Colors.white,
@@ -172,8 +214,109 @@ class _ChatState extends State<Chat> {
                         onPressed: sendButton),
               ],
             ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  ListTile pdfSection(AsyncSnapshot<QuerySnapshot<Object?>> snapshot, int index,
+      BuildContext context) {
+    return ListTile(
+      title: Align(
+        alignment: !snapshot.data!.docs[index]['doctor']
+            ? Alignment.centerRight
+            : Alignment.centerLeft,
+        child: Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: selectedIndex.contains(index)
+                ? Colors.grey.shade900
+                : !snapshot.data!.docs[index]['doctor']
+                    ? Colors.transparent
+                    : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
           ),
-        ],
+          child: GestureDetector(
+            onTap: () {
+              _showPDFInBig(
+                  context, snapshot.data!.docs[index]['message'].toString());
+            },
+            child: SvgPicture.asset(
+              pdfIcon,
+              height: 250,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  ListTile imageSection(AsyncSnapshot<QuerySnapshot<Object?>> snapshot,
+      int index, BuildContext context) {
+    return ListTile(
+      title: Align(
+        alignment: !snapshot.data!.docs[index]['doctor']
+            ? Alignment.centerRight
+            : Alignment.centerLeft,
+        child: Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: selectedIndex.contains(index)
+                ? Colors.grey.shade900
+                : !snapshot.data!.docs[index]['doctor']
+                    ? Colors.blue
+                    : Colors.grey[600],
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: GestureDetector(
+            onTap: () {
+              _showImageInBig(
+                  context, snapshot.data!.docs[index]['message'].toString());
+            },
+            child: Image.network (
+              snapshot.data!.docs[index]['message'].toString(),
+              cacheHeight: 260,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showImageInBig(BuildContext context, String imageUrl) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Scaffold(
+          appBar: AppBar(),
+          body: Center(
+            child: Image.network(imageUrl),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showPDFInBig(BuildContext context, String PDFUrl) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Scaffold(
+          appBar: AppBar(),
+          body: Center(
+            child: SfPdfViewer.network(PDFUrl),
+          ),
+        ),
       ),
     );
   }

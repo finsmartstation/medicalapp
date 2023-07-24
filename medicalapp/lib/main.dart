@@ -68,9 +68,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme),
         ),
-        home: Chat(
-          doctorName: 'rishad',
-          roomID: '42882',
-        ));
+        home: SplashScreen());
   }
 }
