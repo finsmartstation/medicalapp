@@ -5,7 +5,7 @@ import 'package:medicalapp/screens/appointment/videoCall.dart';
 import 'package:medicalapp/screens/doctorList/doctorProfileDetails.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:slide_countdown/slide_countdown.dart';
 import '../../providers/auth_provider.dart';
 import 'appointmentApiServices.dart';
 import 'appointmentResultPdf.dart';
@@ -28,6 +28,7 @@ class AppointmentReport extends StatefulWidget {
 }
 
 class _AppointmentReportState extends State<AppointmentReport> {
+  late Duration timeRemaining;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -35,6 +36,8 @@ class _AppointmentReportState extends State<AppointmentReport> {
             context.watch<AuthProvider>().access_token, widget.slot_id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            timeRemaining =
+                snapshot.data!.data.bookedFor.difference(DateTime.now());
             return Scaffold(
                 backgroundColor: Colors.white,
                 appBar: AppBar(
@@ -333,8 +336,61 @@ class _AppointmentReportState extends State<AppointmentReport> {
                         ]),
                   ),
                 ),
-                floatingActionButton: snapshot.data!.data.callStatus == "0"
-                    ? const SizedBox()
+                floatingActionButton: snapshot.data!.data.callStatus == "0" &&
+                        snapshot.data!.data.visitType == "1"
+                    ? InkWell(
+                        onTap: () {
+                          Helpers.showAnimatedScaffoldMessenger(
+                              context, 'Waiting for consulting');
+                        },
+                        child: Container(
+                          width: 180,
+                          height: 80,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.blue.shade400,
+                                  blurRadius: 30,
+                                  offset: const Offset(0, 10),
+                                  spreadRadius: -5,
+                                )
+                              ],
+                              gradient: LinearGradient(
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.blue.shade100,
+                                  Colors.blue.shade200,
+                                  Colors.blue.shade300,
+                                  Colors.blue.shade400,
+                                  Colors.blue.shade500,
+                                  Colors.blue.shade600,
+                                  Colors.blue.shade700,
+                                ],
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25))),
+                          child: Center(
+                            child: SlideCountdownSeparated(
+                              separatorStyle: TextStyle(color: Colors.black),
+                              decoration:
+                                  BoxDecoration(color: Colors.transparent),
+                              icon: Icon(Icons.call),
+                              suffixIcon: Text('left'),
+                              onDone: () => patient_appoinment_details(
+                                  context.watch<AuthProvider>().u_id,
+                                  context.watch<AuthProvider>().access_token,
+                                  widget.slot_id),
+                              duration: Duration(
+                                  days: timeRemaining.inDays,
+                                  hours: timeRemaining.inHours,
+                                  minutes: timeRemaining.inMinutes,
+                                  seconds:
+                                      timeRemaining.inSeconds.remainder(60)),
+                            ),
+                          ),
+                        ),
+                      )
                     : snapshot.data!.data.callStatus == "1"
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -431,9 +487,8 @@ class _AppointmentReportState extends State<AppointmentReport> {
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              snapshot.data!.data.reportPath.toString() == ''
-                                  ? SizedBox()
-                                  : SizedBox(
+                              snapshot.data!.data.reportPath.toString() != ''
+                                  ? SizedBox(
                                       width: 150,
                                       child: FloatingActionButton(
                                         backgroundColor: Colors.blue.shade700,
@@ -503,7 +558,8 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                               )
                                             ]),
                                       ),
-                                    ),
+                                    )
+                                  : SizedBox(),
                               const SizedBox(
                                 height: 10,
                               ),

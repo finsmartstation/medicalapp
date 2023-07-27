@@ -274,7 +274,7 @@ class _ChatState extends State<Chat> {
               _showImageInBig(
                   context, snapshot.data!.docs[index]['message'].toString());
             },
-            child: Image.network (
+            child: Image.network(
               snapshot.data!.docs[index]['message'].toString(),
               cacheHeight: 260,
               loadingBuilder: (context, child, loadingProgress) {
@@ -343,11 +343,7 @@ class _ChatState extends State<Chat> {
   }
 
   void _copyToClipboard(BuildContext context) {
-    Clipboard.setData(ClipboardData(text: selectMessage.join(',')));
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('Text copied to clipboard.'),
-      duration: Duration(seconds: 2),
-    ));
+    Clipboard.setData(ClipboardData(text: selectMessage.join('    ')));
     setState(() {
       selectedIndex = [];
       selectMessage = [];
@@ -480,62 +476,6 @@ class _ChatState extends State<Chat> {
           ),
         ),
       ),
-      // child: Row(
-      //   mainAxisAlignment: !snapshot.data!.docs[index]['doctor']
-      //       ? MainAxisAlignment.end
-      //       : MainAxisAlignment.start,
-      //   children: [
-      //     Container(
-      //       constraints: const BoxConstraints(maxWidth: 300),
-      //       margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-      //       decoration: BoxDecoration(
-      //         borderRadius: BorderRadius.only(
-      //           topLeft: const Radius.circular(20.0),
-      //           topRight: const Radius.circular(20.0),
-      //           bottomLeft: !snapshot.data!.docs[index]['doctor']
-      //               ? const Radius.circular(20.0)
-      //               : Radius.zero,
-      //           bottomRight: !snapshot.data!.docs[index]['doctor']
-      //               ? Radius.zero
-      //               : const Radius.circular(20.0),
-      //         ),
-      //         color: selectedIndex == index
-      //             ? Colors.grey
-      //             : !snapshot.data!.docs[index]['doctor']
-      //                 ? Colors.lightBlueAccent
-      //                 : Colors.grey[300],
-      //       ),
-      //       child: Padding(
-      //         padding:
-      //             const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-      //         child: Column(
-      //           crossAxisAlignment: CrossAxisAlignment.start,
-      //           children: [
-      //             Text(
-      //               !snapshot.data!.docs[index]['doctor']
-      //                   ? 'You'
-      //                   : widget.doctorName,
-      //               style: TextStyle(
-      //                 fontSize: 12.0,
-      //                 color: Colors.black54,
-      //               ),
-      //             ),
-      //             SizedBox(height: 5.0),
-      //             Text(
-      //               snapshot.data!.docs[index]['message'].toString(),
-      //               style: TextStyle(
-      //                 fontSize: 10.0,
-      //                 color: Colors.black,
-      //               ),
-      //               overflow: TextOverflow.ellipsis,
-      //               maxLines: 10,
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //   ],
-      // ),
     );
   }
 }

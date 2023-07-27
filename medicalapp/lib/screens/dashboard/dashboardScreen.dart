@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 import 'package:marquee/marquee.dart';
+import 'package:medicalapp/helper/helper.dart';
 import 'package:medicalapp/screens/nearbyHospitals/nearbyHospital.dart';
 import 'package:medicalapp/screens/mapScreen/mapView.dart';
 import 'package:provider/provider.dart';
@@ -61,11 +62,9 @@ class _DashboardPatientState extends State<DashboardPatient>
               final cantExit = timegap >= const Duration(seconds: 2);
               preBackpress = DateTime.now();
               if (cantExit) {
-                const snack = SnackBar(
-                  content: Text('Press Back button again to Exit'),
-                  duration: Duration(seconds: 2),
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snack);
+                Helpers.showAnimatedScaffoldMessenger(
+                    context, 'Press Back button again to Exit');
+
                 return false;
               } else {
                 return exit(0);
@@ -103,11 +102,53 @@ class _DashboardPatientState extends State<DashboardPatient>
         if (value.statuscode == 200) {
           if (value.patientDetails.loginStatus == "0") {
             _showDialog();
+          } else if (value.slotArray.isNotEmpty) {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return ListView.builder(
+                  itemCount: value.slotArray.length,
+                  itemBuilder: (context, index) {
+                    return AlertDialog(
+                      backgroundColor: Colors.white,
+                      title: CachedNetworkImage(
+                          imageUrl: value.slotArray[index].gif),
+                      content: Text(
+                          'Doctor ${value.slotArray[index].doctorName} Waiting For Consulting'),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () async {
+                            String a = await Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AppointmentReport(
+                                          familyMemberId: value
+                                              .patientDetails.familyMemberId,
+                                          slot_id:
+                                              value.slotArray[index].slotId,
+                                          userName:
+                                              value.patientDetails.username,
+                                        )));
+                            if (a == "a") {
+                              initState();
+                            }
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+            );
+            _showCansaltaionAlerrt();
           }
         }
       });
     });
   }
+
+  _showCansaltaionAlerrt() {}
 
   //Location location = Location();
   final bool _serviceEnabled = false;
@@ -251,12 +292,8 @@ class _DashboardPatientState extends State<DashboardPatient>
         final cantExit = timegap >= const Duration(seconds: 2);
         preBackpress = DateTime.now();
         if (cantExit) {
-          const snack = SnackBar(
-            content: Text('Press Back button again to Exit'),
-            duration: Duration(seconds: 2),
-          );
-          ScaffoldMessenger.of(context).showSnackBar(snack);
-
+          Helpers.showAnimatedScaffoldMessenger(
+              context, 'Press Back button again to Exit');
           return false;
         } else {
           SystemNavigator.pop();
@@ -1409,9 +1446,10 @@ class _DashboardPatientState extends State<DashboardPatient>
                                                               .patientDetails
                                                               .familyMemberId,
                                                           slot_id: snapshot
-                                                                  .data!
-                                                                  .slotStickers[
-                                                              index]['slot_id'],
+                                                              .data!
+                                                              .slotStickers[
+                                                                  index]
+                                                              .slotId,
                                                           userName: snapshot
                                                               .data!
                                                               .patientDetails
@@ -1431,9 +1469,9 @@ class _DashboardPatientState extends State<DashboardPatient>
                                               ),
                                               child: Image(
                                                   image: NetworkImage(snapshot
-                                                          .data!
-                                                          .slotStickers[index]
-                                                      ['stickers'])),
+                                                      .data!
+                                                      .slotStickers[index]
+                                                      .stickers)),
                                             ),
                                           ),
                                         );
