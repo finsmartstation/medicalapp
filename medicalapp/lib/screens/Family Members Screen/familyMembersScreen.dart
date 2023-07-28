@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../helper/helper.dart';
 import '../../providers/auth_provider.dart';
 import '../dashboard/dashboardScreen.dart';
 import 'addNewFamilyMember.dart';
@@ -15,7 +16,6 @@ class FamilyMembersScreen extends StatefulWidget {
 }
 
 class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,11 +36,11 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
         ),
       ),
       body: FutureBuilder(
-          future: get_family_members(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token),
+          future: get_family_members(context.watch<AuthProvider>().u_id,
+              context.watch<AuthProvider>().access_token),
           builder: (context, snapshot) {
             print(snapshot);
             if (snapshot.hasData) {
-             
               print(snapshot.data!.data);
               return ListView.builder(
                 itemCount: snapshot.data!.data.length,
@@ -129,8 +129,14 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
                                                   child: const Text("OK"),
                                                   onPressed: () {
                                                     delete_family_member(
-                                                           context.watch<AuthProvider>().u_id,
-                                                            context.watch<AuthProvider>().access_token,
+                                                            context
+                                                                .watch<
+                                                                    AuthProvider>()
+                                                                .u_id,
+                                                            context
+                                                                .watch<
+                                                                    AuthProvider>()
+                                                                .access_token,
                                                             snapshot.data!
                                                                 .data[index].id
                                                                 .toString())
@@ -147,21 +153,10 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
                                                                             family_member_id:
                                                                                 snapshot.data!.data[0].id.toString(),
                                                                           )));
-                                                          ScaffoldMessenger.of(
-                                                                  context)
-                                                              .showSnackBar(
-                                                                  SnackBar(
-                                                            content: const Text(
-                                                              "deleted family member",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .blue[800],
-                                                            elevation: 10,
-                                                          ));
+                                                          Helpers.showAnimatedScaffoldMessenger(
+                                                              context,
+                                                              "deleted family member");
+
                                                           print(value.body);
                                                         });
                                                       }

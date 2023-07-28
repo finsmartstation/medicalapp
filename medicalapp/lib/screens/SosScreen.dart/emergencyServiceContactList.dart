@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../helper/helper.dart';
 import '../../providers/auth_provider.dart';
 import 'sosApiServices.dart';
 
@@ -19,7 +20,6 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
   TextEditingController nameController = TextEditingController();
   String number = "";
   TextEditingController relationController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,8 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
         elevation: 0,
       ),
       body: FutureBuilder(
-        future: list_emergency_contact(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token),
+        future: list_emergency_contact(context.watch<AuthProvider>().u_id,
+            context.watch<AuthProvider>().access_token),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Container(
@@ -99,11 +100,7 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "${snapshot.data!.data[index]
-                                                            .name}  (${snapshot
-                                                            .data!
-                                                            .data[index]
-                                                            .relation})",
+                                                    "${snapshot.data!.data[index].name}  (${snapshot.data!.data[index].relation})",
                                                     style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.w600,
@@ -146,11 +143,18 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                               },
                                                             ),
                                                             TextButton(
-                                                              child: const Text("OK"),
+                                                              child: const Text(
+                                                                  "OK"),
                                                               onPressed: () {
                                                                 delete_emergency_contact(
-                                                                        context.watch<AuthProvider>().u_id,
-                                                                        context.watch<AuthProvider>().access_token,
+                                                                        context
+                                                                            .watch<
+                                                                                AuthProvider>()
+                                                                            .u_id,
+                                                                        context
+                                                                            .watch<
+                                                                                AuthProvider>()
+                                                                            .access_token,
                                                                         snapshot
                                                                             .data!
                                                                             .data[
@@ -166,10 +170,9 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                                       Navigator.of(
                                                                               context)
                                                                           .pop();
-                                                                      ScaffoldMessenger.of(
-                                                                              context)
-                                                                          .showSnackBar(
-                                                                              const SnackBar(content: Text("Deleted Successfully ")));
+                                                                      Helpers.showAnimatedScaffoldMessenger(
+                                                                          context,
+                                                                          "Deleted Successfully ");
                                                                     });
                                                                     print(value
                                                                         .body);
@@ -182,7 +185,8 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                                       },
                                                     );
                                                   }),
-                                                  icon: const Icon(Icons.delete)),
+                                                  icon:
+                                                      const Icon(Icons.delete)),
                                               IconButton(
                                                   onPressed: (() async {
                                                     String url =
@@ -313,10 +317,11 @@ class _EmergencyServicesContactState extends State<EmergencyServicesContact> {
                                   ),
                                 ),
                                 onPressed: (() {
-                                
                                   add_emergency_contact(
                                           context.watch<AuthProvider>().u_id,
-                                          context.watch<AuthProvider>().access_token,
+                                          context
+                                              .watch<AuthProvider>()
+                                              .access_token,
                                           nameController.text,
                                           number,
                                           relationController.text)

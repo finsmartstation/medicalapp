@@ -15,6 +15,8 @@ class PatientDetailsProvider with ChangeNotifier {
   TextEditingController emailCondroller = TextEditingController();
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
+  TextEditingController addresController = TextEditingController();
+
   void newUserProfileFile(
       ProfilePath, fullProfileLink, namee, emaile, genderr, latt, longg) {
     Profile_path = ProfilePath;
@@ -22,6 +24,7 @@ class PatientDetailsProvider with ChangeNotifier {
     nameController.text = namee;
     emailCondroller.text = emaile;
     gender = genderr;
+
     lat = latt;
     notifyListeners();
   }
@@ -38,6 +41,10 @@ class PatientDetailsProvider with ChangeNotifier {
     if (Profile_path!.isNotEmpty) {
       prefs.setString('profilePicturePath', Profile_path.toString());
     }
+    if (addresController.text.isNotEmpty) {
+      prefs.setString('addres', addresController.text.toString());
+    }
+
     if (full_profile_link!.isNotEmpty) {
       prefs.setString('profilePicture', full_profile_link.toString());
     }
@@ -80,7 +87,7 @@ class PatientDetailsProvider with ChangeNotifier {
   }
 
   void editProfile(ProfilePathh, fullProfileLink, namee, emaile, dob, bloodd,
-      hightt, weightt, genderr) {
+      hightt, weightt, genderr, addres) {
     Profile_path = ProfilePathh;
     full_profile_link = fullProfileLink;
     nameController.text = namee;
@@ -90,6 +97,7 @@ class PatientDetailsProvider with ChangeNotifier {
     heightController.text = hightt;
     weightController.text = weightt;
     gender = genderr;
+    addresController.text = addres;
     sharePrefSave();
     notifyListeners();
   }

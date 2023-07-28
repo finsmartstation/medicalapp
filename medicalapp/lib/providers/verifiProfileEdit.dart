@@ -4,7 +4,8 @@ class VerifyProfileEditData with ChangeNotifier {
   String verifyDob = "";
   String verifyWeight = "";
   String verifyHight = "";
-  String verifyBlood="";
+  String verifyBlood = "";
+  String verifyAddress = '';
   void dobRequired() {
     verifyDob = "Required Date Of Birth";
     notifyListeners();
@@ -19,8 +20,14 @@ class VerifyProfileEditData with ChangeNotifier {
     verifyWeight = "Required Weight";
     notifyListeners();
   }
-  void bloodRequird(){
-    verifyBlood="Required Blood Group";
+
+  void bloodRequird() {
+    verifyBlood = "Required Blood Group";
+    notifyListeners();
+  }
+
+  void addressRequire() {
+    verifyAddress = "Required address";
     notifyListeners();
   }
 }

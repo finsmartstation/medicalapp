@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
+import '../../helper/helper.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/reportdataVerify.dart';
 import '../../service/api_services.dart';
@@ -91,7 +92,9 @@ class _MyReportsState extends State<MyReports> {
               children: [
                 FutureBuilder(
                     future: list_case_history(
-                        context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token, widget.family_member_id),
+                        context.watch<AuthProvider>().u_id,
+                        context.watch<AuthProvider>().access_token,
+                        widget.family_member_id),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         print(snapshot.data);
@@ -170,7 +173,8 @@ class _MyReportsState extends State<MyReports> {
                                                           "This will delete the File from your Medical Case History?"),
                                                       actions: <Widget>[
                                                         TextButton(
-                                                          child: const Text("Cancel"),
+                                                          child: const Text(
+                                                              "Cancel"),
                                                           onPressed: () {
                                                             Navigator.of(
                                                                     context)
@@ -178,11 +182,18 @@ class _MyReportsState extends State<MyReports> {
                                                           },
                                                         ),
                                                         TextButton(
-                                                          child: const Text("OK"),
+                                                          child:
+                                                              const Text("OK"),
                                                           onPressed: () {
                                                             delete_medical_history(
-                                                                    context.watch<AuthProvider>().u_id,
-                                                                    context.watch<AuthProvider>().access_token,
+                                                                    context
+                                                                        .watch<
+                                                                            AuthProvider>()
+                                                                        .u_id,
+                                                                    context
+                                                                        .watch<
+                                                                            AuthProvider>()
+                                                                        .access_token,
                                                                     snapshot
                                                                         .data!
                                                                         .data[
@@ -196,11 +207,9 @@ class _MyReportsState extends State<MyReports> {
                                                                   Navigator.of(
                                                                           context)
                                                                       .pop();
-                                                                  ScaffoldMessenger.of(
-                                                                          context)
-                                                                      .showSnackBar(const SnackBar(
-                                                                          content:
-                                                                              Text("Deleted Successfully ")));
+                                                                  Helpers.showAnimatedScaffoldMessenger(
+                                                                      context,
+                                                                      "Deleted Successfully ");
                                                                 });
                                                                 print(
                                                                     value.body);
@@ -432,7 +441,13 @@ class _MyReportsState extends State<MyReports> {
                                         }
 
                                         ApiService()
-                                            .file_upload(context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token,
+                                            .file_upload(
+                                                context
+                                                    .watch<AuthProvider>()
+                                                    .u_id,
+                                                context
+                                                    .watch<AuthProvider>()
+                                                    .access_token,
                                                 result.files.single.path)
                                             .then(
                                           (value) {
@@ -521,8 +536,12 @@ class _MyReportsState extends State<MyReports> {
                                                 documentbool == true &&
                                                 filebool == true) {
                                               add_case_history(
-                                                      context.watch<AuthProvider>().u_id,
-                                                      context.watch<AuthProvider>().access_token,
+                                                      context
+                                                          .watch<AuthProvider>()
+                                                          .u_id,
+                                                      context
+                                                          .watch<AuthProvider>()
+                                                          .access_token,
                                                       reportCondroller.text,
                                                       reportPDF,
                                                       widget.family_member_id,
@@ -538,11 +557,10 @@ class _MyReportsState extends State<MyReports> {
 
                                                   setState(() {
                                                     showDialogbool = false;
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(const SnackBar(
-                                                            content: Text(
-                                                                "Added Successfully ")));
+                                                    Helpers.showAnimatedScaffoldMessenger(
+                                                                      context,
+                                                                       "Added Successfully ");
+                                                  
                                                   });
                                                 }
                                               });

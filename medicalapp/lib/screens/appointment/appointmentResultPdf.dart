@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../helper/helper.dart';
+
 class AppointmentPdf extends StatefulWidget {
   final String filePath;
   const AppointmentPdf({Key? key, required this.filePath}) : super(key: key);
@@ -55,11 +57,9 @@ class _AppointmentPdfState extends State<AppointmentPdf> {
     final bytes = response.bodyBytes;
     final file = File('/storage/emulated/0/Download/$filename');
     await file.writeAsBytes(bytes);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Downloaded file to ${file.path}'),
-      ),
-    );
+    Helpers.showAnimatedScaffoldMessenger(
+        context, 'Downloaded file to ${file.path}');
+
     return file;
   }
 

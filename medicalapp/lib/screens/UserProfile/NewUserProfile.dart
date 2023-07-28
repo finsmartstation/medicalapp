@@ -32,6 +32,8 @@ class _NewUserProfileState extends State<NewUserProfile> {
   FocusNode dobFocusNode = FocusNode();
   FocusNode heightFocusNode = FocusNode();
   FocusNode weightFocusNode = FocusNode();
+  FocusNode addresFocusNode = FocusNode();
+
   var items = [
     '',
     'A-',
@@ -95,13 +97,12 @@ class _NewUserProfileState extends State<NewUserProfile> {
         builder: (context, verifyData, patientDetailProvider, child) {
           return GestureDetector(
             onTap: () {
-              setState(() {
-                nameFocusNode.unfocus();
-                emailFocusNode.unfocus();
-                dobFocusNode.unfocus();
-                heightFocusNode.unfocus();
-                weightFocusNode.unfocus();
-              });
+              nameFocusNode.unfocus();
+              emailFocusNode.unfocus();
+              dobFocusNode.unfocus();
+              heightFocusNode.unfocus();
+              weightFocusNode.unfocus();
+              addresFocusNode.unfocus();
             },
             child: Scaffold(
               resizeToAvoidBottomInset: true,
@@ -479,6 +480,28 @@ class _NewUserProfileState extends State<NewUserProfile> {
                         verifyData.verifyDob,
                         style: const TextStyle(color: Colors.red),
                       )),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: SizedBox(
+                          height: 50,
+                          child: TextFormField(
+                              focusNode: addresFocusNode,
+                              controller:
+                                  patientDetailProvider.addresController,
+                              decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.all(10),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  icon: Icon(Icons.home_outlined),
+                                  hintText: "address")),
+                        ),
+                      ),
+                      Center(
+                          child: Text(
+                        verifyData.verifyAddress,
+                        style: const TextStyle(color: Colors.red),
+                      )),
                       const SizedBox(
                         height: 20,
                       ),
@@ -498,7 +521,6 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                       controller: patientDetailProvider
                                           .heightController,
                                       inputFormatters: [
-                                        // LengthLimitingTextInputFormatter(2),
                                         FilteringTextInputFormatter.digitsOnly,
                                       ],
                                       decoration: const InputDecoration(
@@ -528,7 +550,6 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                       controller: patientDetailProvider
                                           .weightController,
                                       inputFormatters: [
-                                        // LengthLimitingTextInputFormatter(2),
                                         FilteringTextInputFormatter.digitsOnly,
                                       ],
                                       decoration: const InputDecoration(
@@ -651,6 +672,7 @@ class _NewUserProfileState extends State<NewUserProfile> {
                               bool hightbool = false;
                               bool weightbool = false;
                               bool bloodbool = false;
+                              bool addressBool = false;
                               if (patientDetailProvider.bloodGroup == "") {
                                 verifyData.bloodRequird();
                               } else {
@@ -663,6 +685,13 @@ class _NewUserProfileState extends State<NewUserProfile> {
                               } else {
                                 verifyData.verifyDob = "";
                                 dobbool = true;
+                              }
+                              if (patientDetailProvider
+                                  .addresController.text.isEmpty) {
+                                verifyData.addressRequire();
+                              } else {
+                                verifyData.verifyAddress = "";
+                                addressBool = true;
                               }
                               if (patientDetailProvider
                                   .heightController.text.isEmpty) {
@@ -682,10 +711,11 @@ class _NewUserProfileState extends State<NewUserProfile> {
                               if (dobbool == true &&
                                   hightbool == true &&
                                   weightbool == true &&
-                                  bloodbool == true) {
+                                  bloodbool == true &&
+                                  addressBool == true) {
                                 fill_patient_profile(
-                                       userId,
-                                       aToken,
+                                        userId,
+                                        aToken,
                                         patientDetailProvider.gender,
                                         patientDetailProvider
                                             .emailCondroller.text,
@@ -697,7 +727,9 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                             .heightController.text,
                                         patientDetailProvider
                                             .weightController.text,
-                                        patientDetailProvider.Profile_path)
+                                        patientDetailProvider.Profile_path,
+                                        patientDetailProvider
+                                            .addresController.text)
                                     .then((value) async {
                                   if (value.statusCode == 200) {
                                     print(value.body);
@@ -717,9 +749,13 @@ class _NewUserProfileState extends State<NewUserProfile> {
                                             .heightController.text,
                                         patientDetailProvider
                                             .weightController.text,
-                                        patientDetailProvider.gender);
+                                        patientDetailProvider.gender,
+                                        patientDetailProvider
+                                            .addresController.text);
                                     patientDetailProvider.sharePrefSave();
                                     patientDetailProvider.gender = "";
+                                    patientDetailProvider
+                                        .addresController.text = '';
                                     patientDetailProvider.emailCondroller.text =
                                         "";
                                     patientDetailProvider.nameController.text =

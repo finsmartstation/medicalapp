@@ -342,15 +342,13 @@ class _DashboardPatientState extends State<DashboardPatient>
                                   color: Colors.white,
                                 ))),
                         InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => DashboardSearch(
-                                          family_member_id:
-                                              widget.family_member_id,
-                                        )));
-                          },
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DashboardSearch(
+                                        family_member_id:
+                                            widget.family_member_id,
+                                      ))),
                           child: Center(
                             child: SizedBox(
                               height: 40,
@@ -458,10 +456,12 @@ class _DashboardPatientState extends State<DashboardPatient>
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ProfilePatient(
+                                          addres: snapshot
+                                              .data!.patientDetails.address,
                                           blood: snapshot
                                               .data!.patientDetails.bloodGroup,
-                                          dob:
-                                              snapshot.data!.patientDetails.dob,
+                                          dob: DateTime.parse(snapshot
+                                              .data!.patientDetails.dob),
                                           email: snapshot
                                               .data!.patientDetails.emailId,
                                           gender: snapshot
@@ -864,14 +864,18 @@ class _DashboardPatientState extends State<DashboardPatient>
                                                           MaterialPageRoute(
                                                               builder: (context) =>
                                                                   ProfilePatient(
+                                                                    addres: snapshot
+                                                                        .data!
+                                                                        .patientDetails
+                                                                        .address,
                                                                     blood: snapshot
                                                                         .data!
                                                                         .patientDetails
                                                                         .bloodGroup,
-                                                                    dob: snapshot
+                                                                    dob: DateTime.parse(snapshot
                                                                         .data!
                                                                         .patientDetails
-                                                                        .dob,
+                                                                        .dob),
                                                                     email: snapshot
                                                                         .data!
                                                                         .patientDetails

@@ -17,22 +17,24 @@ class ProfilePatient extends StatefulWidget {
   String profile;
   String familyMemberId;
   String half_path;
+  String addres;
 
-  ProfilePatient({
-    Key? key,
-    required this.name,
-    required this.mobile,
-    required this.email,
-    required this.blood,
-    required this.gender,
-    required this.height,
-    required this.dob,
-    required this.profile,
-    required this.relation,
-    required this.weight,
-    required this.familyMemberId,
-    required this.half_path,
-  }) : super(key: key);
+  ProfilePatient(
+      {Key? key,
+      required this.name,
+      required this.mobile,
+      required this.email,
+      required this.blood,
+      required this.gender,
+      required this.height,
+      required this.dob,
+      required this.profile,
+      required this.relation,
+      required this.weight,
+      required this.familyMemberId,
+      required this.half_path,
+      required this.addres})
+      : super(key: key);
 
   @override
   State<ProfilePatient> createState() => _ProfilePatientState();
@@ -84,7 +86,7 @@ class _ProfilePatientState extends State<ProfilePatient> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 200,
+                    height: 150,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -156,6 +158,16 @@ class _ProfilePatientState extends State<ProfilePatient> {
                           fontWeight: FontWeight.w400),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Address: ${widget.addres}",
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
                   widget.relation == "self"
                       ? const SizedBox()
                       : Padding(
@@ -215,6 +227,7 @@ class _ProfilePatientState extends State<ProfilePatient> {
               context,
               MaterialPageRoute(
                   builder: (context) => EditProfile(
+                        address: widget.addres,
                         blood: widget.blood,
                         dob: widget.dob,
                         email: widget.email,

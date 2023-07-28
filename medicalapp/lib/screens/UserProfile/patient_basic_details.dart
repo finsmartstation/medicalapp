@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../providers/auth_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../helper/helper.dart';
 import '../../providers/patientNewuserProdileVerifyData.dart';
 import '../../providers/patient_provider.dart';
 import '../../service/api_services.dart';
@@ -55,7 +56,6 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
   String locality = '';
   String feature_name = '';
   String admin_area = '';
- 
 
   var imgUrl;
 
@@ -504,7 +504,9 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                               gender,
                                               emailController.text,
                                               nameController.text,
-                                              profilePic,long,lat)
+                                              profilePic,
+                                              long,
+                                              lat)
                                           .then(
                                         (value) {
                                           if (value.statusCode == 200) {
@@ -557,12 +559,8 @@ class _PatientBasicDetailsState extends State<PatientBasicDetails> {
                                 },
                               );
                             } else {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                duration: Duration(milliseconds: 1000),
-                                content:
-                                    Text('Please enter a valid email address'),
-                              ));
+                              Helpers.showAnimatedScaffoldMessenger(context,
+                                  'Please enter a valid email address');
                             }
                           }
                         },

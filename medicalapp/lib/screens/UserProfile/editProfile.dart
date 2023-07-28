@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:medicalapp/helper/helper.dart';
 import 'package:medicalapp/screens/UserProfile/profileApiServices.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,7 +29,7 @@ class EditProfile extends StatefulWidget {
   String profile;
   String familyMemberId;
   String half_path;
-
+  String address;
   EditProfile(
       {Key? key,
       required this.name,
@@ -41,6 +42,7 @@ class EditProfile extends StatefulWidget {
       required this.profile,
       required this.relation,
       required this.weight,
+      required this.address,
       required this.familyMemberId,
       required this.half_path})
       : super(key: key);
@@ -56,6 +58,8 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController dobController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
+  TextEditingController addresController = TextEditingController();
+  FocusNode addresFocusNode = FocusNode();
   FocusNode nameFocusNode = FocusNode();
   FocusNode emailFocusNode = FocusNode();
   FocusNode relationFocusNode = FocusNode();
@@ -70,6 +74,7 @@ class _EditProfileState extends State<EditProfile> {
   bool nameStatus = false;
   bool emailStatus = false;
   bool heightStatus = false;
+  bool addressBool = false;
   bool weightStatus = false;
   String profilePath = "";
   String paths = "";
@@ -108,6 +113,7 @@ class _EditProfileState extends State<EditProfile> {
     setState(() {
       nameController.text = widget.name;
       emailController.text = widget.email;
+      addresController.text = widget.address;
       relationController.text = widget.relation;
       dobController.text = DateFormat("dd/MM/yyyy").format(widget.dob);
       heightController.text = widget.height;
@@ -123,11 +129,28 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     getdata();
-
     print("____________________________________");
     print(ApiformattedDate);
     // TODO: implement initState
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    nameFocusNode.dispose();
+    emailController.dispose();
+    emailFocusNode.dispose();
+    dobController.dispose();
+    dobFocusNode.dispose();
+    heightController.dispose();
+    heightFocusNode.dispose();
+    weightController.dispose();
+    weightFocusNode.dispose();
+    addresController.dispose();
+    addresFocusNode.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   final ImagePicker _picker = ImagePicker();
@@ -143,14 +166,13 @@ class _EditProfileState extends State<EditProfile> {
     aToken = context.watch<AuthProvider>().access_token;
     return GestureDetector(
       onTap: () {
-        setState(() {
-          nameFocusNode.unfocus();
-          emailFocusNode.unfocus();
-          dobFocusNode.unfocus();
-          heightFocusNode.unfocus();
-          weightFocusNode.unfocus();
-          relationFocusNode.unfocus();
-        });
+        nameFocusNode.unfocus();
+        emailFocusNode.unfocus();
+        dobFocusNode.unfocus();
+        heightFocusNode.unfocus();
+        weightFocusNode.unfocus();
+        relationFocusNode.unfocus();
+        addresFocusNode.unfocus();
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
@@ -493,6 +515,24 @@ class _EditProfileState extends State<EditProfile> {
                     : const SizedBox(
                         height: 20,
                       ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                      focusNode: addresFocusNode,
+                      controller: addresController,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          icon: Icon(Icons.home),
+                          hintText: "Address")),
+                ),
+                addressBool
+                    ? Text(
+                        'Required',
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : SizedBox(),
                 widget.relation == "self"
                     ? const SizedBox()
                     : Padding(
@@ -705,6 +745,15 @@ class _EditProfileState extends State<EditProfile> {
                         nameStatus = false;
                         setState(() {});
                       }
+                      if (addresController.text.isEmpty) {
+                        setState(() {
+                          addressBool = true;
+                        });
+                      } else {
+                        setState(() {
+                          addressBool = false;
+                        });
+                      }
                       if (emailController.text.isEmpty) {
                         emailStatus = true;
                         setState(() {});
@@ -729,7 +778,8 @@ class _EditProfileState extends State<EditProfile> {
                       if (nameStatus == false &&
                           emailStatus == false &&
                           heightStatus == false &&
-                          weightStatus == false) {
+                          weightStatus == false &&
+                          addressBool == false) {
                         edit_patient_details(
                                 userId,
                                 aToken,
@@ -742,13 +792,13 @@ class _EditProfileState extends State<EditProfile> {
                                 heightController.text,
                                 weightController.text,
                                 relationController.text,
-                                paths)
+                                paths,
+                                addresController.text)
                             .then((value) {
                           if (value.statusCode == 200) {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              duration: Duration(seconds: 3),
-                              content: Text("Profile updated"),
-                            ));
+                            Helpers.showAnimatedScaffoldMessenger(
+                                context, "Profile updated");
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

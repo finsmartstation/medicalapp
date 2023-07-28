@@ -6,7 +6,7 @@ import '../../utility/constants.dart';
 
 //fill_patient_profile
 Future<http.Response> fill_patient_profile(userId, accessToken, gender, email,
-    name, dob, bloodGroup, height, weight, profilePicPath) async {
+    name, dob, bloodGroup, height, weight, profilePicPath,address) async {
   String url = '${baseUrl}fill_patient_profile';
   var obj = {
     "user_id": userId,
@@ -18,7 +18,8 @@ Future<http.Response> fill_patient_profile(userId, accessToken, gender, email,
     "blood_group": bloodGroup,
     "height": height,
     "weight": weight,
-    "profile_pic_path": profilePicPath
+    "profile_pic_path": profilePicPath,
+    "address":address
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   print(obj);
@@ -39,7 +40,9 @@ Future<http.Response> edit_patient_details(
     height,
     weight,
     relation,
-    profilePicPath) async {
+    profilePicPath,
+    address
+    ) async {
   String url = '${baseUrl}edit_patient_details';
   var obj = {
     "user_id": userId,
@@ -53,7 +56,8 @@ Future<http.Response> edit_patient_details(
     "height": height,
     "weight": weight,
     "relation": relation,
-    "profile_pic_path": profilePicPath
+    "profile_pic_path": profilePicPath,
+    "address":address
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   print(obj);

@@ -6,6 +6,9 @@ import 'dart:convert';
 // To parse this JSON data, do
 //
 //     final dashboardGetModel = dashboardGetModelFromJson(jsonString);
+// To parse this JSON data, do
+//
+//     final dashboardGetModel = dashboardGetModelFromJson(jsonString);
 
 import 'package:meta/meta.dart';
 import 'dart:convert';
@@ -17,9 +20,9 @@ class DashboardGetModel {
     final List<NearByHospital> nearByHospital;
     final List<NearByPharmacy> nearByPharmacy;
     final List<SpecializationList> specializationList;
-    final List<SlotSticker> slotStickers;
+    final List<dynamic> slotStickers;
     final List<BannerList> bannerList;
-    final List<SlotArray> slotArray;
+    final List<dynamic> slotArray;
     final String patientMessage;
     final String nearByHospitalMessage;
     final String nearByPharmacyMessage;
@@ -58,9 +61,9 @@ class DashboardGetModel {
         nearByHospital: List<NearByHospital>.from(json["near_by_hospital"].map((x) => NearByHospital.fromJson(x))),
         nearByPharmacy: List<NearByPharmacy>.from(json["near_by_pharmacy"].map((x) => NearByPharmacy.fromJson(x))),
         specializationList: List<SpecializationList>.from(json["specialization_list"].map((x) => SpecializationList.fromJson(x))),
-        slotStickers: List<SlotSticker>.from(json["slot_stickers"].map((x) => SlotSticker.fromJson(x))),
+        slotStickers: List<dynamic>.from(json["slot_stickers"].map((x) => x)),
         bannerList: List<BannerList>.from(json["banner_list"].map((x) => BannerList.fromJson(x))),
-        slotArray: List<SlotArray>.from(json["slot_array"].map((x) => SlotArray.fromJson(x))),
+        slotArray: List<dynamic>.from(json["slot_array"].map((x) => x)),
         patientMessage: json["patient_message"],
         nearByHospitalMessage: json["near_by_hospital_message"],
         nearByPharmacyMessage: json["near_by_pharmacy_message"],
@@ -77,9 +80,9 @@ class DashboardGetModel {
         "near_by_hospital": List<dynamic>.from(nearByHospital.map((x) => x.toJson())),
         "near_by_pharmacy": List<dynamic>.from(nearByPharmacy.map((x) => x.toJson())),
         "specialization_list": List<dynamic>.from(specializationList.map((x) => x.toJson())),
-        "slot_stickers": List<dynamic>.from(slotStickers.map((x) => x.toJson())),
+        "slot_stickers": List<dynamic>.from(slotStickers.map((x) => x)),
         "banner_list": List<dynamic>.from(bannerList.map((x) => x.toJson())),
-        "slot_array": List<dynamic>.from(slotArray.map((x) => x.toJson())),
+        "slot_array": List<dynamic>.from(slotArray.map((x) => x)),
         "patient_message": patientMessage,
         "near_by_hospital_message": nearByHospitalMessage,
         "near_by_pharmacy_message": nearByPharmacyMessage,
@@ -190,7 +193,8 @@ class PatientDetails {
     final String weight;
     final String familyMemberId;
     final String relation;
-    final DateTime dob;
+    final String dob;
+    final String address;
     final String halfPath;
     final String email;
     final List<FamilyMemberId> familyMemberIds;
@@ -212,6 +216,7 @@ class PatientDetails {
         required this.familyMemberId,
         required this.relation,
         required this.dob,
+        required this.address,
         required this.halfPath,
         required this.email,
         required this.familyMemberIds,
@@ -237,7 +242,8 @@ class PatientDetails {
         weight: json["weight"],
         familyMemberId: json["family_member_id"],
         relation: json["relation"],
-        dob: DateTime.parse(json["dob"]),
+        dob: json["dob"],
+        address: json["address"],
         halfPath: json["half_path"],
         email: json["email"],
         familyMemberIds: List<FamilyMemberId>.from(json["family_member_ids"].map((x) => FamilyMemberId.fromJson(x))),
@@ -259,7 +265,8 @@ class PatientDetails {
         "weight": weight,
         "family_member_id": familyMemberId,
         "relation": relation,
-        "dob": "${dob.year.toString().padLeft(4, '0')}-${dob.month.toString().padLeft(2, '0')}-${dob.day.toString().padLeft(2, '0')}",
+        "dob": dob,
+        "address": address,
         "half_path": halfPath,
         "email": email,
         "family_member_ids": List<dynamic>.from(familyMemberIds.map((x) => x.toJson())),
@@ -271,12 +278,14 @@ class FamilyMemberId {
     final String familyMemberName;
     final String relation;
     final String profilePic;
+    final String address;
 
     FamilyMemberId({
         required this.familyMemberId,
         required this.familyMemberName,
         required this.relation,
         required this.profilePic,
+        required this.address,
     });
 
     factory FamilyMemberId.fromRawJson(String str) => FamilyMemberId.fromJson(json.decode(str));
@@ -288,6 +297,7 @@ class FamilyMemberId {
         familyMemberName: json["family_member_name"],
         relation: json["relation"],
         profilePic: json["profile_pic"],
+        address: json["address"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -295,66 +305,7 @@ class FamilyMemberId {
         "family_member_name": familyMemberName,
         "relation": relation,
         "profile_pic": profilePic,
-    };
-}
-
-class SlotArray {
-    final String slotId;
-    final String callStatus;
-    final String doctorName;
-    final String profilePic;
-    final String gif;
-
-    SlotArray({
-        required this.slotId,
-        required this.callStatus,
-        required this.doctorName,
-        required this.profilePic,
-        required this.gif,
-    });
-
-    factory SlotArray.fromRawJson(String str) => SlotArray.fromJson(json.decode(str));
-
-    String toRawJson() => json.encode(toJson());
-
-    factory SlotArray.fromJson(Map<String, dynamic> json) => SlotArray(
-        slotId: json["slot_id"],
-        callStatus: json["call_status"],
-        doctorName: json["doctor_name"],
-        profilePic: json["profile_pic"],
-        gif: json["gif"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "slot_id": slotId,
-        "call_status": callStatus,
-        "doctor_name": doctorName,
-        "profile_pic": profilePic,
-        "gif": gif,
-    };
-}
-
-class SlotSticker {
-    final String slotId;
-    final String stickers;
-
-    SlotSticker({
-        required this.slotId,
-        required this.stickers,
-    });
-
-    factory SlotSticker.fromRawJson(String str) => SlotSticker.fromJson(json.decode(str));
-
-    String toRawJson() => json.encode(toJson());
-
-    factory SlotSticker.fromJson(Map<String, dynamic> json) => SlotSticker(
-        slotId: json["slot_id"],
-        stickers: json["stickers"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "slot_id": slotId,
-        "stickers": stickers,
+        "address": address,
     };
 }
 
