@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +9,6 @@ import 'package:medicalapp/screens/splashScreen/splash_screen.dart';
 import 'package:medicalapp/utility/constants.dart';
 import 'package:provider/provider.dart';
 import 'helper/notification/handileNotification.dart';
-import 'screens/appointment/chat/Chat.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

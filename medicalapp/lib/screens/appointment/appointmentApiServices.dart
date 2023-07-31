@@ -42,11 +42,10 @@ Future<DoctorAvailableSlotDetails> doctor_available_slot_details(
   print(json.decode(response.body));
   if (response.statusCode == 200) {
     print(response.body);
-    
+
     final data =
-   
         DoctorAvailableSlotDetails.fromJson(json.decode(response.body));
-        print(data.data.slots[0].appoinmentType);
+    print(data.data.slots[0].appoinmentType);
     return data;
   } else {
     throw Exception('Failed to load users');
@@ -64,6 +63,24 @@ Future<http.Response> slot_booking(userId, accessToken, doctorId,
     'book_slot_id': bookSlotId,
     'sick_notes': sickNotes,
     'visit_type': visitType
+  };
+  var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
+  return response;
+}
+
+Future<http.Response> send_call_alert(
+  userId,
+  accessToken,
+  doctorId,
+  slot_id,
+) async {
+  String url = '${baseUrl}send_call_alert';
+  var obj = {
+    "user_id": userId,
+    "access_token": accessToken,
+    'receiver_id': doctorId,
+    'user_type': 'Patient',
+    'slot_id': slot_id,
   };
   var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
   return response;

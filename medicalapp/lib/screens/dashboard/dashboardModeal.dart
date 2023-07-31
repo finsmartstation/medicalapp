@@ -1,68 +1,63 @@
-// To parse this JSON data, do
-//
-//     final dashboardGetModel = dashboardGetModelFromJson(jsonString);
-
-import 'dart:convert';
-// To parse this JSON data, do
-//
-//     final dashboardGetModel = dashboardGetModelFromJson(jsonString);
-// To parse this JSON data, do
-//
-//     final dashboardGetModel = dashboardGetModelFromJson(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class DashboardGetModel {
-    final bool status;
-    final int statuscode;
-    final PatientDetails patientDetails;
-    final List<NearByHospital> nearByHospital;
-    final List<NearByPharmacy> nearByPharmacy;
-    final List<SpecializationList> specializationList;
-    final List<dynamic> slotStickers;
-    final List<BannerList> bannerList;
-    final List<dynamic> slotArray;
-    final String patientMessage;
-    final String nearByHospitalMessage;
-    final String nearByPharmacyMessage;
-    final String bannerListMessage;
-    final String specializationListMessage;
-    final String slotStickersMessage;
-    final String slotArrayMessage;
+  final bool status;
+  final int statuscode;
+  final PatientDetails patientDetails;
+  final List<NearByHospital> nearByHospital;
+  final List<NearByPharmacy> nearByPharmacy;
+  final List<SpecializationList> specializationList;
+  final List<SlotSticker> slotStickers;
+  final List<BannerList> bannerList;
+  final List<dynamic> slotArray;
+  final String patientMessage;
+  final String nearByHospitalMessage;
+  final String nearByPharmacyMessage;
+  final String bannerListMessage;
+  final String specializationListMessage;
+  final String slotStickersMessage;
+  final String slotArrayMessage;
 
-    DashboardGetModel({
-        required this.status,
-        required this.statuscode,
-        required this.patientDetails,
-        required this.nearByHospital,
-        required this.nearByPharmacy,
-        required this.specializationList,
-        required this.slotStickers,
-        required this.bannerList,
-        required this.slotArray,
-        required this.patientMessage,
-        required this.nearByHospitalMessage,
-        required this.nearByPharmacyMessage,
-        required this.bannerListMessage,
-        required this.specializationListMessage,
-        required this.slotStickersMessage,
-        required this.slotArrayMessage,
-    });
+  DashboardGetModel({
+    required this.status,
+    required this.statuscode,
+    required this.patientDetails,
+    required this.nearByHospital,
+    required this.nearByPharmacy,
+    required this.specializationList,
+    required this.slotStickers,
+    required this.bannerList,
+    required this.slotArray,
+    required this.patientMessage,
+    required this.nearByHospitalMessage,
+    required this.nearByPharmacyMessage,
+    required this.bannerListMessage,
+    required this.specializationListMessage,
+    required this.slotStickersMessage,
+    required this.slotArrayMessage,
+  });
 
-    factory DashboardGetModel.fromRawJson(String str) => DashboardGetModel.fromJson(json.decode(str));
+  factory DashboardGetModel.fromRawJson(String str) =>
+      DashboardGetModel.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory DashboardGetModel.fromJson(Map<String, dynamic> json) => DashboardGetModel(
+  factory DashboardGetModel.fromJson(Map<String, dynamic> json) =>
+      DashboardGetModel(
         status: json["status"],
         statuscode: json["statuscode"],
         patientDetails: PatientDetails.fromJson(json["patient_details"]),
-        nearByHospital: List<NearByHospital>.from(json["near_by_hospital"].map((x) => NearByHospital.fromJson(x))),
-        nearByPharmacy: List<NearByPharmacy>.from(json["near_by_pharmacy"].map((x) => NearByPharmacy.fromJson(x))),
-        specializationList: List<SpecializationList>.from(json["specialization_list"].map((x) => SpecializationList.fromJson(x))),
-        slotStickers: List<dynamic>.from(json["slot_stickers"].map((x) => x)),
-        bannerList: List<BannerList>.from(json["banner_list"].map((x) => BannerList.fromJson(x))),
+        nearByHospital: List<NearByHospital>.from(
+            json["near_by_hospital"].map((x) => NearByHospital.fromJson(x))),
+        nearByPharmacy: List<NearByPharmacy>.from(
+            json["near_by_pharmacy"].map((x) => NearByPharmacy.fromJson(x))),
+        specializationList: List<SpecializationList>.from(
+            json["specialization_list"]
+                .map((x) => SpecializationList.fromJson(x))),
+        slotStickers: List<SlotSticker>.from(
+            json["slot_stickers"].map((x) => SlotSticker.fromJson(x))),
+        bannerList: List<BannerList>.from(
+            json["banner_list"].map((x) => BannerList.fromJson(x))),
         slotArray: List<dynamic>.from(json["slot_array"].map((x) => x)),
         patientMessage: json["patient_message"],
         nearByHospitalMessage: json["near_by_hospital_message"],
@@ -71,16 +66,20 @@ class DashboardGetModel {
         specializationListMessage: json["specialization_list_message"],
         slotStickersMessage: json["slot_stickers_message"],
         slotArrayMessage: json["slot_array_message"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "status": status,
         "statuscode": statuscode,
         "patient_details": patientDetails.toJson(),
-        "near_by_hospital": List<dynamic>.from(nearByHospital.map((x) => x.toJson())),
-        "near_by_pharmacy": List<dynamic>.from(nearByPharmacy.map((x) => x.toJson())),
-        "specialization_list": List<dynamic>.from(specializationList.map((x) => x.toJson())),
-        "slot_stickers": List<dynamic>.from(slotStickers.map((x) => x)),
+        "near_by_hospital":
+            List<dynamic>.from(nearByHospital.map((x) => x.toJson())),
+        "near_by_pharmacy":
+            List<dynamic>.from(nearByPharmacy.map((x) => x.toJson())),
+        "specialization_list":
+            List<dynamic>.from(specializationList.map((x) => x.toJson())),
+        "slot_stickers":
+            List<dynamic>.from(slotStickers.map((x) => x.toJson())),
         "banner_list": List<dynamic>.from(bannerList.map((x) => x.toJson())),
         "slot_array": List<dynamic>.from(slotArray.map((x) => x)),
         "patient_message": patientMessage,
@@ -90,143 +89,147 @@ class DashboardGetModel {
         "specialization_list_message": specializationListMessage,
         "slot_stickers_message": slotStickersMessage,
         "slot_array_message": slotArrayMessage,
-    };
+      };
 }
 
 class BannerList {
-    final String id;
-    final String image;
-    final String type;
-    final String description;
-    final String providerId;
+  final String id;
+  final String image;
+  final String type;
+  final String description;
+  final String providerId;
 
-    BannerList({
-        required this.id,
-        required this.image,
-        required this.type,
-        required this.description,
-        required this.providerId,
-    });
+  BannerList({
+    required this.id,
+    required this.image,
+    required this.type,
+    required this.description,
+    required this.providerId,
+  });
 
-    factory BannerList.fromRawJson(String str) => BannerList.fromJson(json.decode(str));
+  factory BannerList.fromRawJson(String str) =>
+      BannerList.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory BannerList.fromJson(Map<String, dynamic> json) => BannerList(
+  factory BannerList.fromJson(Map<String, dynamic> json) => BannerList(
         id: json["id"],
         image: json["image"],
         type: json["type"],
         description: json["description"],
         providerId: json["provider_id"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "image": image,
         "type": type,
         "description": description,
         "provider_id": providerId,
-    };
+      };
 }
 
 class NearByHospital {
-    final String id;
-    final String hospitalName;
+  final String id;
+  final String hospitalName;
 
-    NearByHospital({
-        required this.id,
-        required this.hospitalName,
-    });
+  NearByHospital({
+    required this.id,
+    required this.hospitalName,
+  });
 
-    factory NearByHospital.fromRawJson(String str) => NearByHospital.fromJson(json.decode(str));
+  factory NearByHospital.fromRawJson(String str) =>
+      NearByHospital.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory NearByHospital.fromJson(Map<String, dynamic> json) => NearByHospital(
+  factory NearByHospital.fromJson(Map<String, dynamic> json) => NearByHospital(
         id: json["id"],
         hospitalName: json["hospital_name"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "hospital_name": hospitalName,
-    };
+      };
 }
 
 class NearByPharmacy {
-    final String id;
-    final String pharmacyName;
+  final String id;
+  final String pharmacyName;
 
-    NearByPharmacy({
-        required this.id,
-        required this.pharmacyName,
-    });
+  NearByPharmacy({
+    required this.id,
+    required this.pharmacyName,
+  });
 
-    factory NearByPharmacy.fromRawJson(String str) => NearByPharmacy.fromJson(json.decode(str));
+  factory NearByPharmacy.fromRawJson(String str) =>
+      NearByPharmacy.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory NearByPharmacy.fromJson(Map<String, dynamic> json) => NearByPharmacy(
+  factory NearByPharmacy.fromJson(Map<String, dynamic> json) => NearByPharmacy(
         id: json["id"],
         pharmacyName: json["pharmacy_name"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "pharmacy_name": pharmacyName,
-    };
+      };
 }
 
 class PatientDetails {
-    final String id;
-    final String username;
-    final String accessId;
-    final String mobile;
-    final String longitude;
-    final String latitude;
-    final String emailId;
-    final String gender;
-    final String loginStatus;
-    final String profilePic;
-    final String bloodGroup;
-    final String height;
-    final String weight;
-    final String familyMemberId;
-    final String relation;
-    final String dob;
-    final String address;
-    final String halfPath;
-    final String email;
-    final List<FamilyMemberId> familyMemberIds;
+  final String id;
+  final String username;
+  final String accessId;
+  final String mobile;
+  final String longitude;
+  final String latitude;
+  final String emailId;
+  final String gender;
+  final String loginStatus;
+  final String profilePic;
+  final String bloodGroup;
+  final String height;
+  final String weight;
+  final String familyMemberId;
+  final String relation;
+  final DateTime dob;
+  final String address;
+  final String halfPath;
+  final String email;
+  final List<FamilyMemberId> familyMemberIds;
 
-    PatientDetails({
-        required this.id,
-        required this.username,
-        required this.accessId,
-        required this.mobile,
-        required this.longitude,
-        required this.latitude,
-        required this.emailId,
-        required this.gender,
-        required this.loginStatus,
-        required this.profilePic,
-        required this.bloodGroup,
-        required this.height,
-        required this.weight,
-        required this.familyMemberId,
-        required this.relation,
-        required this.dob,
-        required this.address,
-        required this.halfPath,
-        required this.email,
-        required this.familyMemberIds,
-    });
+  PatientDetails({
+    required this.id,
+    required this.username,
+    required this.accessId,
+    required this.mobile,
+    required this.longitude,
+    required this.latitude,
+    required this.emailId,
+    required this.gender,
+    required this.loginStatus,
+    required this.profilePic,
+    required this.bloodGroup,
+    required this.height,
+    required this.weight,
+    required this.familyMemberId,
+    required this.relation,
+    required this.dob,
+    required this.address,
+    required this.halfPath,
+    required this.email,
+    required this.familyMemberIds,
+  });
 
-    factory PatientDetails.fromRawJson(String str) => PatientDetails.fromJson(json.decode(str));
+  factory PatientDetails.fromRawJson(String str) =>
+      PatientDetails.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory PatientDetails.fromJson(Map<String, dynamic> json) => PatientDetails(
+  factory PatientDetails.fromJson(Map<String, dynamic> json) => PatientDetails(
         id: json["id"],
         username: json["username"],
         accessId: json["access_id"],
@@ -242,14 +245,15 @@ class PatientDetails {
         weight: json["weight"],
         familyMemberId: json["family_member_id"],
         relation: json["relation"],
-        dob: json["dob"],
+        dob: DateTime.parse(json["dob"]),
         address: json["address"],
         halfPath: json["half_path"],
         email: json["email"],
-        familyMemberIds: List<FamilyMemberId>.from(json["family_member_ids"].map((x) => FamilyMemberId.fromJson(x))),
-    );
+        familyMemberIds: List<FamilyMemberId>.from(
+            json["family_member_ids"].map((x) => FamilyMemberId.fromJson(x))),
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "username": username,
         "access_id": accessId,
@@ -265,78 +269,107 @@ class PatientDetails {
         "weight": weight,
         "family_member_id": familyMemberId,
         "relation": relation,
-        "dob": dob,
+        "dob":
+            "${dob.year.toString().padLeft(4, '0')}-${dob.month.toString().padLeft(2, '0')}-${dob.day.toString().padLeft(2, '0')}",
         "address": address,
         "half_path": halfPath,
         "email": email,
-        "family_member_ids": List<dynamic>.from(familyMemberIds.map((x) => x.toJson())),
-    };
+        "family_member_ids":
+            List<dynamic>.from(familyMemberIds.map((x) => x.toJson())),
+      };
 }
 
 class FamilyMemberId {
-    final String familyMemberId;
-    final String familyMemberName;
-    final String relation;
-    final String profilePic;
-    final String address;
+  final String familyMemberId;
+  final String familyMemberName;
+  final String relation;
+  final String profilePic;
+  final String address;
 
-    FamilyMemberId({
-        required this.familyMemberId,
-        required this.familyMemberName,
-        required this.relation,
-        required this.profilePic,
-        required this.address,
-    });
+  FamilyMemberId({
+    required this.familyMemberId,
+    required this.familyMemberName,
+    required this.relation,
+    required this.profilePic,
+    required this.address,
+  });
 
-    factory FamilyMemberId.fromRawJson(String str) => FamilyMemberId.fromJson(json.decode(str));
+  factory FamilyMemberId.fromRawJson(String str) =>
+      FamilyMemberId.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory FamilyMemberId.fromJson(Map<String, dynamic> json) => FamilyMemberId(
+  factory FamilyMemberId.fromJson(Map<String, dynamic> json) => FamilyMemberId(
         familyMemberId: json["family_member_id"],
         familyMemberName: json["family_member_name"],
         relation: json["relation"],
         profilePic: json["profile_pic"],
         address: json["address"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "family_member_id": familyMemberId,
         "family_member_name": familyMemberName,
         "relation": relation,
         "profile_pic": profilePic,
         "address": address,
-    };
+      };
+}
+
+class SlotSticker {
+  final String slotId;
+  final String stickers;
+
+  SlotSticker({
+    required this.slotId,
+    required this.stickers,
+  });
+
+  factory SlotSticker.fromRawJson(String str) =>
+      SlotSticker.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory SlotSticker.fromJson(Map<String, dynamic> json) => SlotSticker(
+        slotId: json["slot_id"],
+        stickers: json["stickers"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "slot_id": slotId,
+        "stickers": stickers,
+      };
 }
 
 class SpecializationList {
-    final String specialization;
-    final String imagePath;
-    final String specializationId;
+  final String specialization;
+  final String imagePath;
+  final String specializationId;
 
-    SpecializationList({
-        required this.specialization,
-        required this.imagePath,
-        required this.specializationId,
-    });
+  SpecializationList({
+    required this.specialization,
+    required this.imagePath,
+    required this.specializationId,
+  });
 
-    factory SpecializationList.fromRawJson(String str) => SpecializationList.fromJson(json.decode(str));
+  factory SpecializationList.fromRawJson(String str) =>
+      SpecializationList.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory SpecializationList.fromJson(Map<String, dynamic> json) => SpecializationList(
+  factory SpecializationList.fromJson(Map<String, dynamic> json) =>
+      SpecializationList(
         specialization: json["specialization"],
         imagePath: json["image_path"],
         specializationId: json["specialization_id"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "specialization": specialization,
         "image_path": imagePath,
         "specialization_id": specializationId,
-    };
+      };
 }
-
 
 // To parse this JSON data, do
 //

@@ -64,7 +64,10 @@ class _DoctorListState extends State<DoctorList> {
               ),
               FutureBuilder(
                 future: listDoctor(
-                    context.watch<AuthProvider>().u_id, context.watch<AuthProvider>().access_token, searchkey, widget.family_member_id),
+                    context.watch<AuthProvider>().u_id,
+                    context.watch<AuthProvider>().access_token,
+                    searchkey,
+                    widget.family_member_id),
                 builder: ((context, snapshot) {
                   if (snapshot.hasData) {
                     print('length');
@@ -156,11 +159,17 @@ class _DoctorListState extends State<DoctorList> {
                                                                     .data!
                                                                     .data[index]
                                                                     .favouriteDoctorStatus);
-                                                               
+
                                                                 setState(() {
                                                                   removeFavoriteDoctor(
-                                                                          context.watch<AuthProvider>().u_id,
-                                                                          context.watch<AuthProvider>().access_token,
+                                                                          context
+                                                                              .watch<
+                                                                                  AuthProvider>()
+                                                                              .u_id,
+                                                                          context
+                                                                              .watch<
+                                                                                  AuthProvider>()
+                                                                              .access_token,
                                                                           widget
                                                                               .family_member_id,
                                                                           snapshot
@@ -195,11 +204,17 @@ class _DoctorListState extends State<DoctorList> {
                                                                     .data!
                                                                     .data[index]
                                                                     .favouriteDoctorStatus);
-                                                               
+
                                                                 setState(() {
                                                                   addFavoriteDoctor(
-                                                                         context.watch<AuthProvider>().u_id,
-                                                                         context.watch<AuthProvider>().access_token,
+                                                                          context
+                                                                              .watch<
+                                                                                  AuthProvider>()
+                                                                              .u_id,
+                                                                          context
+                                                                              .watch<
+                                                                                  AuthProvider>()
+                                                                              .access_token,
                                                                           widget
                                                                               .family_member_id,
                                                                           snapshot
@@ -392,8 +407,12 @@ class _DoctorListState extends State<DoctorList> {
                                           onPressed: () {
                                             setState(() {
                                               addFamilyDoctor(
-                                                     context.watch<AuthProvider>().u_id,
-                                                     context.watch<AuthProvider>().access_token,
+                                                      context
+                                                          .watch<AuthProvider>()
+                                                          .u_id,
+                                                      context
+                                                          .watch<AuthProvider>()
+                                                          .access_token,
                                                       snapshot.data!.data[index]
                                                           .doctorId
                                                           .toString())

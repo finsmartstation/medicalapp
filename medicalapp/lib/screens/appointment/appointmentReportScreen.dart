@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medicalapp/helper/helper.dart';
@@ -31,6 +33,9 @@ class _AppointmentReportState extends State<AppointmentReport> {
   late Duration timeRemaining;
   @override
   Widget build(BuildContext context) {
+    AuthProvider auth({required bool renderUI}) =>
+        Provider.of<AuthProvider>(context, listen: renderUI);
+
     return FutureBuilder(
         future: patient_appoinment_details(context.watch<AuthProvider>().u_id,
             context.watch<AuthProvider>().access_token, widget.slot_id),
@@ -443,15 +448,21 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                 child: FloatingActionButton(
                                   backgroundColor: Colors.blue.shade700,
                                   onPressed: () {
-                                    setState(() {
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) => AppointmentPdf(
-                                      //               filePath: snapshot
-                                      //                   .data!.data.reportPath
-                                      //                   .toString(),
-                                      //             )));
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) => AppointmentPdf(
+                                    //               filePath: snapshot
+                                    //                   .data!.data.reportPath
+                                    //                   .toString(),
+                                    //             )));
+                                    send_call_alert(
+                                            auth(renderUI: false).u_id,
+                                            auth(renderUI: false).access_token,
+                                            snapshot.data!.data.doctorId,
+                                            widget.slot_id)
+                                        .then((value) {
+                                      log(value.body.toString());
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(

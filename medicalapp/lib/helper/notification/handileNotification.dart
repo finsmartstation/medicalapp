@@ -1,10 +1,7 @@
 import 'dart:developer';
-
-//import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:medicalapp/helper/helper.dart';
 import '../../utility/constants.dart';
 
 class Notifications {
@@ -24,13 +21,13 @@ class Notifications {
     );
   }
 
-  void _handleMessage(RemoteMessage message) {
+  static void _handleMessage(RemoteMessage message) {
     if (message.data['type'] == 'alert') {
       debugPrint(message.data.toString());
       showTextNotification(
         body: message.data['message'],
         title: 'alert',
-        id: Helpers.convertIntoInt(message.data['appoinment_id']),
+        id: 8,
         fln: flutterLocalNotificationsPlugin,
         payload: 'custom_data',
       );
@@ -44,16 +41,12 @@ class Notifications {
       var payload,
       required FlutterLocalNotificationsPlugin fln}) async {
     AndroidNotificationDetails androidPlatforms = AndroidNotificationDetails(
-      'alert',
-      'channel_name',
-      playSound: true,
-
-      //sound: RawResourceAndroidNotificationSound('notification'),
-      importance: Importance.max,
-      priority: Priority.max,
-      autoCancel: false,
-      visibility: NotificationVisibility.public
-    );
+        'alert', 'channel_name',
+        playSound: true,
+        importance: Importance.max,
+        priority: Priority.max,
+        autoCancel: false,
+        visibility: NotificationVisibility.public);
     var not = NotificationDetails(
         android: androidPlatforms, iOS: DarwinNotificationDetails());
     await fln.show(0, title, body, not);
@@ -70,7 +63,7 @@ void onDidReceiveNotificationResponse(
   }
 }
 
-
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.notification?.body}");
+  Notifications._handleMessage(message);
 }

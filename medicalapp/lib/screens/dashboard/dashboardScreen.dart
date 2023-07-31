@@ -47,7 +47,6 @@ class _DashboardPatientState extends State<DashboardPatient>
   bool dropDownButton = false;
   String loginStatus = "0";
   String family_member_id = "";
-  final PageController _StickerController = PageController(initialPage: 0);
 
   Future<void> _showDialog() async {
     await Future.delayed(Duration.zero, () {
@@ -67,7 +66,8 @@ class _DashboardPatientState extends State<DashboardPatient>
 
                 return false;
               } else {
-                return exit(0);
+                SystemNavigator.pop();
+                return false;
               }
             },
             child: AlertDialog(
@@ -321,9 +321,8 @@ class _DashboardPatientState extends State<DashboardPatient>
                   backgroundColor: Colors.grey.shade300,
                   leading: Center(
                     child: IconButton(
-                        onPressed: () {
-                          _scaffoldkey.currentState?.openDrawer();
-                        },
+                        onPressed: () =>
+                            _scaffoldkey.currentState?.openDrawer(),
                         icon: const Icon(
                           Icons.menu_sharp,
                           color: Colors.black,
@@ -460,8 +459,8 @@ class _DashboardPatientState extends State<DashboardPatient>
                                               .data!.patientDetails.address,
                                           blood: snapshot
                                               .data!.patientDetails.bloodGroup,
-                                          dob: DateTime.parse(snapshot
-                                              .data!.patientDetails.dob),
+                                          dob:
+                                              snapshot.data!.patientDetails.dob,
                                           email: snapshot
                                               .data!.patientDetails.emailId,
                                           gender: snapshot
@@ -872,10 +871,10 @@ class _DashboardPatientState extends State<DashboardPatient>
                                                                         .data!
                                                                         .patientDetails
                                                                         .bloodGroup,
-                                                                    dob: DateTime.parse(snapshot
+                                                                    dob: snapshot
                                                                         .data!
                                                                         .patientDetails
-                                                                        .dob),
+                                                                        .dob,
                                                                     email: snapshot
                                                                         .data!
                                                                         .patientDetails
