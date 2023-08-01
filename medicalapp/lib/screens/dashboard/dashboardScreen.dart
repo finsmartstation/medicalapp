@@ -141,14 +141,11 @@ class _DashboardPatientState extends State<DashboardPatient>
                 );
               },
             );
-            _showCansaltaionAlerrt();
           }
         }
       });
     });
   }
-
-  _showCansaltaionAlerrt() {}
 
   //Location location = Location();
   final bool _serviceEnabled = false;

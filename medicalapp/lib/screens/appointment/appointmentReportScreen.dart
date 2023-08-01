@@ -382,10 +382,16 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                   BoxDecoration(color: Colors.transparent),
                               icon: Icon(Icons.call),
                               suffixIcon: Text('left'),
-                              onDone: () => patient_appoinment_details(
-                                  context.watch<AuthProvider>().u_id,
-                                  context.watch<AuthProvider>().access_token,
-                                  widget.slot_id),
+                              onDone: () {
+                                Future.delayed(Duration(seconds: 2), () {
+                                  patient_appoinment_details(
+                                      context.watch<AuthProvider>().u_id,
+                                      context
+                                          .watch<AuthProvider>()
+                                          .access_token,
+                                      widget.slot_id);
+                                });
+                              },
                               duration: Duration(
                                   days: timeRemaining.inDays,
                                   hours: timeRemaining.inHours,
@@ -448,14 +454,6 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                 child: FloatingActionButton(
                                   backgroundColor: Colors.blue.shade700,
                                   onPressed: () {
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) => AppointmentPdf(
-                                    //               filePath: snapshot
-                                    //                   .data!.data.reportPath
-                                    //                   .toString(),
-                                    //             )));
                                     send_call_alert(
                                             auth(renderUI: false).u_id,
                                             auth(renderUI: false).access_token,

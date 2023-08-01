@@ -6,19 +6,19 @@ import '../../utility/constants.dart';
 
 class Notifications {
   Future<void> interactedNotificationMessage() async {
-    RemoteMessage? initialMessage =
-        await FirebaseMessaging.instance.getInitialMessage();
+    // RemoteMessage? initialMessage =
+    //     await FirebaseMessaging.instance.getInitialMessage();
 
-    if (initialMessage != null) {
-      _handleMessage(initialMessage);
-    }
+    // if (initialMessage != null) {
+    //   _handleMessage(initialMessage);
+    // }
     FirebaseMessaging.onMessage.listen(_handleMessage);
 
-    FirebaseMessaging.onMessageOpenedApp.listen(
-      (event) {
-        log(event.data.toString());
-      },
-    );
+    // FirebaseMessaging.onMessageOpenedApp.listen(
+    //   (event) {
+    //     log(event.data.toString());
+    //   },
+    // );
   }
 
   static void _handleMessage(RemoteMessage message) {
@@ -64,6 +64,6 @@ void onDidReceiveNotificationResponse(
 }
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print("Handling a background message: ${message.notification?.body}");
   Notifications._handleMessage(message);
+  print("Handling a background message: ${message.notification?.body}");
 }
