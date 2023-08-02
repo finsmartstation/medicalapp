@@ -344,10 +344,8 @@ class _AppointmentReportState extends State<AppointmentReport> {
                 floatingActionButton: snapshot.data!.data.callStatus == "0" &&
                         snapshot.data!.data.visitType == "1"
                     ? InkWell(
-                        onTap: () {
-                          Helpers.showAnimatedScaffoldMessenger(
-                              context, 'Waiting for consulting');
-                        },
+                        onTap: () => Helpers.showAnimatedScaffoldMessenger(
+                            context, 'Waiting for consulting'),
                         child: Container(
                           width: 180,
                           height: 80,
@@ -382,16 +380,13 @@ class _AppointmentReportState extends State<AppointmentReport> {
                                   BoxDecoration(color: Colors.transparent),
                               icon: Icon(Icons.call),
                               suffixIcon: Text('left'),
-                              onDone: () {
-                                Future.delayed(Duration(seconds: 2), () {
-                                  patient_appoinment_details(
-                                      context.watch<AuthProvider>().u_id,
-                                      context
-                                          .watch<AuthProvider>()
-                                          .access_token,
-                                      widget.slot_id);
-                                });
-                              },
+                              onDone: () =>
+                                  Future.delayed(Duration(seconds: 2), () {
+                                patient_appoinment_details(
+                                    context.watch<AuthProvider>().u_id,
+                                    context.watch<AuthProvider>().access_token,
+                                    widget.slot_id);
+                              }),
                               duration: Duration(
                                   days: timeRemaining.inDays,
                                   hours: timeRemaining.inHours,
@@ -402,7 +397,8 @@ class _AppointmentReportState extends State<AppointmentReport> {
                           ),
                         ),
                       )
-                    : snapshot.data!.data.callStatus == "1"
+                    : snapshot.data!.data.callStatus == "1" &&
+                            snapshot.data!.data.visitType == "1"
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
