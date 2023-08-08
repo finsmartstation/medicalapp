@@ -437,21 +437,7 @@ class _DashboardSearchState extends State<DashboardSearch> {
                         itemCount: snapshot.data!.data.pharmacy.length,
                         itemBuilder: (context, index) {
                           return InkWell(
-                            onTap: () async {
-                              // String refresh = await Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             DoctorProfileDetails(
-                              //               doctorId:"",
-                              //               family_member_id:
-                              //                  "",
-                              //             )));
-                              // if (refresh == "refresh") {
-                              //   setState(() {});
-                              //   print("object");
-                              // }
-                            },
+                            onTap: () async {},
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Card(
@@ -466,11 +452,15 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                           ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(15.0),
-                                            child: const Image(
+                                            child: Image(
                                               height: 110,
                                               width: 110,
                                               image: CachedNetworkImageProvider(
-                                                  "https://creativeapplab.in//med_app//medical_app//uploads//files//10//FILE_20230208111046.jpg"),
+                                                  snapshot
+                                                      .data!
+                                                      .data
+                                                      .pharmacy[index]
+                                                      .profilePic),
                                               fit: BoxFit.fill,
                                             ),
                                           ),
@@ -491,7 +481,7 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                               ),
                                               Row(
                                                 children: const [
-                                                  Text("Experience:"),
+                                                  // Text("Experience:"),
                                                 ],
                                               ),
                                               const SizedBox(
@@ -500,7 +490,7 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                               const SizedBox(
                                                 width: 200,
                                                 child: Text(
-                                                  "organisation",
+                                                  "",
                                                   maxLines: 5,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -512,7 +502,7 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                               const SizedBox(
                                                 width: 200,
                                                 child: Text(
-                                                  "specialization",
+                                                  "",
                                                   maxLines: 5,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -520,9 +510,6 @@ class _DashboardSearchState extends State<DashboardSearch> {
                                               )
                                             ],
                                           ),
-                                          // SizedBox(
-                                          //   width: 10,
-                                          // ),
                                         ],
                                       ),
                                     ],
