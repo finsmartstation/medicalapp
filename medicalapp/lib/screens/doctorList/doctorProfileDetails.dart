@@ -21,6 +21,8 @@ class DoctorProfileDetails extends StatefulWidget {
 class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
   @override
   Widget build(BuildContext context) {
+    AuthProvider auth({required bool renderUI}) =>
+        Provider.of<AuthProvider>(context, listen: renderUI);
     return WillPopScope(
       onWillPop: () {
         Navigator.pop(context, "refresh");
@@ -28,8 +30,8 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
       },
       child: FutureBuilder(
         future: doctor_profile_details(
-            context.watch<AuthProvider>().u_id,
-            context.watch<AuthProvider>().access_token,
+            auth(renderUI: false).u_id,
+            auth(renderUI: false).access_token,
             widget.doctorId,
             widget.family_member_id),
         builder: (context, snapshot) {
@@ -116,13 +118,13 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
 
                                                     setState(() {
                                                       removeFavoriteDoctor(
-                                                              context
-                                                                  .watch<
-                                                                      AuthProvider>()
+                                                              auth(
+                                                                      renderUI:
+                                                                          false)
                                                                   .u_id,
-                                                              context
-                                                                  .watch<
-                                                                      AuthProvider>()
+                                                              auth(
+                                                                      renderUI:
+                                                                          false)
                                                                   .access_token,
                                                               widget
                                                                   .family_member_id,
@@ -152,13 +154,13 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
 
                                                     setState(() {
                                                       addFavoriteDoctor(
-                                                              context
-                                                                  .watch<
-                                                                      AuthProvider>()
+                                                              auth(
+                                                                      renderUI:
+                                                                          false)
                                                                   .u_id,
-                                                              context
-                                                                  .watch<
-                                                                      AuthProvider>()
+                                                              auth(
+                                                                      renderUI:
+                                                                          false)
                                                                   .access_token,
                                                               widget
                                                                   .family_member_id,
@@ -346,10 +348,8 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                             child: FloatingActionButton.extended(
                               onPressed: () {
                                 addFamilyDoctor(
-                                        context.watch<AuthProvider>().u_id,
-                                        context
-                                            .watch<AuthProvider>()
-                                            .access_token,
+                                        auth(renderUI: false).u_id,
+                                        auth(renderUI: false).access_token,
                                         widget.doctorId)
                                     .then((value) {
                                   if (value.statusCode == 200) {
@@ -372,11 +372,8 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                             child: FloatingActionButton.extended(
                               backgroundColor: Colors.red,
                               onPressed: () {
-                                delete_family_doctor(
-                                        context.watch<AuthProvider>().u_id,
-                                        context
-                                            .watch<AuthProvider>()
-                                            .access_token)
+                                delete_family_doctor(auth(renderUI: false).u_id,
+                                        auth(renderUI: false).access_token)
                                     .then((value) {
                                   if (value.statusCode == 200) {
                                     setState(() {

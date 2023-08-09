@@ -218,7 +218,6 @@ class _MapViewState extends State<MapView> {
                                 currentLongitude = value.longitude.toString();
                                 _isExpanded = false;
                               });
-
                               _mapController.animateCamera(
                                 CameraUpdate.newLatLngZoom(
                                   LatLng(value.latitude, value.longitude),

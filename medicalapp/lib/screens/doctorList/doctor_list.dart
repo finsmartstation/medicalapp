@@ -42,6 +42,8 @@ class _DoctorListState extends State<DoctorList> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider auth({required bool renderUI}) =>
+        Provider.of<AuthProvider>(context, listen: renderUI);
     return WillPopScope(
       onWillPop: () {
         Navigator.pop(context, "refresh");
@@ -64,8 +66,8 @@ class _DoctorListState extends State<DoctorList> {
               ),
               FutureBuilder(
                 future: listDoctor(
-                    context.watch<AuthProvider>().u_id,
-                    context.watch<AuthProvider>().access_token,
+                    auth(renderUI: false).u_id,
+                    auth(renderUI: false).access_token,
                     searchkey,
                     widget.family_member_id),
                 builder: ((context, snapshot) {
@@ -162,13 +164,9 @@ class _DoctorListState extends State<DoctorList> {
 
                                                                 setState(() {
                                                                   removeFavoriteDoctor(
-                                                                          context
-                                                                              .watch<
-                                                                                  AuthProvider>()
+                                                                          auth(renderUI: false)
                                                                               .u_id,
-                                                                          context
-                                                                              .watch<
-                                                                                  AuthProvider>()
+                                                                          auth(renderUI: false)
                                                                               .access_token,
                                                                           widget
                                                                               .family_member_id,
@@ -207,13 +205,9 @@ class _DoctorListState extends State<DoctorList> {
 
                                                                 setState(() {
                                                                   addFavoriteDoctor(
-                                                                          context
-                                                                              .watch<
-                                                                                  AuthProvider>()
+                                                                          auth(renderUI: false)
                                                                               .u_id,
-                                                                          context
-                                                                              .watch<
-                                                                                  AuthProvider>()
+                                                                          auth(renderUI: false)
                                                                               .access_token,
                                                                           widget
                                                                               .family_member_id,
@@ -407,11 +401,9 @@ class _DoctorListState extends State<DoctorList> {
                                           onPressed: () {
                                             setState(() {
                                               addFamilyDoctor(
-                                                      context
-                                                          .watch<AuthProvider>()
+                                                      auth(renderUI: false)
                                                           .u_id,
-                                                      context
-                                                          .watch<AuthProvider>()
+                                                      auth(renderUI: false)
                                                           .access_token,
                                                       snapshot.data!.data[index]
                                                           .doctorId
