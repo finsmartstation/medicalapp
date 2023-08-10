@@ -67,8 +67,6 @@ class PatientDetailsProvider with ChangeNotifier {
       prefs.setString('blood', bloodGroup.toString());
     }
 
-    print("profile path =============");
-    print(prefs.getString('profilePicture'));
     notifyListeners();
   }
 

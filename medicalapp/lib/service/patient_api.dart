@@ -29,7 +29,7 @@ class PatientApi {
 
   //add_family_members
   Future<http.Response> add_family_members(userId, accessToken, gender, name,
-      relation, dob, bloodGroup, height, weight, profilePic) async {
+      relation, dob, bloodGroup, height, weight, profilePic, address) async {
     String url = '${baseUrl}add_family_members';
     var obj = {
       "user_id": userId.toString(),
@@ -41,10 +41,10 @@ class PatientApi {
       "blood_group": bloodGroup,
       "height": height,
       "weight": weight,
+      "address": address,
       "profile_pic": profilePic
     };
     var response = await http.post(Uri.parse(url), body: jsonEncode(obj));
     return response;
   }
-  // //get_family_members
 }

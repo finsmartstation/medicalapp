@@ -1,5 +1,4 @@
-
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class VerifyAddFamilyMembersData with ChangeNotifier {
   String verifyDob = "";
@@ -10,9 +9,15 @@ class VerifyAddFamilyMembersData with ChangeNotifier {
   String verifyprofilePath = "";
   String verifyBlood = "";
   String verifyHight = "";
+  String verifyaddres = '';
   String verifiyWeight = "";
   void dobRequired() {
     verifyDob = "Required Date Of Birth";
+    notifyListeners();
+  }
+
+  void addresRequired() {
+    verifyaddres = "Required Address";
     notifyListeners();
   }
 

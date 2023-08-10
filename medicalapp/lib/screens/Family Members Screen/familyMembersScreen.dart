@@ -130,11 +130,11 @@ class _FamilyMembersScreenState extends State<FamilyMembersScreen> {
                                                   onPressed: () {
                                                     delete_family_member(
                                                             context
-                                                                .watch<
+                                                                .read<
                                                                     AuthProvider>()
                                                                 .u_id,
                                                             context
-                                                                .watch<
+                                                                .read<
                                                                     AuthProvider>()
                                                                 .access_token,
                                                             snapshot.data!

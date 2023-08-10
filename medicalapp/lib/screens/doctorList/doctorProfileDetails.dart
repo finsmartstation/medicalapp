@@ -1,9 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../providers/auth_provider.dart';
 import '../appointment/bookingAppoiment.dart';
 import 'doctorListApiServices.dart';
@@ -414,7 +411,6 @@ class _DoctorProfileDetailsState extends State<DoctorProfileDetails> {
                                 label: const Text('Book appointment'),
                               )
                             : FloatingActionButton.extended(
-                                heroTag: "tag2",
                                 onPressed: () {},
                                 label: const Text('Appointment Not Available'),
                               )),

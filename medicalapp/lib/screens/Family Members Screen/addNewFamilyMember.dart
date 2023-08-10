@@ -27,8 +27,10 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
   TextEditingController dobController = TextEditingController();
   TextEditingController heightController = TextEditingController();
   TextEditingController weightController = TextEditingController();
+  TextEditingController addresController = TextEditingController();
   FocusNode nameFocusNode = FocusNode();
   FocusNode relationFocusNode = FocusNode();
+  FocusNode addresFocusNode = FocusNode();
   FocusNode dobFocusNode = FocusNode();
   FocusNode heightFocusNode = FocusNode();
   FocusNode weightFocusNode = FocusNode();
@@ -468,6 +470,25 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                     const SizedBox(
                       height: 20,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                          focusNode: addresFocusNode,
+                          controller: addresController,
+                          decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
+                              icon: Icon(Icons.home_outlined),
+                              hintText: "address")),
+                    ),
+                    Text(
+                      verifyAddFamilyMembersData.verifyaddres,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     SizedBox(
                       width: 300,
                       child: Row(
@@ -526,7 +547,6 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                     keyboardType: TextInputType.number,
                                     controller: heightController,
                                     inputFormatters: [
-                                      // LengthLimitingTextInputFormatter(2),
                                       FilteringTextInputFormatter.digitsOnly,
                                     ],
                                     decoration: const InputDecoration(
@@ -619,7 +639,7 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                         onPressed: (() {
                           print(profilePath);
                           bool namebool = false;
-
+                          bool addressbool = false;
                           bool relationbool = false;
                           bool dobbool = false;
                           bool genderbool = false;
@@ -627,6 +647,12 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                           bool bloodbool = false;
                           bool hightbool = false;
                           bool weightbool = false;
+                          if (addresController.text.isEmpty) {
+                            verifyAddFamilyMembersData.addresRequired();
+                          } else {
+                            verifyAddFamilyMembersData.verifyaddres = "";
+                            addressbool = true;
+                          }
                           if (weightController.text.isEmpty) {
                             verifyAddFamilyMembersData.weight();
                           } else {
@@ -676,8 +702,6 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                             verifyAddFamilyMembersData.verifyGender = "";
                             genderbool = true;
                           }
-                          print(namebool);
-
                           print(relationbool);
                           print(dobbool);
                           print(genderbool);
@@ -688,7 +712,8 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                               profilePathbool == true &&
                               relationbool == true &&
                               dobbool == true &&
-                              genderbool == true) {
+                              genderbool == true &&
+                              addressbool == true) {
                             print("object");
                             PatientApi()
                                 .add_family_members(
@@ -701,7 +726,8 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                     bloodGroup.toString(),
                                     heightController.text,
                                     weightController.text,
-                                    profilePath.toString())
+                                    profilePath.toString(),
+                                    addresController.text)
                                 .then((value) {
                               if (value.statusCode == 200) {
                                 var respons = jsonDecode(value.body);
@@ -711,20 +737,6 @@ class _AddFamilyMemberState extends State<AddFamilyMember> {
                                 print(familyMemberId);
                                 showSuccessDialog(context, "Added Successfully",
                                     const FamilyMembersScreen(), "Success");
-                                // Navigator.pushReplacement(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             FamilyMembersScreen()));
-                                // ScaffoldMessenger.of(context)
-                                //     .showSnackBar(SnackBar(
-                                //   content: const Text(
-                                //     "Added Successfully",
-                                //     style: TextStyle(color: Colors.white),
-                                //   ),
-                                //   backgroundColor: Colors.blue[800],
-                                //   elevation: 10,
-                                // ));
                               }
                             });
                           }
